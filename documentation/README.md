@@ -16,24 +16,22 @@ works cited.
 Clone this repository
 
 ```zsh
-git clone https://github.com/maxxxxxdlp/eecs-448-project-2
+git clone https://github.com/maxxxxxdlp/eecs-448-project-3
 ```
 
-A makefile must be used to make the program.
+To start a development server, navigate to the inner `eecs-448-project-3`
+directory and run this command to start a static server (assuming you have
+python installed):
 
 ```zsh
-# Navigate to the source directory
-cd eecs-448-project-1
-
-# Build the program
-make
-
-# Run the executable
-./Battleship
-
-# Clean up
-make clean
+python -m http.server 8000
 ```
+
+Now, navigate to [http://localhost:8000](http://localhost:8000) and start
+hacking away!
+
+If you don't have python installed, you can use any one of
+[these static web servers](https://gist.github.com/willurd/5720255)
 
 ### (Optional) Pre-commit hooks
 
@@ -48,23 +46,84 @@ hooks to work properly:
 npm i  # install development dependencies
 ```
 
+## Production
+
+Clone this repository
+
+```zsh
+git clone https://github.com/maxxxxxdlp/eecs-448-project-3
+```
+
+Configure a reverse proxy (e.x Nginx) that would serve eecs-448-project-3 folder
+on a public URL and handle the SSL certificate. Have players connect to the
+public instance to play with each other.
+
 ## Documentation Generation
 
-```
-NEED TO ADD DOCUMENTATION GENERATION INSTRUCTIONS
+Documentation can be auto-generated with the tool
+[Documentation.js](https://documentation.js.org/). To install documentation.js
+globally using npm:
+
+```zsh
+npm install -g documentation
 ```
 
+The generated documentation files will be found under `docs-gen` and are
+compiled to html. This documentation framework follows JSDoc tags - all
+supported tags and formatting can be found [here](https://jsdoc.app/) on JSDoc's
+website.
+
+To generate new documentation recursively for all files within the
+`eecs-448-project-3` directory, start in the root of the repository and run:
+
+```zsh
+documentation build eecs-448-project-3/** -f html -o documentation/auto-docs-gen
+```
+
+Open `docs-gen/index.html` in your browser to view the static docs.
+
 ## Works Cited
+
+### Code References
+
+- The boilerplate for a starter project was copied from
+  [here](https://github.com/maxxxxxdlp/max.patii.uk). Then, it was modified to
+  remove dependency on Next.js, React and Tailwind.CSS
+- Game board is rendered using table elements for the sake of accessibility, but
+  it is styled as a grid, for the sake of convenience.
+  [User-agent table styles reset](https://github.com/maxxxxxdlp/eecs-448-battleship/blob/main/eecs-448-battleship/components/Board/styles.css#L12)
+  was copied from [here](https://stackoverflow.com/a/27851231/8584605) (with
+  modifications)
+- [Basic OOP implementation of MVC](https://github.com/maxxxxxdlp/eecs-448-battleship/blob/1c3ab08b1ac0621307e7af35c2ad064e9491836a/eecs-448-battleship/lib/js/view.js#L11)
+  was inspired by [Backbone.js](https://backbonejs.org/) (except, we simplified
+  and modernized it)
+
+### Documentation References
+
+- Answered questions on JSDoc syntax:
+
+  - https://stackoverflow.com/questions/46454372/grouping-functions-in-jsdoc-generated-documentation
+  - https://stackoverflow.com/questions/19230971/how-do-i-jsdoc-a-nested-objects-methods
+  - https://stackoverflow.com/questions/14611995/how-to-specify-an-array-of-objects-as-a-parameter-or-return-value-in-jsdoc
+  - https://stackoverflow.com/questions/6460604/how-to-describe-object-arguments-in-jsdoc
+  - https://stackoverflow.com/questions/28763257/jsdoc-return-object-structure
+  - https://stackoverflow.com/questions/30058201/adding-static-files-to-jsdoc
 
 - Bloomfield, Aaron. “PDR: Doxygen Tutorial.” PDR: Doxygen Tutorial,
   www.aaronbloomfield.github.io/pdr/tutorials/11-doxygen/index.html.
 - “Fine-Tuning the Output.” Doxygen Manual: Doxygen Usage,
   www.doxygen.nl/manual/doxygen_usage.html.
 
+- JSDocs Implementation Used: https://documentation.js.org/
+
+- Tag reference: https://jsdoc.app/
+
 ## Tech stack
 
-- C++
-- Makefile
+- JavaScript
+- ESLint
+- Prettier
+- Stylelint
 
 ## Tools Used
 
@@ -76,6 +135,7 @@ Tools used in the process of development
 - Vim
 - PyCharm
 - Visual Studio CODE
+- Documentation.js
 
 ## Licence
 
