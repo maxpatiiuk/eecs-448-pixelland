@@ -18,57 +18,57 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         <tr>
             <th rowspan=1>Planning</th>
             <td>Team meetings</td>
-            <td>1h</td>
-            <td>1h</td>
-            <td>1h</td>
-            <td>1h</td>
-            <td>1h</td>
+            <td>0.5h</td>
+            <td>0.5h</td>
+            <td>0.5h</td>
+            <td>0.5h</td>
+            <td>0.5h</td>
         </tr>
         <tr>
             <th rowspan=8>Implementation</th>
-            <td>Add AI Easy mode</td>
-            <td>0.25h</td>
+            <td></td>
             <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
-        </tr>
-        <tr>
-            <td>Add AI Medium mode</td>
-            <td>2h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>2h</td>
-        </tr>
-        <tr>
-            <td>Add AI Hard mode</td>
-            <td>0.25h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
         </tr>
         <tr>
-            <td>Improve game's UX</td>
-            <td>1h</td>
-            <td>1h</td>
+            <td></td>
             <td>0h</td>
             <td>0h</td>
-            <td>0h</td>
-        </tr>
-        <tr>
-            <td>Reformat Arena View</td>
-            <td>0h</td>
-            <td>3h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
         </tr>
         <tr>
-            <td>Add Scoreboard</td>
+            <td></td>
             <td>0h</td>
-            <td>0.5h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>0h</td>
+            <td>0h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
@@ -91,23 +91,6 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         </tr>
         <tr>
             <th rowspan=2>Integration</th>
-            <td>Improve documentation</td>
-            <td>1.5h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
-        </tr>
-        <tr>
-            <td>Refactor code</td>
-            <td>3.25h</td>
-            <td>1h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
-        </tr>
-        <tr>
-            <th rowspan=2>Testing and Maintenance</th>
             <td></td>
             <td>0h</td>
             <td>0h</td>
@@ -116,7 +99,24 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
         </tr>
         <tr>
-            <td>General testing</td>
+            <td></td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+        </tr>
+        <tr>
+            <th rowspan=2></th>
+            <td></td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+        </tr>
+        <tr>
+            <td></td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
@@ -129,7 +129,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
 Total
 
 </th>
-            <td>9.25h</td>
+            <td>0h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
