@@ -27,14 +27,22 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         <tr>
             <th rowspan=8>Implementation</th>
             <td>Creating basic project structure</td>
-            <td>0.5h</td>
+            <td>2.5h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
+            <td>Basic player movement</td>
+            <td>1h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+        </tr>
+        <tr>
+            <td>Drawing basic grid</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
@@ -42,15 +50,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
-        </tr>
-        <tr>
-            <td></td>
+            <td>Generating map</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
