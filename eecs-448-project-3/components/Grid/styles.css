@@ -1,0 +1,11 @@
+.Person {
+  position: absolute;
+  left: calc(50vw - var(--cell-size) / 2);
+  top: calc(50vh - var(--cell-size) / 2);
+  width: var(--cell-size);
+  height: var(--cell-size);
+}
+
+.development .Person {
+  background: #fcc8;
+}
