@@ -1,0 +1,5 @@
+.CanvasView {
+  height: inherit;
+  width: 100vw;
+  overflow: hidden;
+}

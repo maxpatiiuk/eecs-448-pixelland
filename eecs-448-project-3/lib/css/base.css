@@ -1,0 +1,113 @@
+:root {
+  --b1: #000;
+  --b2: #222;
+  --b3: #444;
+  --b4: #666;
+  --t1: #fff;
+  --t2: #ddd;
+  --t3: #bbb;
+  --t4: #999;
+  --border: #555;
+  --darken: #0009;
+
+  --success: #2c0;
+  --error: #f24;
+  --modified: #ffa;
+
+  --accent-hover: #fdb;
+  --accent: #f73;
+  --accent-pale: #f94;
+
+  --animation-duration: 0.2s;
+
+  --quarter-size: 0.25rem;
+  --half-size: 0.5rem;
+  --size: 1rem;
+  --double-size: 2rem;
+
+  --border-size: 1px;
+  --border-radius: 3px;
+  --round: 99999px;
+}
+
+@media (prefers-reduced-motion) {
+  :root {
+    --animation-duration: 0;
+  }
+}
+
+body {
+  margin: 0;
+  /* Copied from GitHub's main page stylesheet */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Variable',
+    'Segoe UI', system-ui, ui-sans-serif, Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji';
+  background-color: var(--b1);
+  color: var(--t1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+p {
+  color: var(--t2);
+}
+
+code {
+  background: var(--b3);
+  padding: var(--half-size);
+  border-radius: var(--border-radius);
+  margin: 0 var(--quarter-size);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.magic-button {
+  background: var(--b3);
+  border: var(--border-size) solid var(--b4);
+  padding: var(--quarter-size);
+  border-radius: var(--border-radius);
+  font-weight: 400;
+  color: var(--t2);
+  transition: background var(--animation-duration) ease,
+    border var(--animation-duration) ease;
+  cursor: pointer;
+}
+
+.magic-button:hover,
+.magic-button[aria-pressed='true'] {
+  background: var(--b2);
+}
+
+.magic-button:active,
+.magic-button[aria-pressed='true']:hover {
+  background: var(--b1);
+}
+
+.magic-button[aria-pressed='true']:active,
+.magic-button[disabled] {
+  background: var(--b3);
+  color: var(--t4);
+}
+
+.magic-button[disabled] {
+  cursor: no-drop;
+}
+
+.magic-button[disabled] {
+  cursor: no-drop;
+  background: var(--b4);
+  color: var(--t4);
+}

@@ -1,0 +1,11 @@
+/*
+ * All elements would be housed under a container with the className equal
+ * to component name (e.g. .MainView and .ShipPlacementView)
+ */
+
+.GameOverView {
+  display: inline-flex;
+  flex-direction: column;
+  row-gap: var(--double-size);
+  font-size: calc(var(--double-size) * 2);
+}

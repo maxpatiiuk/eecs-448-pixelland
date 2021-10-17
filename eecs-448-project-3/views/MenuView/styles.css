@@ -1,0 +1,14 @@
+/*
+ * All elements would are housed under a container with the className equal
+ * to component name (e.g. .MenuView and .ShipPlacementView)
+ */
+
+.MenuView {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--size);
+}
+
+.MenuView button {
+  padding: var(--size);
+}

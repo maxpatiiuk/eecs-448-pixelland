@@ -26,8 +26,8 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         </tr>
         <tr>
             <th rowspan=8>Implementation</th>
-            <td></td>
-            <td>0h</td>
+            <td>Creating basic project structure</td>
+            <td>0.5h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>

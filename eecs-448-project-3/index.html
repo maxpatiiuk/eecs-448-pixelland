@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Battleship</title>
+    <link rel="icon" href='/favicon.ico"' />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="description" content="EECS 448: Battleship" />
+    <meta name="keywords" content="EECS 448: Battleship" />
+    <meta name="author" content="EECS 448 Team 5" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/icons/favicon-16x16.png"
+    />
+    <link rel="stylesheet" href="lib/css/base.css" />
+    <link rel="stylesheet" href="lib/css/main.css" />
+    <link rel="stylesheet" href="views/MenuView/styles.css" />
+    <link rel="stylesheet" href="views/CanvasView/styles.css" />
+    <link rel="stylesheet" href="views/GameOverView/styles.css" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#001122" />
+    <meta name="msapplication-TileColor" content="#001122" />
+    <meta name="theme-color" content="#001122" />
+  </head>
+  <body>
+    <main>
+      <div></div>
+    </main>
+    <script src="lib/js/config.js"></script>
+    <script src="lib/js/view.js"></script>
+    <script src="lib/js/component.js"></script>
+    <script src="lib/js/utils.js"></script>
+    <script src="views/MenuView/scripts.js"></script>
+    <script src="views/CanvasView/scripts.js"></script>
+    <script src="views/GameOverView/scripts.js"></script>
+    <script>
+      new MenuView().render(
+        document.getElementsByTagName('main')[0].children[0]
+      );
+    </script>
+  </body>
+</html>
