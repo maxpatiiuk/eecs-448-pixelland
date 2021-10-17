@@ -17,6 +17,8 @@ class View {
 
   destructors = [];
 
+  #hasContainer = true;
+
   /**
    * Total count of rendered views
    * @type number
@@ -48,9 +50,10 @@ class View {
       ...options,
     };
     this.destructors = [];
+    this.#hasContainer = options.hasContainer ?? true;
 
     // Download the template if haven't done so already
-    if (!(this.#name in View.#viewTemplate))
+    if (this.#hasContainer && !(this.#name in View.#viewTemplate))
       View.#viewTemplate[this.#name] = fetch(
         `./${templateDirectory}/${this.#name}/index.html`
       ).then(async (response) => response.text());
@@ -65,7 +68,10 @@ class View {
    * @param container Container to render the view within
    */
   async render(container) {
-    // Call destructor
+    const { tagName, ...options } = this.options;
+    this.options = options;
+
+    if (!this.#hasContainer && typeof container === 'undefined') return;
 
     const currentViewId = container.id;
     const currentView = View.#activeViews[currentViewId];
@@ -73,15 +79,12 @@ class View {
     currentView?.remove?.();
     View.#activeViews[currentViewId || ''] = undefined;
 
-    // Clean view's content
+    // Clear view's content
     const id = `${this.#name}-${View.#index}`;
-    container.outerHTML = `<${this.options.tagName}
+    container.outerHTML = `<${tagName}
       class="${this.#name}"
       id="${id}"
-    ></${this.options.tagName}>`;
-
-    const { tagName, ...options } = this.options;
-    this.options = options;
+    ></${tagName}>`;
 
     const newContainer = document.getElementById(id);
 

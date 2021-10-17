@@ -28,6 +28,8 @@
   --border-size: 1px;
   --border-radius: 3px;
   --round: 99999px;
+
+  --cell-size: 0;
 }
 
 @media (prefers-reduced-motion) {
