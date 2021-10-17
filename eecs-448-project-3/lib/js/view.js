@@ -15,7 +15,7 @@ class View {
    */
   #name;
 
-  #destructors;
+  destructors = [];
 
   /**
    * Total count of rendered views
@@ -47,6 +47,7 @@ class View {
       tagName: 'div',
       ...options,
     };
+    this.destructors = [];
 
     // Download the template if haven't done so already
     if (!(this.#name in View.#viewTemplate))

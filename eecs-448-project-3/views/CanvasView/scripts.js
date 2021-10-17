@@ -34,14 +34,15 @@ class CanvasView extends View {
   ) {
     await super.render(container);
 
-    this.#canvas = this.container.getElementsByTagName('canvas');
+    this.#canvas = this.container.getElementsByTagName('canvas')[0];
     this.#context = this.#canvas.getContext('2d');
 
     const handleResize = this.handleResize.bind(this);
     window.addEventListener('resize', handleResize);
-    this.#destructors.push(() =>
+    this.destructors.push(() =>
       window.addEventListener('resize', handleResize)
     );
+    handleResize();
 
     // TODO: cell size: Math.ceil(Math.max(window.innerHeight,window.innerWidth)*0.04)
 

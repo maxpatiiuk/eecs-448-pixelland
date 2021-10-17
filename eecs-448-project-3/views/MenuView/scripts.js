@@ -1,6 +1,6 @@
 /*
  * The name of this view
- * Later, to render this view, call new MenuView(options).render(this.container)
+ * Later, to render this view, call new> MenuView(options).render(this.container)
  */
 /**
  * Base MenuView class
@@ -36,10 +36,14 @@ class MenuView extends View {
     await super.render(container);
 
     // Listen for button clicks inside the container
-    this.buttons = Array.from(this.container.getElementsByTagName('button'));
-    this.buttons.forEach((button) =>
-      button.addEventListener('click', this.handleClick.bind(this))
-    );
+    const buttons = Array.from(this.container.getElementsByTagName('button'));
+    const handleClick = this.handleClick.bind(this);
+    buttons.forEach((button) => {
+      button.addEventListener('click', handleClick);
+      this.destructors.push(() =>
+        button.removeEventListener('click', handleClick)
+      );
+    });
 
     return this;
   }
@@ -55,19 +59,5 @@ class MenuView extends View {
     new CanvasView({
       numberOfShips: Number.parseInt(button.textContent),
     }).render(this.container);
-  }
-
-  /**
-   * View remove function for ephemeral objects, ie. eventListeners
-   * @function remove
-   * @memberof MainView
-   */
-  remove() {
-    super.remove();
-
-    // Unset event listeners from buttons
-    this.buttons.forEach((button) =>
-      button.removeEventListener('click', this.handleClick)
-    );
   }
 }

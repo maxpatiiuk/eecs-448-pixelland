@@ -51,7 +51,7 @@
     <script src="views/CanvasView/scripts.js"></script>
     <script src="views/GameOverView/scripts.js"></script>
     <script>
-      new MenuView().render(
+      new (DEVELOPMENT ? CanvasView : MenuView)().render(
         document.getElementsByTagName('main')[0].children[0]
       );
     </script>

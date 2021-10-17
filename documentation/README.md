@@ -30,6 +30,18 @@ python -m http.server 8000
 Now, navigate to [http://localhost:8000](http://localhost:8000) and start
 hacking away!
 
+Special booleans DEBUG and DEVELOPMENT are set to true if they are provided in
+the query string. These values are available in every file and can be used to
+customize behaviour of views/components. Note, if DEBUG is enabled, DEVELOPMENT
+is automatically enabled too.
+
+Example usage:
+
+- [http://localhost:8000/?debug](http://localhost:8000/?debug) (start the game
+  in the debug mode)
+- [http://localhost:8000/?development](http://localhost:8000/?development)
+  (start the game in the development mode)
+
 If you don't have python installed, you can use any one of
 [these static web servers](https://gist.github.com/willurd/5720255)
 
