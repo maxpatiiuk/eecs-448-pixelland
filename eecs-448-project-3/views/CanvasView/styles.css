@@ -3,3 +3,18 @@
   width: 100vw;
   overflow: hidden;
 }
+
+.CanvasView .overlay {
+  width: 100vw;
+  height: inherit;
+}
+
+.CanvasView .overlay,
+.CanvasView iframe {
+  position: absolute;
+  inset: 0;
+}
+
+.CanvasView .background {
+  background-color: #000;
+}
