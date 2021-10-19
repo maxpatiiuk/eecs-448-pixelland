@@ -4,6 +4,7 @@
   top: calc(50vh - var(--cell-size) / 2);
   width: var(--cell-size);
   height: var(--cell-size);
+  background: aqua;
 }
 
 .development .Person {

@@ -49,13 +49,36 @@ class Grid extends Component {
     const timePassed = timestamp - this.#previousFrameTimestamp;
 
     this.#previousFrameTimestamp = timestamp;
+    
+    // draw path 
+    this.#context.strokeStyle = "#FFFFFF";
+    this.#context.beginPath();
+    // draw vertical lines right of player
+    for(var x = (this.#context.canvas.width / 2) + this.#cellSize / 2; x <= this.#context.canvas.width; x += this.#cellSize) {
+      this.#context.moveTo(0.5 + x, 0);
+      this.#context.lineTo(0.5 + x, this.#context.canvas.height);
+    }
 
-    /*
-     * TODO: render grid here
-     * use this.#cellSize to get cell size in px
-     * use this.options.canvas and this.#context to draw on
-     */
+    // draw vertical lines left of player
+    for(var x = (this.#context.canvas.width / 2) - this.#cellSize / 2; x >= 0; x -= this.#cellSize) {
+      this.#context.moveTo(0.5 + x, 0);
+      this.#context.lineTo(0.5 + x, this.#context.canvas.height);
+    }
 
+    // draw horizontal lines below player
+    for(var x = (this.#context.canvas.height / 2) + this.#cellSize / 2; x <= this.#context.canvas.height; x += this.#cellSize) {
+      this.#context.moveTo(0, 0.5 + x);
+      this.#context.lineTo(this.#context.canvas.width, 0.5 + x);
+    }
+
+    // draw horizontal lines above player
+    for(var x = (this.#context.canvas.height / 2) - this.#cellSize / 2; x >= 0; x -= this.#cellSize) {
+      this.#context.moveTo(0, 0.5 + x);
+      this.#context.lineTo(this.#context.canvas.width, 0.5 + x);
+    }
+  
+    this.#context.stroke();
+  
     if (!this.#destructorCalled)
       window.requestAnimationFrame(this.draw.bind(this));
   }
