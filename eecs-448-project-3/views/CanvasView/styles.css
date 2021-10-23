@@ -2,6 +2,7 @@
   height: inherit;
   width: 100vw;
   overflow: hidden;
+  display: grid;
 }
 
 .CanvasView .overlay {
@@ -10,11 +11,11 @@
 }
 
 .CanvasView .overlay,
-.CanvasView iframe {
-  position: absolute;
-  inset: 0;
+.CanvasView canvas {
+  grid-column-start: 1;
+  grid-row-start: 1;
 }
 
 .CanvasView .background {
-  background-color: #000;
+  background-color: var(--b1);
 }
