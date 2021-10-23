@@ -22,6 +22,8 @@ class Grid extends Component {
 
   #context;
 
+  #coordinates = [0, 0];
+
   constructor(options) {
     super({ ...options, hasContainer: false });
   }
@@ -39,8 +41,26 @@ class Grid extends Component {
     this.#context = this.options.canvas.getContext('2d');
 
     this.draw(0);
-
     return this;
+  }
+
+  drawCell(rowIndex, columnIndex, firstCellCoordinates) {
+    const x = columnIndex * this.#cellSize + firstCellCoordinates[0];
+    const y = rowIndex * this.#cellSize + firstCellCoordinates[1];
+
+    this.#context.fillStyle = `#${Math.floor(
+      Math.random() * 16_777_215
+    ).toString(16)}`;
+    this.#context.fillRect(x, y, this.#cellSize, this.#cellSize);
+    if (DEVELOPMENT)
+      this.#context.strokeRect(x, y, this.#cellSize, this.#cellSize);
+
+    /*
+     *Var img = new Image();
+     *img.src = 'canvas_createpattern.png';
+     *img.onload = function() {
+     *
+     */
   }
 
   draw(timestamp) {
@@ -49,36 +69,28 @@ class Grid extends Component {
     const timePassed = timestamp - this.#previousFrameTimestamp;
 
     this.#previousFrameTimestamp = timestamp;
-    
-    // draw path 
-    this.#context.strokeStyle = "#FFFFFF";
-    this.#context.beginPath();
-    // draw vertical lines right of player
-    for(var x = (this.#context.canvas.width / 2) + this.#cellSize / 2; x <= this.#context.canvas.width; x += this.#cellSize) {
-      this.#context.moveTo(0.5 + x, 0);
-      this.#context.lineTo(0.5 + x, this.#context.canvas.height);
+
+    const dimensions = [this.options.canvas.width, this.options.canvas.height];
+
+    const firstCellCoordinates = dimensions.map(
+      (size) =>
+        -this.#cellSize + (((size - this.#cellSize) / 2) % this.#cellSize)
+    );
+    const cellCount = dimensions.map(
+      (size) => Math.ceil(size / this.#cellSize) + 1
+    );
+
+    if (DEVELOPMENT) {
+      this.#context.lineWidth = 2;
+      this.#context.strokeStyle = '#fff';
     }
 
-    // draw vertical lines left of player
-    for(var x = (this.#context.canvas.width / 2) - this.#cellSize / 2; x >= 0; x -= this.#cellSize) {
-      this.#context.moveTo(0.5 + x, 0);
-      this.#context.lineTo(0.5 + x, this.#context.canvas.height);
-    }
+    Array.from({ length: cellCount[0] }, (_, columnIndex) =>
+      Array.from({ length: cellCount[1] }, (_, rowIndex) =>
+        this.drawCell(rowIndex, columnIndex, firstCellCoordinates)
+      )
+    );
 
-    // draw horizontal lines below player
-    for(var x = (this.#context.canvas.height / 2) + this.#cellSize / 2; x <= this.#context.canvas.height; x += this.#cellSize) {
-      this.#context.moveTo(0, 0.5 + x);
-      this.#context.lineTo(this.#context.canvas.width, 0.5 + x);
-    }
-
-    // draw horizontal lines above player
-    for(var x = (this.#context.canvas.height / 2) - this.#cellSize / 2; x >= 0; x -= this.#cellSize) {
-      this.#context.moveTo(0, 0.5 + x);
-      this.#context.lineTo(this.#context.canvas.width, 0.5 + x);
-    }
-  
-    this.#context.stroke();
-  
     if (!this.#destructorCalled)
       window.requestAnimationFrame(this.draw.bind(this));
   }
