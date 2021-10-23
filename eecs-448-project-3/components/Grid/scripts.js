@@ -49,7 +49,7 @@ class Grid extends Component {
     const y = rowIndex * this.#cellSize + firstCellCoordinates[1];
 
     this.#context.fillStyle = `#${Math.floor(
-      Math.random() * 16_777_215
+      ((x + 1) * (y + 1) * 20_000) % 16_777_215
     ).toString(16)}`;
     this.#context.fillRect(x, y, this.#cellSize, this.#cellSize);
     if (DEVELOPMENT)
