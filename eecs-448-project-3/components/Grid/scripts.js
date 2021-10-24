@@ -22,7 +22,16 @@ class Grid extends Component {
 
   #context;
 
+  // Real player coordinates
   #coordinates = [0, 0];
+
+  /*
+   * While walking between cells, this.#animationCoordinates
+   * are smoothly transitioning between the previous and the new
+   * this.#coorindates values
+   *
+   */
+  #animationCoordinates = [0, 0];
 
   constructor(options) {
     super({ ...options, hasContainer: false });
@@ -48,22 +57,42 @@ class Grid extends Component {
     const x = columnIndex * this.#cellSize + firstCellCoordinates[0];
     const y = rowIndex * this.#cellSize + firstCellCoordinates[1];
 
-    this.#context.fillStyle = `#${Math.floor(
-      ((x + 1) * (y + 1) * 20_000) % 16_777_215
-    ).toString(16)}`;
-    this.#context.fillRect(x, y, this.#cellSize, this.#cellSize);
+    const absoluteCoordinates = [
+      this.#coordinates[0] + rowIndex,
+      this.#coordinates[1] + columnIndex,
+    ];
+
+    // TODO: Implement `new Path2D()` if need to improve draw performance
+    const cell = this.options.getCellAtCoordinate(...absoluteCoordinates);
+
+    const cellPosition = [x, y, this.#cellSize, this.#cellSize];
+
+    if (typeof cell.backgroundColor === 'string') {
+      this.#context.fillStyle = cell.backgroundColor;
+      this.#context.fillRect(...cellPosition);
+    }
+
+    if (typeof cell.backgroundImage === 'object')
+      this.#context.drawImage(cell.backgroundImage, ...cellPosition);
+
     if (DEVELOPMENT)
+      // Draw cell borders
       this.#context.strokeRect(x, y, this.#cellSize, this.#cellSize);
 
-    /*
-     *Var img = new Image();
-     *img.src = 'canvas_createpattern.png';
-     *img.onload = function() {
-     *
-     */
+    if (DEBUG) {
+      // Draw cell coordinates
+      this.#context.fillStyle = '#000';
+      this.#context.fillText(absoluteCoordinates.join(' '), x, y);
+      this.#context.strokeText(absoluteCoordinates.join(' '), x, y);
+    }
   }
 
   draw(timestamp) {
+    /*
+     * TODO: don't redraw if not needed to improve performance
+     *   (if not moving, no need to redraw)
+     */
+
     if (typeof this.#previousFrameTimestamp === 'undefined')
       this.#previousFrameTimestamp = timestamp;
     const timePassed = timestamp - this.#previousFrameTimestamp;
@@ -72,9 +101,10 @@ class Grid extends Component {
 
     const dimensions = [this.options.canvas.width, this.options.canvas.height];
 
-    const firstCellCoordinates = dimensions.map(
-      (size) =>
+    const firstCellCoordinates = dimensions.map((size) =>
+      Math.round(
         -this.#cellSize + (((size - this.#cellSize) / 2) % this.#cellSize)
+      )
     );
     const cellCount = dimensions.map(
       (size) => Math.ceil(size / this.#cellSize) + 1
@@ -84,6 +114,9 @@ class Grid extends Component {
       this.#context.lineWidth = 2;
       this.#context.strokeStyle = '#fff';
     }
+
+    if (DEBUG)
+      this.#context.font = `${Math.ceil(this.#cellSize / 3)}px sans-serif`;
 
     Array.from({ length: cellCount[0] }, (_, columnIndex) =>
       Array.from({ length: cellCount[1] }, (_, rowIndex) =>

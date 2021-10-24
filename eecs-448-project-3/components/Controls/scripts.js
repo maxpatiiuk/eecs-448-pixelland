@@ -12,25 +12,29 @@
  * @public
  */
 
+const movementKeys = new Set(['up', 'down', 'left', 'right']);
+
 const keyMapper = {
-  KeyW: 'Up',
-  KeyS: 'Down',
-  KeyA: 'Left',
-  KeyD: 'Right',
-  ArrowUp: 'Up',
-  ArrowDown: 'Down',
-  ArrowLeft: 'Left',
-  ArrowRight: 'Right',
-  KeyK: 'Up',
-  KeyJ: 'Down',
-  KeyH: 'Left',
-  KeyL: 'Right',
+  KeyW: 'up',
+  KeyS: 'down',
+  KeyA: 'left',
+  KeyD: 'right',
+  ArrowUp: 'up',
+  ArrowDown: 'down',
+  ArrowLeft: 'left',
+  ArrowRight: 'right',
+  KeyK: 'up',
+  KeyJ: 'down',
+  KeyH: 'left',
+  KeyL: 'right',
 };
 
 class Controls extends Component {
   #pressedKeys = new Set();
 
   #lastKeyPressTimestamp = 0;
+
+  #isMovementDiagonal = false;
 
   #timeOut = undefined;
 
@@ -71,20 +75,27 @@ class Controls extends Component {
     if (this.#pressedKeys.has('left') && this.#pressedKeys.has('right'))
       this.#pressedKeys.delete('left');
 
-    if (this.#lastKeyPressTimestamp + MOVEMENT_SPEED < Date.now())
+    const movementSpeed = this.#isMovementDiagonal
+      ? DIAGONAL_MOVEMENT_SPEED
+      : MOVEMENT_SPEED;
+
+    if (this.#lastKeyPressTimestamp + movementSpeed < Date.now())
       this.reportPressedKeys();
     else {
       if (typeof this.#timeOut !== 'undefined') clearTimeout(this.#timeOut);
       this.#timeOut = setTimeout(
         () => this.reportPressedKeys(),
-        MOVEMENT_SPEED - (Date.now() - this.#lastKeyPressTimestamp)
+        movementSpeed - (Date.now() - this.#lastKeyPressTimestamp)
       );
     }
   }
 
   reportPressedKeys() {
-    this.options.processKeyPress(Array.from(this.#pressedKeys));
+    const pressedKeys = Array.from(this.#pressedKeys);
+    this.options.processKeyPress(pressedKeys);
     this.#lastKeyPressTimestamp = Date.now();
+    this.#isMovementDiagonal =
+      pressedKeys.filter((key) => movementKeys.has(key)).length === 2;
     this.#timeOut = undefined;
   }
 }

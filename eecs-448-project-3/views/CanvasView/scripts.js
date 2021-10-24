@@ -24,6 +24,8 @@ class CanvasView extends View {
 
   #controls;
 
+  #map;
+
   constructor() {
     super({});
     this.#cellSizeUpdateListeners = [];
@@ -50,8 +52,14 @@ class CanvasView extends View {
     await this.#player.render(playerContainer);
     this.destructors.push(() => this.#player.remove());
 
+    this.#map = new Map();
+    await this.#map.render();
+
     this.#canvas = this.container.getElementsByTagName('canvas')[0];
-    this.#grid = new Grid({ canvas: this.#canvas });
+    this.#grid = new Grid({
+      canvas: this.#canvas,
+      getCellAtCoordinate: this.#map.getCellAtCoordinate.bind(this.#map),
+    });
     await this.#grid.render();
     this.destructors.push(() => this.#grid.remove());
     this.#cellSizeUpdateListeners.push(
