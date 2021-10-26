@@ -74,7 +74,7 @@ class CanvasView extends View {
     handleResize();
 
     this.#controls = new Controls({
-      processKeyPress: this.#grid.handleKeyPress.bind(this),
+      processKeyPress: this.#grid.handleKeyPress.bind(this.#grid),
     });
     await this.#controls.render();
     this.destructors.push(() => this.#controls.remove());

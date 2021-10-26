@@ -16,22 +16,26 @@ class Grid extends Component {
 
   #destructorCalled = false;
 
-  #previousFrameTimestamp;
+  #animationStart;
 
   #cellSize;
 
   #context;
 
+  #pressedKeys = [];
+
+  #animationDuration = [];
+
   // Real player coordinates
   #coordinates = [0, 0];
 
   /*
-   * While walking between cells, this.#animationCoordinates
-   * are smoothly transitioning between the previous and the new
-   * this.#coorindates values
+   * While walking between cells, this.#animationOffset
+   * are smoothly transitioning between [0,0] and the movement destination
+   * (e.x, [1,0] or [-1, -1])
    *
    */
-  #animationCoordinates = [0, 0];
+  #animationOffset = [0, 0];
 
   constructor(options) {
     super({ ...options, hasContainer: false });
@@ -47,15 +51,21 @@ class Grid extends Component {
     await super.render();
 
     console.log(this.options.canvas);
-    this.#context = this.options.canvas.getContext('2d');
+    this.#context = this.options.canvas.getContext('2d', { alpha: false });
 
     this.draw(0);
     return this;
   }
 
   drawCell(rowIndex, columnIndex, firstCellCoordinates) {
-    const x = columnIndex * this.#cellSize + firstCellCoordinates[0];
-    const y = rowIndex * this.#cellSize + firstCellCoordinates[1];
+    const x =
+      columnIndex * this.#cellSize +
+      firstCellCoordinates[0] +
+      this.#animationOffset[0];
+    const y =
+      rowIndex * this.#cellSize +
+      firstCellCoordinates[1] +
+      this.#animationOffset[1];
 
     const absoluteCoordinates = [
       this.#coordinates[0] + rowIndex,
@@ -93,11 +103,37 @@ class Grid extends Component {
      *   (if not moving, no need to redraw)
      */
 
-    if (typeof this.#previousFrameTimestamp === 'undefined')
-      this.#previousFrameTimestamp = timestamp;
-    const timePassed = timestamp - this.#previousFrameTimestamp;
+    /*
+     * TODO: make cells have isAnimated property
+     * TODO: disable imageSmoothingEnabled if need pixelArt
+     */
 
-    this.#previousFrameTimestamp = timestamp;
+    if (this.#pressedKeys.length > 0) {
+      const motions = [];
+
+      if (this.#pressedKeys.includes('up')) motions.push([1, 1]);
+      else if (this.#pressedKeys.includes('down')) motions.push([1, -1]);
+
+      if (this.#pressedKeys.includes('left')) motions.push([0, 1]);
+      else if (this.#pressedKeys.includes('right')) motions.push([0, -1]);
+
+      if (typeof this.#animationStart === 'undefined')
+        this.#animationStart = timestamp;
+
+      const percentage =
+        timestamp / (this.#animationStart + this.#animationDuration);
+
+      if (percentage >= 100) {
+        motions.forEach(([index, amount]) => {
+          this.#coordinates[index] += amount;
+        });
+        this.#animationOffset = [0, 0];
+        this.#animationStart = undefined;
+      } else
+        motions.forEach(([index, amount]) => {
+          this.#animationOffset[index] += Math.round(amount * percentage);
+        });
+    }
 
     const dimensions = [this.options.canvas.width, this.options.canvas.height];
 
@@ -132,8 +168,11 @@ class Grid extends Component {
     this.#cellSize = cellSize;
   }
 
-  handleKeyPress(pressedKeys) {
+  handleKeyPress(pressedKeys, animationDuration) {
     if (DEVELOPMENT) console.log(pressedKeys);
-    // TODO: listen for key movement here and change current coordinates
+    this.#pressedKeys = Array.from(pressedKeys).filter((key) =>
+      movementKeys.has(key)
+    );
+    this.#animationDuration = animationDuration;
   }
 }

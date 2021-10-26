@@ -16,21 +16,13 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
     </thead>
     <tbody>
         <tr>
-            <th rowspan=2>Planning</th>
+            <th rowspan=1>Planning</th>
             <td>Team meetings</td>
             <td>0.5h</td>
             <td>0.5h</td>
             <td>0.5h</td>
             <td>0.5h</td>
             <td>0.5h</td>
-        </tr>
-        <tr>
-            <td>Learning HTML5 Canvas</td>
-            <td>3h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
         </tr>
         <tr>
             <th rowspan=8>Implementation</th>
@@ -51,7 +43,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         </tr>
         <tr>
             <td>Drawing basic grid</td>
-            <td>0h</td>
+            <td>3h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
@@ -59,7 +51,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         </tr>
         <tr>
             <td>Generating map</td>
-            <td>0h</td>
+            <td>1h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>

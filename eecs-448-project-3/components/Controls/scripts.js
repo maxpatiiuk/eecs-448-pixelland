@@ -92,10 +92,10 @@ class Controls extends Component {
 
   reportPressedKeys() {
     const pressedKeys = Array.from(this.#pressedKeys);
-    this.options.processKeyPress(pressedKeys);
-    this.#lastKeyPressTimestamp = Date.now();
     this.#isMovementDiagonal =
       pressedKeys.filter((key) => movementKeys.has(key)).length === 2;
+    this.options.processKeyPress(pressedKeys, this.#isMovementDiagonal);
+    this.#lastKeyPressTimestamp = Date.now();
     this.#timeOut = undefined;
   }
 }
