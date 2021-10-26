@@ -34,15 +34,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
         </tr>
         <tr>
-            <td>Basic player movement</td>
-            <td>1h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
-        </tr>
-        <tr>
-            <td>Drawing basic grid</td>
+            <td>Player movement</td>
             <td>3h</td>
             <td>0h</td>
             <td>0h</td>
@@ -50,8 +42,16 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
         </tr>
         <tr>
+            <td>Drawing game grid</td>
+            <td>4h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+        </tr>
+        <tr>
             <td>Generating map</td>
-            <td>1h</td>
+            <td>1.25h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
