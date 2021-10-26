@@ -2,10 +2,11 @@
  * Configuration file for board construction
  */
 
-// Single cell would be 4vmax in size
-const CELL_SIZE = 0.04;
+// Single cell would be 3vmax in size
+const CELL_SIZE = 0.03;
 
-const MOVEMENT_SPEED = 100;
+// Lower value is faster
+const MOVEMENT_SPEED = 200;
 
 // Movement is slower when moving diagonally
 const DIAGONAL_MOVEMENT_SPEED = Math.sqrt(MOVEMENT_SPEED ** 2 * 2);

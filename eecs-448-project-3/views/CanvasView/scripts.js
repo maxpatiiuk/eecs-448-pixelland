@@ -55,12 +55,21 @@ class CanvasView extends View {
     this.#map = new Map();
     await this.#map.render();
 
+    this.#controls = new Controls();
+    await this.#controls.render();
+    this.destructors.push(() => this.#controls.remove());
+
     this.#canvas = this.container.getElementsByTagName('canvas')[0];
     this.#grid = new Grid({
       canvas: this.#canvas,
       getCellAtCoordinate: this.#map.getCellAtCoordinate.bind(this.#map),
+      getMovementDirection: this.#controls.getMovementDirection.bind(
+        this.#controls
+      ),
     });
     await this.#grid.render();
+    this.#controls.afterKeyPress = this.#grid.checkPressedKeys.bind(this.#grid);
+
     this.destructors.push(() => this.#grid.remove());
     this.#cellSizeUpdateListeners.push(
       this.#grid.handleCellResize.bind(this.#grid)
@@ -72,12 +81,6 @@ class CanvasView extends View {
       window.addEventListener('resize', handleResize)
     );
     handleResize();
-
-    this.#controls = new Controls({
-      processKeyPress: this.#grid.handleKeyPress.bind(this.#grid),
-    });
-    await this.#controls.render();
-    this.destructors.push(() => this.#controls.remove());
 
     return this;
   }

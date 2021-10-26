@@ -32,11 +32,8 @@ const keyMapper = {
 class Controls extends Component {
   #pressedKeys = new Set();
 
-  #lastKeyPressTimestamp = 0;
-
-  #isMovementDiagonal = false;
-
-  #timeOut = undefined;
+  // This callback is set in CanvasView
+  afterKeyPress = undefined;
 
   constructor(options) {
     super({
@@ -70,32 +67,29 @@ class Controls extends Component {
     if (!(code in keyMapper)) return;
     this.#pressedKeys[type === 'keydown' ? 'add' : 'delete'](keyMapper[code]);
 
+    if (DEVELOPMENT) console.log(this.#pressedKeys);
+
     if (this.#pressedKeys.has('up') && this.#pressedKeys.has('down'))
       this.#pressedKeys.delete('down');
     if (this.#pressedKeys.has('left') && this.#pressedKeys.has('right'))
       this.#pressedKeys.delete('left');
 
-    const movementSpeed = this.#isMovementDiagonal
-      ? DIAGONAL_MOVEMENT_SPEED
-      : MOVEMENT_SPEED;
-
-    if (this.#lastKeyPressTimestamp + movementSpeed < Date.now())
-      this.reportPressedKeys();
-    else {
-      if (typeof this.#timeOut !== 'undefined') clearTimeout(this.#timeOut);
-      this.#timeOut = setTimeout(
-        () => this.reportPressedKeys(),
-        movementSpeed - (Date.now() - this.#lastKeyPressTimestamp)
-      );
-    }
+    if (typeof this.afterKeyPress !== 'undefined') this.afterKeyPress();
   }
 
-  reportPressedKeys() {
-    const pressedKeys = Array.from(this.#pressedKeys);
-    this.#isMovementDiagonal =
-      pressedKeys.filter((key) => movementKeys.has(key)).length === 2;
-    this.options.processKeyPress(pressedKeys, this.#isMovementDiagonal);
-    this.#lastKeyPressTimestamp = Date.now();
-    this.#timeOut = undefined;
+  getMovementDirection() {
+    const pressedKeys = new Set(
+      Array.from(this.#pressedKeys).filter((key) => movementKeys.has(key))
+    );
+
+    const movementDirection = [0, 0];
+
+    if (pressedKeys.has('up')) movementDirection[0] = -1;
+    else if (pressedKeys.has('down')) movementDirection[0] = 1;
+
+    if (pressedKeys.has('left')) movementDirection[1] = -1;
+    else if (pressedKeys.has('right')) movementDirection[1] = 1;
+
+    return movementDirection;
   }
 }

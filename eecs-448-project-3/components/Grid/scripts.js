@@ -12,19 +12,19 @@
  * @public
  */
 class Grid extends Component {
-  #person;
-
   #destructorCalled = false;
 
-  #animationStart;
+  #hasAnimatedCells = true;
 
   #cellSize;
 
   #context;
 
-  #pressedKeys = [];
+  #isMoving = false;
 
-  #animationDuration = [];
+  #hadResize = true;
+
+  #movementDirection = [0, 0];
 
   // Real player coordinates
   #coordinates = [0, 0];
@@ -53,19 +53,24 @@ class Grid extends Component {
     console.log(this.options.canvas);
     this.#context = this.options.canvas.getContext('2d', { alpha: false });
 
+    // TODO: test if this and other options are remembered
+    this.#context.imageSmoothingEnabled = false;
+
     this.draw(0);
     return this;
   }
 
   drawCell(rowIndex, columnIndex, firstCellCoordinates) {
-    const x =
+    const x = Math.floor(
       columnIndex * this.#cellSize +
-      firstCellCoordinates[0] +
-      this.#animationOffset[0];
-    const y =
+        firstCellCoordinates[0] -
+        this.#cellSize * this.#animationOffset[1]
+    );
+    const y = Math.floor(
       rowIndex * this.#cellSize +
-      firstCellCoordinates[1] +
-      this.#animationOffset[1];
+        firstCellCoordinates[1] -
+        this.#cellSize * this.#animationOffset[0]
+    );
 
     const absoluteCoordinates = [
       this.#coordinates[0] + rowIndex,
@@ -76,6 +81,8 @@ class Grid extends Component {
     const cell = this.options.getCellAtCoordinate(...absoluteCoordinates);
 
     const cellPosition = [x, y, this.#cellSize, this.#cellSize];
+
+    this.#hasAnimatedCells ||= cell.isAnimated;
 
     if (typeof cell.backgroundColor === 'string') {
       this.#context.fillStyle = cell.backgroundColor;
@@ -93,48 +100,10 @@ class Grid extends Component {
       // Draw cell coordinates
       this.#context.fillStyle = '#000';
       this.#context.fillText(absoluteCoordinates.join(' '), x, y);
-      this.#context.strokeText(absoluteCoordinates.join(' '), x, y);
     }
   }
 
-  draw(timestamp) {
-    /*
-     * TODO: don't redraw if not needed to improve performance
-     *   (if not moving, no need to redraw)
-     */
-
-    /*
-     * TODO: make cells have isAnimated property
-     * TODO: disable imageSmoothingEnabled if need pixelArt
-     */
-
-    if (this.#pressedKeys.length > 0) {
-      const motions = [];
-
-      if (this.#pressedKeys.includes('up')) motions.push([1, 1]);
-      else if (this.#pressedKeys.includes('down')) motions.push([1, -1]);
-
-      if (this.#pressedKeys.includes('left')) motions.push([0, 1]);
-      else if (this.#pressedKeys.includes('right')) motions.push([0, -1]);
-
-      if (typeof this.#animationStart === 'undefined')
-        this.#animationStart = timestamp;
-
-      const percentage =
-        timestamp / (this.#animationStart + this.#animationDuration);
-
-      if (percentage >= 100) {
-        motions.forEach(([index, amount]) => {
-          this.#coordinates[index] += amount;
-        });
-        this.#animationOffset = [0, 0];
-        this.#animationStart = undefined;
-      } else
-        motions.forEach(([index, amount]) => {
-          this.#animationOffset[index] += Math.round(amount * percentage);
-        });
-    }
-
+  draw() {
     const dimensions = [this.options.canvas.width, this.options.canvas.height];
 
     const firstCellCoordinates = dimensions.map((size) =>
@@ -154,11 +123,16 @@ class Grid extends Component {
     if (DEBUG)
       this.#context.font = `${Math.ceil(this.#cellSize / 3)}px sans-serif`;
 
-    Array.from({ length: cellCount[0] }, (_, columnIndex) =>
-      Array.from({ length: cellCount[1] }, (_, rowIndex) =>
-        this.drawCell(rowIndex, columnIndex, firstCellCoordinates)
-      )
-    );
+    if (this.#hasAnimatedCells || this.#isMoving || this.#hadResize) {
+      this.#hasAnimatedCells = false;
+      Array.from({ length: cellCount[0] }, (_, columnIndex) =>
+        Array.from({ length: cellCount[1] }, (_, rowIndex) =>
+          this.drawCell(rowIndex, columnIndex, firstCellCoordinates)
+        )
+      );
+    }
+
+    this.#hadResize = false;
 
     if (!this.#destructorCalled)
       window.requestAnimationFrame(this.draw.bind(this));
@@ -166,13 +140,46 @@ class Grid extends Component {
 
   handleCellResize(cellSize) {
     this.#cellSize = cellSize;
+    this.#hadResize = true;
   }
 
-  handleKeyPress(pressedKeys, animationDuration) {
-    if (DEVELOPMENT) console.log(pressedKeys);
-    this.#pressedKeys = Array.from(pressedKeys).filter((key) =>
-      movementKeys.has(key)
-    );
-    this.#animationDuration = animationDuration;
+  checkPressedKeys() {
+    if (this.#isMoving) return;
+    this.#movementDirection = this.options.getMovementDirection();
+    if (this.#movementDirection.join('') !== '00') this.startMovement();
+  }
+
+  startMovement() {
+    this.#isMoving = true;
+    const animationDuration =
+      this.#movementDirection[0] !== 0 && this.#movementDirection[1] !== 0
+        ? DIAGONAL_MOVEMENT_SPEED
+        : MOVEMENT_SPEED;
+
+    let counter = 0;
+    const step = Math.floor(1000 / 60);
+    const interval = setInterval(() => {
+      counter += step;
+
+      if (counter > animationDuration) {
+        clearInterval(interval);
+        this.#movementDirection.forEach((amount, index) => {
+          this.#coordinates[index] += amount;
+        });
+
+        if (DEVELOPMENT)
+          console.log(`Coordinates: ${this.#coordinates.join(' ')}`);
+
+        this.#animationOffset = [0, 0];
+        this.#isMoving = false;
+        this.checkPressedKeys();
+        return;
+      }
+
+      const animationPercentage = Math.min(1, counter / animationDuration);
+      this.#movementDirection.forEach((amount, index) => {
+        this.#animationOffset[index] = amount * animationPercentage;
+      });
+    }, step);
   }
 }

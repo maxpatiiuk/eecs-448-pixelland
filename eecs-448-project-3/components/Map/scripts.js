@@ -48,6 +48,7 @@ class Map extends Component {
       backgroundColor: `#${Math.floor(
         ((row + 1) * (col + 1) * 200_000) % 16_777_215
       ).toString(16)}`,
+      isAnimated: false,
     };
   }
 }
