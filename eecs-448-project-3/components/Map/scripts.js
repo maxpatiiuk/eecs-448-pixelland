@@ -44,10 +44,11 @@ class Map extends Component {
 
   generateCell(row, col) {
     this.#map[row] ??= {};
+    const hue = 100 - ((row * 2 - col + Math.floor(Math.random() * 50)) % 360);
+    const saturation =
+      30 + (Math.floor(row / 2 + col / 2 + Math.random() * 5) % 40);
     this.#map[row][col] = {
-      backgroundColor: `#${Math.floor(
-        ((row + 1) * (col + 1) * 200_000) % 16_777_215
-      ).toString(16)}`,
+      backgroundColor: `hsl(${hue}deg, ${saturation}%, 50%)`,
       isAnimated: false,
     };
   }

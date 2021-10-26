@@ -67,7 +67,7 @@ class Controls extends Component {
     if (!(code in keyMapper)) return;
     this.#pressedKeys[type === 'keydown' ? 'add' : 'delete'](keyMapper[code]);
 
-    if (DEVELOPMENT) console.log(this.#pressedKeys);
+    if (DEVELOPMENT) console.log(Array.from(this.#pressedKeys));
 
     if (this.#pressedKeys.has('up') && this.#pressedKeys.has('down'))
       this.#pressedKeys.delete('down');

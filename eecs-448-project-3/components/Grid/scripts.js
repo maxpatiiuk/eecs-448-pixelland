@@ -77,7 +77,6 @@ class Grid extends Component {
       this.#coordinates[1] + columnIndex,
     ];
 
-    // TODO: Implement `new Path2D()` if need to improve draw performance
     const cell = this.options.getCellAtCoordinate(...absoluteCoordinates);
 
     const cellPosition = [x, y, this.#cellSize, this.#cellSize];
@@ -104,15 +103,17 @@ class Grid extends Component {
   }
 
   draw() {
+    // TODO: fix player's position changing on resize
+
     const dimensions = [this.options.canvas.width, this.options.canvas.height];
 
     const firstCellCoordinates = dimensions.map((size) =>
       Math.round(
-        -this.#cellSize + (((size - this.#cellSize) / 2) % this.#cellSize)
+        -2 * this.#cellSize + (((size - this.#cellSize) / 2) % this.#cellSize)
       )
     );
     const cellCount = dimensions.map(
-      (size) => Math.ceil(size / this.#cellSize) + 1
+      (size) => Math.ceil(size / this.#cellSize) + 2
     );
 
     if (DEVELOPMENT) {
@@ -172,6 +173,7 @@ class Grid extends Component {
 
         this.#animationOffset = [0, 0];
         this.#isMoving = false;
+        this.#hadResize = true;
         this.checkPressedKeys();
         return;
       }
