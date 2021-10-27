@@ -11,15 +11,7 @@
  * @public
  */
 class MenuView extends View {
-  constructor(options) {
-    super(options);
-    /*
-     * You can set global variables like so:
-     * this.someValue = 'abc';
-     * Now, any other method can access that variable as this.someValue
-     *
-     */
-  }
+  #saveLoad;
 
   /**
    * Renders a defined view into a container. Passes in necessary, predefined
@@ -35,10 +27,20 @@ class MenuView extends View {
   ) {
     await super.render(container);
 
+    // Save Load
+    this.#saveLoad = new SaveLoad();
+    await this.#saveLoad.render();
+    this.destructors.push(() => this.#saveLoad.remove());
+
     // Listen for button clicks inside the container
     const buttons = Array.from(this.container.getElementsByTagName('button'));
     const handleClick = this.handleClick.bind(this);
     buttons.forEach((button) => {
+      if (
+        button.getAttribute('data-action') === 'load-game' &&
+        typeof this.#saveLoad.load() === 'undefined'
+      )
+        button.disabled = true;
       button.addEventListener('click', handleClick);
       this.destructors.push(() =>
         button.removeEventListener('click', handleClick)
@@ -57,7 +59,10 @@ class MenuView extends View {
   handleClick({ target: button }) {
     // Once a button is clicked, render ship placement view
     new CanvasView({
-      numberOfShips: Number.parseInt(button.textContent),
+      state:
+        button.getAttribute('data-action') === 'load-game'
+          ? this.#saveLoad.load()
+          : undefined,
     }).render(this.container);
   }
 }
