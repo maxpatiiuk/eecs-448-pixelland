@@ -1,0 +1,35 @@
+.PauseMenu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--darken);
+}
+
+.PauseMenu .pause-menu-wrapper {
+  display: flex;
+  align-items: center;
+  row-gap: var(--double-size);
+  flex-direction: column;
+}
+
+.PauseMenu h1 {
+  font-size: calc(var(--double-size) * 4);
+}
+
+.PauseMenu h2 {
+  font-size: calc(var(--double-size) * 2);
+}
+
+.PauseMenu .button-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  row-gap: var(--half-size);
+  flex-direction: column;
+}
+
+.PauseMenu button {
+  width: 100%;
+  padding: var(--size);
+  font-size: var(--size);
+}

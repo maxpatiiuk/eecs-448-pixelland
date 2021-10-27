@@ -26,6 +26,8 @@ class CanvasView extends View {
 
   #map;
 
+  #pauseMenu;
+
   constructor() {
     super({});
     this.#cellSizeUpdateListeners = [];
@@ -55,7 +57,14 @@ class CanvasView extends View {
     this.#map = new Map();
     await this.#map.render();
 
-    this.#controls = new Controls();
+    this.#controls = new Controls({
+      handleKeyToggle: (type) => {
+        if (type === 'escape')
+          this.handlePauseMenuInteraction(
+            this.#grid.paused ? 'resume' : 'pause'
+          );
+      },
+    });
     await this.#controls.render();
     this.destructors.push(() => this.#controls.remove());
 
@@ -68,7 +77,9 @@ class CanvasView extends View {
       ),
     });
     await this.#grid.render();
-    this.#controls.afterKeyPress = this.#grid.checkPressedKeys.bind(this.#grid);
+    this.#controls.afterKeyPress = () => {
+      this.#grid.checkPressedKeys();
+    };
 
     this.destructors.push(() => this.#grid.remove());
     this.#cellSizeUpdateListeners.push(
@@ -81,6 +92,15 @@ class CanvasView extends View {
       window.addEventListener('resize', handleResize)
     );
     handleResize();
+
+    this.#pauseMenu = new PauseMenu({
+      onClick: this.handlePauseMenuInteraction.bind(this),
+    });
+    await this.#pauseMenu.render(
+      this.container.getElementsByClassName('pause-menu')[0]
+    );
+    this.#pauseMenu.container.classList.add('overlay');
+    this.#pauseMenu.container.classList.add('pause-menu');
 
     return this;
   }
@@ -103,5 +123,37 @@ class CanvasView extends View {
     this.#cellSizeUpdateListeners.forEach((listener) =>
       listener(this.#cellSize)
     );
+  }
+
+  handlePauseMenuInteraction(action) {
+    switch (action) {
+      /*
+       * TODO: add a settings menu
+       * TODO: add save&load game functionality
+       */
+      case 'pause': {
+        this.#pauseMenu.show();
+        this.#grid.paused = true;
+
+        break;
+      }
+      case 'resume': {
+        this.#pauseMenu.hide();
+        this.#grid.paused = false;
+
+        break;
+      }
+      case 'save':
+        break;
+      case 'load':
+        break;
+      case 'settings':
+        break;
+      case 'exit':
+        new MenuView().render(this.container);
+        break;
+      default:
+        throw new Error(`Unknown action: ${action}`);
+    }
   }
 }

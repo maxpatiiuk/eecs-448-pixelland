@@ -26,6 +26,8 @@ class Grid extends Component {
 
   #movementDirection = [0, 0];
 
+  paused = false;
+
   // Real player coordinates
   #coordinates = [0, 0];
 
@@ -160,6 +162,8 @@ class Grid extends Component {
     let counter = 0;
     const step = Math.floor(1000 / 60);
     const interval = setInterval(() => {
+      if (this.paused) return;
+
       counter += step;
 
       if (counter > animationDuration) {

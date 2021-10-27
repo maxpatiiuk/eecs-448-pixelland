@@ -12,8 +12,6 @@
  * @public
  */
 class Map extends Component {
-  #map = {};
-
   constructor(options) {
     super({ ...options, hasContainer: false });
   }
@@ -37,17 +35,10 @@ class Map extends Component {
   }
 
   getCellAtCoordinate(row, col) {
-    if (typeof this.#map[row]?.[col] === 'undefined')
-      this.generateCell(row, col);
-    return this.#map[row]?.[col];
-  }
-
-  generateCell(row, col) {
-    this.#map[row] ??= {};
     const hue = 100 - ((row * 2 - col + Math.floor(Math.random() * 50)) % 360);
     const saturation =
       30 + (Math.floor(row / 2 + col / 2 + Math.random() * 5) % 40);
-    this.#map[row][col] = {
+    return {
       backgroundColor: `hsl(${hue}deg, ${saturation}%, 50%)`,
       isAnimated: false,
     };

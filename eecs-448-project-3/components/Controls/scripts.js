@@ -27,6 +27,11 @@ const keyMapper = {
   KeyJ: 'down',
   KeyH: 'left',
   KeyL: 'right',
+  Escape: 'escape',
+};
+
+const toggleKeys = {
+  Escape: 'escape',
 };
 
 class Controls extends Component {
@@ -64,7 +69,13 @@ class Controls extends Component {
   }
 
   handleKeyPress({ type, code }) {
+    if (code in toggleKeys) {
+      if (type === 'keyup') this.options.handleKeyToggle(toggleKeys[code]);
+      return;
+    }
+
     if (!(code in keyMapper)) return;
+
     this.#pressedKeys[type === 'keydown' ? 'add' : 'delete'](keyMapper[code]);
 
     if (DEVELOPMENT) console.log(Array.from(this.#pressedKeys));
@@ -75,6 +86,12 @@ class Controls extends Component {
       this.#pressedKeys.delete('left');
 
     if (typeof this.afterKeyPress !== 'undefined') this.afterKeyPress();
+  }
+
+  getPressedSpecialKeys() {
+    return Array.from(this.#pressedKeys).filter(
+      (key) => !movementKeys.has(key)
+    );
   }
 
   getMovementDirection() {
