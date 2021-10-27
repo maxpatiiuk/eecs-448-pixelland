@@ -1,0 +1,59 @@
+/*
+ * All elements would are housed under a container with the className equal
+ * to component name (e.g. .MenuView and .ShipPlacementView)
+ */
+
+.MapSetupView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: var(--size);
+}
+
+.MapSetupView .map-setup-view-wrapper {
+  display: flex;
+  align-items: center;
+  row-gap: var(--double-size);
+  flex-direction: column;
+}
+
+.MapSetupView .list-of-maps {
+  width: 100%;
+  display: grid;
+  row-gap: var(--half-size);
+  column-gap: var(--half-size);
+  grid-template-columns: 1fr 1fr;
+}
+
+.MapSetupView button {
+  padding: 0;
+  aspect-ratio: 1 / 1;
+  border: none;
+  border-radius: var(--half-size);
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+.MapSetupView button:not([disabled]) {
+  cursor: pointer;
+}
+
+.MapSetupView button[disabled] {
+  border: var(--border-size) solid var(--border);
+  background-color: var(--b4);
+}
+
+.MapSetupView button span {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--darken);
+  transition: var(--animation-duration);
+}
+
+.MapSetupView button:not([disabled]):hover span {
+  opacity: 0;
+}

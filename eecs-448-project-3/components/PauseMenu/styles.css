@@ -12,14 +12,6 @@
   flex-direction: column;
 }
 
-.PauseMenu h1 {
-  font-size: calc(var(--double-size) * 4);
-}
-
-.PauseMenu h2 {
-  font-size: calc(var(--double-size) * 2);
-}
-
 .PauseMenu .button-container {
   width: 100%;
   display: flex;

@@ -10,15 +10,13 @@
  * @extends View
  * @public
  */
-class MenuView extends View {
-  #saveLoad;
-
+class MapSetupView extends View {
   /**
    * Renders a defined view into a container. Passes in necessary, predefined
    * render parameters.
    * @async
    * @function render
-   * @memberof MainView
+   * @memberof MapSetupView
    * @param container Container to render the view within
    */
   async render(
@@ -27,20 +25,10 @@ class MenuView extends View {
   ) {
     await super.render(container);
 
-    // Save Load
-    this.#saveLoad = new SaveLoad();
-    await this.#saveLoad.render();
-    this.destructors.push(() => this.#saveLoad.remove());
-
     // Listen for button clicks inside the container
     const buttons = Array.from(this.container.getElementsByTagName('button'));
     const handleClick = this.handleClick.bind(this);
     buttons.forEach((button) => {
-      if (
-        button.getAttribute('data-action') === 'load-game' &&
-        typeof this.#saveLoad.load() === 'undefined'
-      )
-        button.disabled = true;
       button.addEventListener('click', handleClick);
       this.destructors.push(() =>
         button.removeEventListener('click', handleClick)
@@ -53,15 +41,13 @@ class MenuView extends View {
   /**
    * Click handling
    * @function handleClick
-   * @memberof MainView
+   * @memberof MapSetupView
    * @param target
    */
   handleClick({ target: button }) {
     // Once a button is clicked, render ship placement view
-    if (button.getAttribute('data-action') === 'load-game')
-      new CanvasView({
-        state: this.#saveLoad.load(),
-      }).render(this.container);
-    else new MapSetupView().render(this.container);
+    new CanvasView({
+      state: { mapType: button.getAttribute('data-type') },
+    }).render(this.container);
   }
 }

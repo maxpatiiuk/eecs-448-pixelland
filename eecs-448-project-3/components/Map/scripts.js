@@ -16,6 +16,8 @@ class Map extends Component {
 
   #map;
 
+  mapType = 'rainbowland';
+
   constructor(options) {
     super({ ...options, hasContainer: false });
   }
@@ -46,10 +48,11 @@ class Map extends Component {
   }
 
   async getDeterministicRandom(salt, max) {
-    const randomNumber = Math.abs(
-      stringToNumber(await getHash(`${this.seed}${salt}`))
+    const randomNumber = stringToNumber(await getHash(`${this.seed}${salt}`));
+    return clampInt(
+      max,
+      randomNumber * Math.max(1, Math.floor(max / Math.abs(randomNumber)))
     );
-    return (randomNumber * Math.max(1, Math.floor(max / randomNumber))) % max;
   }
 
   getCellAtCoordinate(row, col) {
@@ -64,9 +67,10 @@ class Map extends Component {
 
   async generateCell(row, col) {
     const random = this.getDeterministicRandom.bind(this, `${row},${col}`);
-    const hue = 100 - ((row * 2 - col + (await random(50))) % 360);
+    const baseHue = clampInt(360, stringToNumber(this.seed));
+    const hue = clampInt(360, baseHue + row * 2 - col + (await random(50)));
     const saturation =
-      30 + (Math.floor(row / 2 + col / 2 + (await random(5))) % 40);
+      20 + clampInt(40, Math.floor(row / 2 + col / 2 + (await random(5))));
     this.#map[row] ??= {};
     this.#map[row][col] = {
       backgroundColor: `hsl(${hue}deg, ${saturation}%, 50%)`,

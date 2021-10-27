@@ -60,6 +60,8 @@ class CanvasView extends View {
     await this.#map.render();
     if (typeof this.options.state?.seed === 'string')
       this.#map.seed = this.options.state.seed;
+    if (typeof this.options.state?.mapType === 'string')
+      this.#map.mapType = this.options.state.mapType;
     this.destructors.push(() => this.#map.remove());
 
     // Controls
@@ -166,6 +168,7 @@ class CanvasView extends View {
         this.#saveLoad.save({
           seed: this.#map.seed,
           coordinates: this.#grid.coordinates,
+          mapType: this.#map.mapType,
         });
         this.#pauseMenu.loadButton.disabled = false;
         alert('Saved');

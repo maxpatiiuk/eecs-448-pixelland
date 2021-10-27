@@ -34,3 +34,6 @@ const stringToNumber = (string) =>
     total = (total << 5) - total + character.charCodeAt(0);
     return total & total;
   }, 0);
+
+const clampInt = (max, value) =>
+  value % max < 0 ? max + (value % max) : value % max;
