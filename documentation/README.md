@@ -96,11 +96,33 @@ Open `docs-gen/index.html` in your browser to view the static docs.
 
 ## Modeling Diagrams, Design Patterns, and Prototype Architecture
 
-> Identify the design paradigm you (i.e., the team) chose for your prototype and explain why you chose that paradigm.
+> Identify the design paradigm you (i.e., the team) chose for your prototype and
+> explain why you chose that paradigm.
 
-For the final project, we stayed consistent with our Javascript implementation of Battleship and followed a **component-level** design paradigm. By definition, component-level design is such that you create foundational building blocks for the whole system - building blocks which are "portable, replaceable, and reusable." While our game is written in a functional language (Javascript), we follow this more abstract, component-based design model as it informs extensibility for the future. The basic components of the game (ie, the game grid, the player, the map, and the control mapping) are all clearly defined along with the functionality and their relationships with one another. Down the line, this clear, structured approach can enable us to alter or add on to the functionality of specific components (add more maps, different keys, a two+ player mode, etc) without refactoring large sections of the code base. 
+For the final project, we stayed consistent with our Javascript implementation
+of Battleship and followed a **component-level** design paradigm. By definition,
+component-level design is such that you create foundational building blocks for
+the whole system - building blocks which are "portable, replaceable, and
+reusable." While our game is written in a functional language (Javascript), we
+follow this more abstract, component-based design model as it informs
+extensibility for the future. The basic components of the game (ie, the game
+grid, the player, the map, and the control mapping) are all clearly defined
+along with the functionality and their relationships with one another. Down the
+line, this clear, structured approach can enable us to alter or add on to the
+functionality of specific components (add more maps, different keys, a two+
+player mode, etc) without refactoring large sections of the code base.
 
-Following the component-level design paradigm also gives us the freedom to establish other layers of abstraction. Due to the nature of the game, we designed it such that components would exist under the umbrella of certain "views." If the game is just beginning, the user would be met with a Menu View that makes connections to other neccessary components for that view, such as to the Person component in a character selection screen. If the user is playing the game, then the Canvas View would be rendered and would establish all of the conections to components required for gameplay. Ultimately, the "views" are simply components with our usecase/abstraction built in to their definition. In following the component-level design paradigm, we can do what we consider to be the most logical and fitting method of development for this video game.              
+Following the component-level design paradigm also gives us the freedom to
+establish other layers of abstraction. Due to the nature of the game, we
+designed it such that components would exist under the umbrella of certain
+"views." If the game is just beginning, the user would be met with a Menu View
+that makes connections to other neccessary components for that view, such as to
+the Person component in a character selection screen. If the user is playing the
+game, then the Canvas View would be rendered and would establish all of the
+conections to components required for gameplay. Ultimately, the "views" are
+simply components with our usecase/abstraction built in to their definition. In
+following the component-level design paradigm, we can do what we consider to be
+the most logical and fitting method of development for this video game.
 
 ## Works Cited
 
