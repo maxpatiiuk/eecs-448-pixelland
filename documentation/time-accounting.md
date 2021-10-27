@@ -51,23 +51,23 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         </tr>
         <tr>
             <td>Generating map</td>
-            <td>1.25h</td>
+            <td>2.25h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
-            <td>0h</td>
+            <td>Save/Load game</td>
+            <td>1h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
-            <td>0h</td>
+            <td>Pause menu</td>
+            <td>0.5h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
