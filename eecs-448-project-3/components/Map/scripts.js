@@ -11,7 +11,10 @@
  * @extends Component
  * @public
  */
+
 class Map extends Component {
+  seed;
+
   constructor(options) {
     super({ ...options, hasContainer: false });
   }
@@ -23,6 +26,9 @@ class Map extends Component {
    */
   async render() {
     await super.render();
+
+    // Generate random seed for this world
+    this.seed = await getHash(Math.random());
 
     /*
      *Var img = new Image();

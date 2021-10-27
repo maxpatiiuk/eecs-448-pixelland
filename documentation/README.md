@@ -117,6 +117,8 @@ Following the component-level design paradigm also gives us the freedom to estab
 - [Basic OOP implementation of MVC](https://github.com/maxxxxxdlp/eecs-448-battleship/blob/1c3ab08b1ac0621307e7af35c2ad064e9491836a/eecs-448-battleship/lib/js/view.js#L11)
   was inspired by [Backbone.js](https://backbonejs.org/) (except, we simplified
   and modernized it)
+- String hashing algorithm copied from
+  [here](https://stackoverflow.com/a/43383990/8584605).
 
 ### Documentation References
 
