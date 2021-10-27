@@ -18,7 +18,7 @@ class CanvasView extends View {
 
   #cellSize;
 
-  #cellSizeUpdateListeners;
+  #cellSizeUpdateListeners = [];
 
   #player;
 
@@ -28,9 +28,10 @@ class CanvasView extends View {
 
   #pauseMenu;
 
-  constructor() {
-    super({});
-    this.#cellSizeUpdateListeners = [];
+  #saveLoad;
+
+  constructor(options) {
+    super(options);
   }
 
   /**
@@ -54,9 +55,14 @@ class CanvasView extends View {
     await this.#player.render(playerContainer);
     this.destructors.push(() => this.#player.remove());
 
+    // Map Generator
     this.#map = new Map();
     await this.#map.render();
+    if (typeof this.options.state?.seed === 'string')
+      this.#map.seed = this.options.state.seed;
+    this.destructors.push(() => this.#map.remove());
 
+    // Controls
     this.#controls = new Controls({
       handleKeyToggle: (type) => {
         if (type === 'escape')
@@ -68,6 +74,7 @@ class CanvasView extends View {
     await this.#controls.render();
     this.destructors.push(() => this.#controls.remove());
 
+    // Grid
     this.#canvas = this.container.getElementsByTagName('canvas')[0];
     this.#grid = new Grid({
       canvas: this.#canvas,
@@ -76,11 +83,15 @@ class CanvasView extends View {
         this.#controls
       ),
     });
+    if (Array.isArray(this.options.state?.coordinates))
+      this.#grid.coordinates = this.options.state.coordinates;
     await this.#grid.render();
     this.#controls.afterKeyPress = () => {
       this.#grid.checkPressedKeys();
     };
+    this.destructors.push(() => this.#grid.remove());
 
+    // Resize Listeners
     this.destructors.push(() => this.#grid.remove());
     this.#cellSizeUpdateListeners.push(
       this.#grid.handleCellResize.bind(this.#grid)
@@ -93,14 +104,23 @@ class CanvasView extends View {
     );
     handleResize();
 
+    // Save Load
+    this.#saveLoad = new SaveLoad();
+    await this.#saveLoad.render();
+    this.destructors.push(() => this.#saveLoad.remove());
+
+    // Pause Menu
     this.#pauseMenu = new PauseMenu({
       onClick: this.handlePauseMenuInteraction.bind(this),
     });
     await this.#pauseMenu.render(
       this.container.getElementsByClassName('pause-menu')[0]
     );
+    if (typeof this.#saveLoad.load() === 'undefined')
+      this.#pauseMenu.loadButton.disabled = true;
     this.#pauseMenu.container.classList.add('overlay');
     this.#pauseMenu.container.classList.add('pause-menu');
+    this.destructors.push(() => this.#pauseMenu.remove());
 
     return this;
   }
@@ -132,20 +152,28 @@ class CanvasView extends View {
        * TODO: add save&load game functionality
        */
       case 'pause': {
-        this.#pauseMenu.show();
+        this.#pauseMenu.container.style.display = '';
         this.#grid.paused = true;
 
         break;
       }
       case 'resume': {
-        this.#pauseMenu.hide();
+        this.#pauseMenu.container.style.display = 'none';
         this.#grid.paused = false;
-
         break;
       }
       case 'save':
+        this.#saveLoad.save({
+          seed: this.#map.seed,
+          coordinates: this.#grid.coordinates,
+        });
+        this.#pauseMenu.loadButton.disabled = false;
+        alert('Saved');
         break;
       case 'load':
+        new CanvasView({
+          state: this.#saveLoad.load(),
+        }).render(this.container);
         break;
       case 'settings':
         break;
