@@ -11,9 +11,10 @@
  * @extends Component
  * @public
  */
-
 class Map extends Component {
   seed;
+
+  #map;
 
   constructor(options) {
     super({ ...options, hasContainer: false });
@@ -28,7 +29,7 @@ class Map extends Component {
     await super.render();
 
     // Generate random seed for this world
-    this.seed = await getHash(Math.random());
+    this.seed = (await getHash(Math.random())).slice(0, 5);
 
     /*
      *Var img = new Image();
@@ -37,14 +38,37 @@ class Map extends Component {
      *
      */
 
+    if (DEVELOPMENT) console.log(`Map seed: ${this.seed}`);
+
+    this.#map = [];
+
     return this;
   }
 
+  async getDeterministicRandom(salt, max) {
+    const randomNumber = Math.abs(
+      stringToNumber(await getHash(`${this.seed}${salt}`))
+    );
+    return (randomNumber * Math.max(1, Math.floor(max / randomNumber))) % max;
+  }
+
   getCellAtCoordinate(row, col) {
-    const hue = 100 - ((row * 2 - col + Math.floor(Math.random() * 50)) % 360);
+    if (typeof this.#map[row]?.[col] === 'undefined')
+      this.generateCell(row, col);
+    return (
+      this.#map[row]?.[col] ?? {
+        isAnimated: false,
+      }
+    );
+  }
+
+  async generateCell(row, col) {
+    const random = this.getDeterministicRandom.bind(this, `${row},${col}`);
+    const hue = 100 - ((row * 2 - col + (await random(50))) % 360);
     const saturation =
-      30 + (Math.floor(row / 2 + col / 2 + Math.random() * 5) % 40);
-    return {
+      30 + (Math.floor(row / 2 + col / 2 + (await random(5))) % 40);
+    this.#map[row] ??= {};
+    this.#map[row][col] = {
       backgroundColor: `hsl(${hue}deg, ${saturation}%, 50%)`,
       isAnimated: false,
     };

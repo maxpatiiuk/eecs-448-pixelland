@@ -13,6 +13,8 @@
  */
 
 class PauseMenu extends Component {
+  loadButton;
+
   /**
    * @async
    * @function render
@@ -31,18 +33,12 @@ class PauseMenu extends Component {
       this.destructors.push(() =>
         button.removeEventListener('click', handleClick)
       );
+      if (button.getAttribute('data-action') === 'load')
+        this.loadButton = button;
     });
 
-    this.hide();
+    this.container.style.display = 'none';
 
     return this;
-  }
-
-  hide() {
-    this.container.style.display = 'none';
-  }
-
-  show() {
-    this.container.style.display = '';
   }
 }

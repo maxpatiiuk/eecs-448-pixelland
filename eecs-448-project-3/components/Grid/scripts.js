@@ -26,10 +26,12 @@ class Grid extends Component {
 
   #movementDirection = [0, 0];
 
+  #renderedFrameCount = 0;
+
   paused = false;
 
   // Real player coordinates
-  #coordinates = [0, 0];
+  coordinates = [0, 0];
 
   /*
    * While walking between cells, this.#animationOffset
@@ -75,8 +77,8 @@ class Grid extends Component {
     );
 
     const absoluteCoordinates = [
-      this.#coordinates[0] + rowIndex,
-      this.#coordinates[1] + columnIndex,
+      this.coordinates[0] + rowIndex,
+      this.coordinates[1] + columnIndex,
     ];
 
     const cell = this.options.getCellAtCoordinate(...absoluteCoordinates);
@@ -93,13 +95,12 @@ class Grid extends Component {
     if (typeof cell.backgroundImage === 'object')
       this.#context.drawImage(cell.backgroundImage, ...cellPosition);
 
-    if (DEVELOPMENT)
+    if (DEBUG) {
       // Draw cell borders
       this.#context.strokeRect(x, y, this.#cellSize, this.#cellSize);
-
-    if (DEBUG) {
-      // Draw cell coordinates
       this.#context.fillStyle = '#000';
+
+      // Draw cell coordinates
       this.#context.fillText(absoluteCoordinates.join(' '), x, y);
     }
   }
@@ -118,15 +119,18 @@ class Grid extends Component {
       (size) => Math.ceil(size / this.#cellSize) + 2
     );
 
-    if (DEVELOPMENT) {
+    if (DEBUG) {
       this.#context.lineWidth = 2;
       this.#context.strokeStyle = '#fff';
+      this.#context.font = `${Math.ceil(this.#cellSize / 3)}px sans-serif`;
     }
 
-    if (DEBUG)
-      this.#context.font = `${Math.ceil(this.#cellSize / 3)}px sans-serif`;
-
-    if (this.#hasAnimatedCells || this.#isMoving || this.#hadResize) {
+    if (
+      this.#hasAnimatedCells ||
+      this.#isMoving ||
+      this.#hadResize ||
+      this.#renderedFrameCount < 120
+    ) {
       this.#hasAnimatedCells = false;
       Array.from({ length: cellCount[0] }, (_, columnIndex) =>
         Array.from({ length: cellCount[1] }, (_, rowIndex) =>
@@ -134,6 +138,8 @@ class Grid extends Component {
         )
       );
     }
+
+    this.#renderedFrameCount += 1;
 
     this.#hadResize = false;
 
@@ -169,11 +175,11 @@ class Grid extends Component {
       if (counter > animationDuration) {
         clearInterval(interval);
         this.#movementDirection.forEach((amount, index) => {
-          this.#coordinates[index] += amount;
+          this.coordinates[index] += amount;
         });
 
         if (DEVELOPMENT)
-          console.log(`Coordinates: ${this.#coordinates.join(' ')}`);
+          console.log(`Coordinates: ${this.coordinates.join(' ')}`);
 
         this.#animationOffset = [0, 0];
         this.#isMoving = false;
