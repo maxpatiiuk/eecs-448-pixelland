@@ -118,6 +118,7 @@ class CanvasView extends View {
     await this.#pauseMenu.render(
       this.container.getElementsByClassName('pause-menu')[0]
     );
+    this.handlePauseMenuInteraction('resume');
     if (typeof this.#saveLoad.load() === 'undefined')
       this.#pauseMenu.loadButton.disabled = true;
     this.#pauseMenu.container.classList.add('overlay');
@@ -162,6 +163,10 @@ class CanvasView extends View {
       case 'resume': {
         this.#pauseMenu.container.style.display = 'none';
         this.#grid.paused = false;
+        document.body
+          .requestFullscreen()
+          .then(() => DEVELOPMENT && console.log('Full Screen'))
+          .catch(console.error);
         break;
       }
       case 'save':

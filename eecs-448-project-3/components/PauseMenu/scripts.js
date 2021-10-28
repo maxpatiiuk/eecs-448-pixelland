@@ -37,8 +37,6 @@ class PauseMenu extends Component {
         this.loadButton = button;
     });
 
-    this.container.style.display = 'none';
-
     return this;
   }
 }
