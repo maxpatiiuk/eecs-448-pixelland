@@ -13,6 +13,10 @@
 class MenuView extends View {
   #saveLoad;
 
+  constructor() {
+    super({});
+  }
+
   /**
    * Renders a defined view into a container. Passes in necessary, predefined
    * render parameters.

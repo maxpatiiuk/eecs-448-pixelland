@@ -14,9 +14,7 @@
 class Map extends Component {
   seed;
 
-  #map;
-
-  mapType = 'rainbowland';
+  map = [];
 
   constructor(options) {
     super({ ...options, hasContainer: false });
@@ -42,8 +40,6 @@ class Map extends Component {
 
     if (DEVELOPMENT) console.log(`Map seed: ${this.seed}`);
 
-    this.#map = [];
-
     return this;
   }
 
@@ -56,24 +52,19 @@ class Map extends Component {
   }
 
   getCellAtCoordinate(row, col) {
-    if (typeof this.#map[row]?.[col] === 'undefined')
+    if (typeof this.map[row]?.[col] === 'undefined')
       this.generateCell(row, col);
     return (
-      this.#map[row]?.[col] ?? {
+      this.map[row]?.[col] ?? {
         isAnimated: false,
       }
     );
   }
 
-  async generateCell(row, col) {
-    const random = this.getDeterministicRandom.bind(this, `${row},${col}`);
-    const baseHue = clampInt(360, stringToNumber(this.seed));
-    const hue = clampInt(360, baseHue + row * 2 - col + (await random(50)));
-    const saturation =
-      20 + clampInt(40, Math.floor(row / 2 + col / 2 + (await random(5))));
-    this.#map[row] ??= {};
-    this.#map[row][col] = {
-      backgroundColor: `hsl(${hue}deg, ${saturation}%, 50%)`,
+  generateCell(row, col) {
+    this.map[row] ??= {};
+    this.map[row][col] = {
+      backgroundColor: `hsl(0deg, 0%, 50%)`,
       isAnimated: false,
     };
   }

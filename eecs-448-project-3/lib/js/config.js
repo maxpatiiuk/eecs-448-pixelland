@@ -17,3 +17,7 @@ const DEBUG = urlParameters.has('debug');
 const DEVELOPMENT = DEBUG || urlParameters.has('development');
 if (DEBUG) document.body.classList.add('debug');
 if (DEVELOPMENT) document.body.classList.add('development');
+
+const MAP_TYPE = DEVELOPMENT
+  ? urlParameters.get('map') ?? 'rainbowland'
+  : undefined;

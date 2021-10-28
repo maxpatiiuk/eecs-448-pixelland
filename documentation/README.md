@@ -42,6 +42,10 @@ Example usage:
 - [http://localhost:8000/?development](http://localhost:8000/?development)
   (start the game in the development mode)
 
+This would default to the `rainbowland` map. You can select a different map
+though the `map` get parameter. For example:
+`https://localhost:8080/?development&map=minecraft`
+
 If you don't have python installed, you can use any one of
 [these static web servers](https://gist.github.com/willurd/5720255)
 

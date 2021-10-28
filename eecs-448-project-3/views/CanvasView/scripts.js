@@ -56,12 +56,15 @@ class CanvasView extends View {
     this.destructors.push(() => this.#player.remove());
 
     // Map Generator
-    this.#map = new Map();
+    const mapType = this.options.state?.mapType ?? MAP_TYPE;
+    const mapInstance =
+      {
+        rainbowland: Rainbowland,
+      }[mapType] ?? Map;
+    this.#map = new mapInstance();
     await this.#map.render();
     if (typeof this.options.state?.seed === 'string')
       this.#map.seed = this.options.state.seed;
-    if (typeof this.options.state?.mapType === 'string')
-      this.#map.mapType = this.options.state.mapType;
     this.destructors.push(() => this.#map.remove());
 
     // Controls
@@ -163,10 +166,11 @@ class CanvasView extends View {
       case 'resume': {
         this.#pauseMenu.container.style.display = 'none';
         this.#grid.paused = false;
-        document.body
-          .requestFullscreen()
-          .then(() => DEVELOPMENT && console.log('Full Screen'))
-          .catch(console.error);
+        if (!DEVELOPMENT)
+          document.body
+            .requestFullscreen()
+            .then(() => DEVELOPMENT && console.log('Full Screen'))
+            .catch(console.error);
         break;
       }
       case 'save':

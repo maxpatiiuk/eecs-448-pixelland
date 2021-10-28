@@ -11,6 +11,10 @@
  * @public
  */
 class MapSetupView extends View {
+  constructor() {
+    super({});
+  }
+
   /**
    * Renders a defined view into a container. Passes in necessary, predefined
    * render parameters.

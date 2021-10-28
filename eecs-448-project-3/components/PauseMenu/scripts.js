@@ -15,6 +15,10 @@
 class PauseMenu extends Component {
   loadButton;
 
+  constructor(options) {
+    super(options);
+  }
+
   /**
    * @async
    * @function render
