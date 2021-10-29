@@ -123,6 +123,9 @@ In a more granular sense, we can describe our game as following an MVC architect
 
 Overall, our software architecture follows standard MVC design patterns as would be expected from a traditional web app, but it molded to fit our needs in making a JavaScript-based video game. Furthermore, we neccessarily follow the client-server architecture so that people can reach and play our game.
 
+### Generated UML Diagram
+We generated a UML diagram using [a plugin](https://plugins.jetbrains.com/plugin/17380-uml-javascript-and-typescript) for the JetBrains Ultimate IDE. The plugin generates class diagrams that follow the latest EMCAScript 6 class standard. We have chosen to omit the field descriptions for each class in order to maintain readability. ![UML Diagram](documentation/../UML.png) 
+
 ## Works Cited
 
 ### Code References
