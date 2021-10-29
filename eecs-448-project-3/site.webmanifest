@@ -1,6 +1,6 @@
 {
-  "name": "EECS 448: Battleship",
-  "short_name": "Battleship",
+  "name": "EECS 448: Pixelland",
+  "short_name": "Pixelland",
   "icons": [
     {
       "src": "/static/icons/favicon-16x16.png",
@@ -35,6 +35,6 @@
   ],
   "theme_color": "#001122",
   "background_color": "#001122",
-  "start_url": "https://eecs-448-Battleship.vercel.app",
+  "start_url": "http://localhost:80/",
   "display": "standalone"
 }

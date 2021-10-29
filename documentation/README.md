@@ -1,6 +1,6 @@
 # Documentation
 
-This is a general documentation for EECS 448 Battleship game.
+This is a general documentation for EECS 448 Pixelland game.
 
 This guide contains information on getting the development and production server
 up, as well as information about tools used in the process of development and

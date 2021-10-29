@@ -1,12 +1,12 @@
 {
-  "name": "eecs-448-battleship",
+  "name": "eecs-448-pixelland",
   "version": "1.0.0",
   "private": true,
-  "description": "EECS 448: Battleship",
+  "description": "EECS 448: Pixelland",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/maxxxxxdlp/eecs-448-battleship"
+    "url": "git://github.com/maxxxxxdlp/eecs-448-project-3"
   },
   "devDependencies": {
     "@maxxxxxdlp/eslint-config": "^1.0.7",
