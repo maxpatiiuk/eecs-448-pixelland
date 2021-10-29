@@ -50,7 +50,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
         </tr>
         <tr>
-            <td>Generating map</td>
+            <td>Rainbowland Map</td>
             <td>2.25h</td>
             <td>0h</td>
             <td>0h</td>
@@ -74,8 +74,8 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
-            <td>0h</td>
+            <td>Minecraft Map</td>
+            <td>1.5h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
