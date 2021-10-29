@@ -2,6 +2,7 @@
  * The name of this view
  * Later, to render this view, call new> MenuView(options).render(this.container)
  */
+
 /**
  * Base MenuView class
  * @class MenuView
@@ -11,6 +12,12 @@
  * @public
  */
 class MenuView extends View {
+
+  /**
+   * @type {Object} saveLoad
+   * @memberof MenuView
+   * @public
+   */
   #saveLoad;
 
   constructor() {
@@ -22,7 +29,7 @@ class MenuView extends View {
    * render parameters.
    * @async
    * @function render
-   * @memberof MainView
+   * @memberof MenuView
    * @param container Container to render the view within
    */
   async render(
@@ -57,8 +64,9 @@ class MenuView extends View {
   /**
    * Click handling
    * @function handleClick
-   * @memberof MainView
-   * @param target
+   * @memberof MapSetupView
+   * @param {json} target
+   * @param target.button button
    */
   handleClick({ target: button }) {
     // Once a button is clicked, render ship placement view

@@ -3,6 +3,7 @@
  * Later, to render this view, call:
  * New Person(options).render(this.container)
  */
+
 /**
  * Draw current player / NPC
  * @class Person
@@ -12,6 +13,12 @@
  * @public
  */
 class Person extends Component {
+  
+  /**
+   * @type {Person} person
+   * @memberof PauseMenu
+   * @public
+   */
   #person;
 
   constructor() {
@@ -34,7 +41,7 @@ class Person extends Component {
      * TODO: create an image for the player (from 4 directions)
      *       and display it here using css background-image
      */
-
+    
     this.#person = this.container.getElementsByClassName('person')[0];
 
     return this;

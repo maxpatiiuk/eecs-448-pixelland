@@ -3,17 +3,40 @@
  * Later, to render this view, call:
  * New Controls(options).render(this.container)
  */
+
 /**
- * Handle game controls
- * @class Controls
- * @constructor
- * @param options
- * @extends Component
+ * Sets movement keys
+ * @constant
+ * @type {Set}
+ * @param {String} up key up
+ * @param {String} down key down
+ * @param {String} left key left
+ * @param {String} right key right
+ * @memberof Controls
  * @public
  */
-
 const movementKeys = new Set(['up', 'down', 'left', 'right']);
 
+/**
+ * Maps keys with the in-game function key equivelant  
+ * @constant
+ * @param {json} keys
+ * @param {String} keys.KeyW "up"
+ * @param {String} keys.KeyS "down"
+ * @param {String} keys.KeyA "left"
+ * @param {String} keys.KeyD "right"
+ * @param {String} keys.ArrowUp "up"
+ * @param {String} keys.ArrowDown "down"
+ * @param {String} keys.ArrowLeft "left"
+ * @param {String} keys.ArrowRight "right"
+ * @param {String} keys.KeyK "up"
+ * @param {String} keys.KeyJ "down"
+ * @param {String} keys.KeyH "left"
+ * @param {String} keys.KeyL "right"
+ * @param {String} keys.Escape "escape"
+ * @memberof Controls
+ * @public
+ */
 const keyMapper = {
   KeyW: 'up',
   KeyS: 'down',
@@ -30,11 +53,33 @@ const keyMapper = {
   Escape: 'escape',
 };
 
+/**
+ * Maps keys toggle  
+ * @constant
+ * @param {json} toggleKey
+ * @param {String} toggleKey.Escape "escape"
+ * @memberof Controls
+ * @public
+ */
 const toggleKeys = {
   Escape: 'escape',
 };
 
-class Controls extends Component {
+/**
+ * Handle game control keys
+ * @class Controls
+ * @constructor
+ * @param options
+ * @extends Component
+ * @public
+ */
+ class Controls extends Component {
+
+  /**
+   * @type {Set} pressedKeys
+   * @memberof Controls
+   * @public
+   */
   #pressedKeys = new Set();
 
   // This callback is set in CanvasView
@@ -48,9 +93,10 @@ class Controls extends Component {
   }
 
   /**
+   * Handle render-related functionality for controls
    * @async
    * @function render
-   * @memberof Person
+   * @memberof Controls
    */
   async render() {
     await super.render();
@@ -68,7 +114,13 @@ class Controls extends Component {
     return this;
   }
 
+  /**
+   * @function handleKeyPress
+   * @memberof Controls
+   * @param {type, code}
+   */
   handleKeyPress({ type, code }) {
+
     if (code in toggleKeys) {
       if (type === 'keyup') this.options.handleKeyToggle(toggleKeys[code]);
       return;
@@ -88,12 +140,20 @@ class Controls extends Component {
     if (typeof this.afterKeyPress !== 'undefined') this.afterKeyPress();
   }
 
+  /**
+   * @function getPressedSpecialKeys
+   * @memberof Controls
+   */
   getPressedSpecialKeys() {
     return Array.from(this.#pressedKeys).filter(
       (key) => !movementKeys.has(key)
     );
   }
 
+  /**
+   * @function getMovementDirection
+   * @memberof Controls
+   */
   getMovementDirection() {
     const pressedKeys = new Set(
       Array.from(this.#pressedKeys).filter((key) => movementKeys.has(key))

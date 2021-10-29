@@ -3,6 +3,7 @@
  * Later, to render this view, call:
  * New CanvasView(options).render(this.container)
  */
+
 /**
  * Base CanvasView class
  * @class CanvasView
@@ -12,22 +13,68 @@
  * @public
  */
 class CanvasView extends View {
+
+  /**
+   * @type {Object} canvas
+   * @memberof CanvasView
+   * @public
+   */
   #canvas;
 
+  /**
+   * @type {Object} grid
+   * @memberof CanvasView
+   * @public
+   */
   #grid;
 
+  /**
+   * @type {Object} cellSize
+   * @memberof CanvasView
+   * @public
+   */
   #cellSize;
 
+  /**
+   * @type {Array} cellSizeUpdateListeners
+   * @memberof CanvasView
+   * @public
+   */
   #cellSizeUpdateListeners = [];
 
+  /**
+   * @type {Object} player
+   * @memberof CanvasView
+   * @public
+   */
   #player;
 
+  /**
+   * @type {Object} controls
+   * @memberof CanvasView
+   * @public
+   */
   #controls;
 
+  /**
+   * @type {Object} map
+   * @memberof CanvasView
+   * @public
+   */
   #map;
 
+  /**
+   * @type {Object} pauseMenu
+   * @memberof CanvasView
+   * @public
+   */
   #pauseMenu;
 
+  /**
+   * @type {Object} saveLoad
+   * @memberof CanvasView
+   * @public
+   */
   #saveLoad;
 
   constructor(options) {
@@ -39,7 +86,7 @@ class CanvasView extends View {
    * render parameters.
    * @async
    * @function render
-   * @memberof GameBoardView
+   * @memberof CanvasView
    * @param container Container to render the view within
    */
   async render(
@@ -131,6 +178,10 @@ class CanvasView extends View {
     return this;
   }
 
+  /**
+   * @function handleResize
+   * @memberof CanvasView
+   */
   handleResize() {
     this.#canvas.width = window.innerWidth;
     this.#canvas.height = window.innerHeight;
@@ -151,6 +202,11 @@ class CanvasView extends View {
     );
   }
 
+  /**
+   * @function handlePauseMenuInteraction
+   * @param action string description of action case
+   * @memberof CanvasView
+   */
   handlePauseMenuInteraction(action) {
     switch (action) {
       /*

@@ -1,13 +1,23 @@
 /**
- * Utility functions
- * @module Utils
+ * Crypt functions
+ * @module Crypto
  */
+
+components
 
 /*
  * Generate 64-bit hash from a string
  *
  * Source:
  * https://stackoverflow.com/a/43383990/8584605
+ */
+/**
+ * Renders a defined view into a container. Passes in necessary, predefined
+ * render parameters.
+ * @async
+ * @function getHash
+ * @memberof CanvasView
+ * @param container Container to render the view within
  */
 async function getHash(string, algo = 'SHA-256') {
   const stringBuf = new TextEncoder().encode(string);

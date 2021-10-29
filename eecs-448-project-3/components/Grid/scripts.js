@@ -3,6 +3,7 @@
  * Later, to render this view, call:
  * New Grid(options).render(this.container)
  */
+
 /**
  * Draw current player / NPC
  * @class Grid
@@ -12,32 +13,87 @@
  * @public
  */
 class Grid extends Component {
+
+  /**
+   * @type {Boolean} destructorCalled
+   * @memberof Grid
+   * @public
+   */
   #destructorCalled = false;
 
+  /**
+   * @type {Boolean} hasAnimatedCells
+   * @memberof Grid
+   * @public
+   */
   #hasAnimatedCells = true;
 
+  /**
+   * @type {Integer} cellSize
+   * @memberof Grid
+   * @public
+   */
   #cellSize;
 
+  /**
+   * @type {Context} context
+   * @memberof Grid
+   * @public
+   */
   #context;
 
+  /**
+   * @type {Boolean} isMoving
+   * @memberof Grid
+   * @public
+   */
   #isMoving = false;
 
+  /**
+   * @type {Boolean} hadResize
+   * @memberof Grid
+   * @public
+   */
   #hadResize = true;
 
+  /**
+   * @type {Array} movementDirection
+   * @memberof Grid
+   * @public
+   */
   #movementDirection = [0, 0];
 
+  /**
+   * @type {Integer} renderedFrameCount
+   * @memberof Grid
+   * @public
+   */
   #renderedFrameCount = 0;
 
+  /**
+   * @type {Boolean} paused
+   * @memberof Grid
+   * @public
+   */
   paused = false;
 
   // Real player coordinates
+  /**
+   * @type {Array} coordinates
+   * @memberof Grid
+   * @public
+   */
   coordinates = [0, 0];
 
   /*
    * While walking between cells, this.#animationOffset
    * are smoothly transitioning between [0,0] and the movement destination
    * (e.x, [1,0] or [-1, -1])
-   *
+   */
+  /**
+   * @type {Array} animationOffset
+   * @memberof Grid
+   * @public
    */
   #animationOffset = [0, 0];
 
@@ -48,7 +104,7 @@ class Grid extends Component {
   /**
    * @async
    * @function render
-   * @memberof Person
+   * @memberof Grid
    * @param container Container to render the view within
    */
   async render() {
@@ -64,6 +120,13 @@ class Grid extends Component {
     return this;
   }
 
+  /**
+   * @function drawCell
+   * @memberof Grid
+   * @param rowIndex relative row index
+   * @param columnIndex relative column index
+   * @param firstCellCoordinates starting cell coordinates
+   */
   drawCell(rowIndex, columnIndex, firstCellCoordinates) {
     const x = Math.floor(
       columnIndex * this.#cellSize +
@@ -105,6 +168,10 @@ class Grid extends Component {
     }
   }
 
+  /**
+   * @function draw
+   * @memberof Grid
+   */
   draw() {
     // TODO: fix player's position changing on resize
 
@@ -147,17 +214,30 @@ class Grid extends Component {
       window.requestAnimationFrame(this.draw.bind(this));
   }
 
+  /**
+   * @function handleCellResize
+   * @param cellSize size of game cell in viewport (relative size)
+   * @memberof Grid
+   */
   handleCellResize(cellSize) {
     this.#cellSize = cellSize;
     this.#hadResize = true;
   }
-
+  
+  /**
+   * @function checkPressedKeys
+   * @memberof Grid
+   */
   checkPressedKeys() {
     if (this.#isMoving) return;
     this.#movementDirection = this.options.getMovementDirection();
     if (this.#movementDirection.join('') !== '00') this.startMovement();
   }
-
+  
+  /**
+   * @function startMovement
+   * @memberof Grid
+   */
   startMovement() {
     this.#isMoving = true;
     const animationDuration =

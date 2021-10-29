@@ -5,6 +5,7 @@
  * @class Component
  * @constructor
  * @param {renderOptions}
+ * @extends View
  * @public
  */
 class Component extends View {

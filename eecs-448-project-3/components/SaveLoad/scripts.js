@@ -3,15 +3,22 @@
  * Later, to render this view, call:
  * New SaveLoad(options).render(this.container)
  */
+
 /**
- * Handle game controls
- * @class Controls
+ * Handle context saving and loading
+ * @class SaveLoad
  * @constructor
  * @param options
- * @extends SaveLoad
+ * @extends Component
  * @public
  */
 class SaveLoad extends Component {
+  
+  /**
+   * @type {String} version
+   * @memberof SaveLoad
+   * @public
+   */
   #version = '1';
 
   constructor(options) {
@@ -21,6 +28,11 @@ class SaveLoad extends Component {
     });
   }
 
+  /**
+   * @function save
+   * @param object JS object to be stored
+   * @memberof SaveLoad
+   */
   save(object) {
     localStorage.setItem(
       'save',
@@ -31,6 +43,10 @@ class SaveLoad extends Component {
     );
   }
 
+  /**
+   * @function load
+   * @memberof SaveLoad
+   */
   load() {
     const { version, payload } = JSON.parse(localStorage.getItem('save')) ?? '';
     return version === this.#version ? payload : undefined;

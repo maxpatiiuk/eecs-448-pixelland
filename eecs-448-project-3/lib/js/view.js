@@ -9,19 +9,31 @@
 class View {
   /**
    * View Name
-   * @type string
+   * @type {String}
    * @memberof View
    * @public
    */
   #name;
 
+  /**
+   * Destructors
+   * @type {Array}
+   * @memberof View
+   * @public
+   */
   destructors = [];
 
+  /**
+   * hasContainer
+   * @type {Boolean}
+   * @memberof View
+   * @public
+   */
   #hasContainer = true;
 
   /**
    * Total count of rendered views
-   * @type number
+   * @type {Number}
    * @memberof View
    * @public
    */

@@ -3,18 +3,15 @@
  * Later, to render this view, call new> MenuView(options).render(this.container)
  */
 /**
- * Base MenuView class
- * @class MenuView
+ * Base MapSetupView class
+ * @class MapSetupView
  * @constructor
  * @param options
  * @extends View
  * @public
  */
 class MapSetupView extends View {
-  constructor() {
-    super({});
-  }
-
+  
   /**
    * Renders a defined view into a container. Passes in necessary, predefined
    * render parameters.
@@ -46,7 +43,8 @@ class MapSetupView extends View {
    * Click handling
    * @function handleClick
    * @memberof MapSetupView
-   * @param target
+   * @param {json} target
+   * @param target.button button
    */
   handleClick({ currentTarget: button }) {
     // Once a button is clicked, render ship placement view

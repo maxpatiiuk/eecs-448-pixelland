@@ -3,16 +3,22 @@
  * Later, to render this view, call:
  * New PauseMenu(options).render(this.container)
  */
+
 /**
- * Handle game controls
- * @class Controls
+ * Handle game pause functions
+ * @class PauseMenu
  * @constructor
  * @param options
- * @extends PauseMenu
+ * @extends Component
  * @public
  */
-
 class PauseMenu extends Component {
+
+  /**
+   * @type {Button} loadButton
+   * @memberof PauseMenu
+   * @public
+   */
   loadButton;
 
   constructor(options) {
@@ -22,7 +28,8 @@ class PauseMenu extends Component {
   /**
    * @async
    * @function render
-   * @memberof Person
+   * @memberof PauseMenu
+   * @param container Container to render the view within
    */
   async render(
     // Container would be populated with elements from index.html

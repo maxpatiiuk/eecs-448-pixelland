@@ -3,6 +3,7 @@
  * Later, to render this view, call:
  * New GameOverView(options).render(container)
  */
+
 /**
  * Base GameOverView class
  * @class GameOverView
@@ -21,7 +22,7 @@ class GameOverView extends View {
    * render parameters.
    * @async
    * @function render
-   * @memberof GameBoardView
+   * @memberof GameOverView
    * @param container Container to render the view within
    */
   async render(
