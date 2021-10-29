@@ -59,7 +59,7 @@ class CanvasView extends View {
     const mapType = this.options.state?.mapType ?? MAP_TYPE;
     const mapInstance =
       {
-        rainbowland: Rainbowland,
+        rainbowland: RainbowlandMap,
       }[mapType] ?? Map;
     this.#map = new mapInstance();
     await this.#map.render();

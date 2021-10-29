@@ -29,7 +29,7 @@ class Map extends Component {
     await super.render();
 
     // Generate random seed for this world
-    this.seed = (await getHash(Math.random())).slice(0, 5);
+    this.seed = await getHash(Math.random());
 
     /*
      *Var img = new Image();
@@ -44,7 +44,9 @@ class Map extends Component {
   }
 
   async getDeterministicRandom(salt, max) {
-    const randomNumber = stringToNumber(await getHash(`${this.seed}${salt}`));
+    const randomNumber = stringToNumber(
+      await getHash(`${this.seed.slice(0, 5)}${salt}`)
+    );
     return clampInt(
       max,
       randomNumber * Math.max(1, Math.floor(max / Math.abs(randomNumber)))

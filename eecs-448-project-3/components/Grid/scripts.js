@@ -85,7 +85,7 @@ class Grid extends Component {
 
     const cellPosition = [x, y, this.#cellSize, this.#cellSize];
 
-    this.#hasAnimatedCells ||= cell.isAnimated;
+    this.#hasAnimatedCells ||= cell.isAnimated === true;
 
     if (typeof cell.backgroundColor === 'string') {
       this.#context.fillStyle = cell.backgroundColor;
