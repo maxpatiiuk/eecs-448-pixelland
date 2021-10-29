@@ -44,7 +44,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         <tr>
             <td>Drawing game grid</td>
             <td>4h</td>
-            <td>0h</td>
+            <td>1h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
@@ -91,17 +91,17 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         </tr>
         <tr>
             <th rowspan=2>Integration</th>
-            <td></td>
+            <td>Documentation (JSDoc Tagging)</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>3h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
+            <td>Architecture Documentation</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>2h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
