@@ -48,7 +48,7 @@ class MapSetupView extends View {
    * @memberof MapSetupView
    * @param target
    */
-  handleClick({ target: button }) {
+  handleClick({ currentTarget: button }) {
     // Once a button is clicked, render ship placement view
     new CanvasView({
       state: { mapType: button.getAttribute('data-type') },
