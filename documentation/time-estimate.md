@@ -1,7 +1,7 @@
 # Time Estimate
 
 This is a rough estimate of the amount of time this project would take to
-complete. To aid in estimating our time-estimate, we loosely followed the Lines of Code approach. We were most comfortable with this method, and even though it has some obvious disadvantages, such as unreliability, it still provided us with a rough approximation of how long the project would take. Similar to how we chose our design pattern, we had also previously used this method, and the results had been satisfactory.
+complete. To aid in estimating our time-estimate, we loosely followed the Lines of Code approach. We had a series of brainstorming meetings where we discussed plans for our project, focusing on potential features. We talked about how difficult these tasks would be, and estimated how long they would take based on their perceived difficulty. This helped us create our general outline for our time estimate, including how many lines of code each section may have. This organized our outline, provided us with a time estimate, and helped us set priorities and divide the work. We were also most comfortable with this method, and even though it has some obvious disadvantages, such as unreliability, it still provided us with a rough approximation of how long the project would take. Similar to how we chose our design pattern, we had also previously used this method, and the results had been satisfactory.
 
 <table>
     <thead>
