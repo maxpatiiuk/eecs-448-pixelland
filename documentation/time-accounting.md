@@ -82,10 +82,10 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
+            <td>Additonal Features</td>
             <td>0h</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>2h</td>
             <td>0h</td>
             <td>0h</td>
         </tr>
@@ -119,7 +119,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>General Testing</td>
             <td>0h</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>1h</td>
             <td>1.5h</td>
             <td>0h</td>
         </tr>
@@ -139,7 +139,7 @@ Total
 </th>
             <td>0h</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>3.5h</td>
             <td>6h</td>
             <td>0h</td>
         </tr>
