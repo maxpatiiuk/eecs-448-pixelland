@@ -10,10 +10,12 @@ Available Maps:
 
 ### Rainbowland
 
+![](documentation/screenshots/rainbowland.png)
+
 You are spawned in a middle of a blocky gradient with seemingly no task at hand
 other than to wander around and ponder the mysteries of the universe.
 
-### Minecraft
+### Minecraft (WIP)
 
 This sure feels like a Minecraft clone. Except, it has no mines or carts - just
 2d sprites procedurally generated in every direction as far as eye can see.
