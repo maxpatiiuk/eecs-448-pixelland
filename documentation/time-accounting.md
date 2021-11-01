@@ -118,7 +118,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <th rowspan=1>Testing</th>
             <td>General Testing</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>1h</td>
             <td>1h</td>
             <td>1.5h</td>
             <td>0h</td>
@@ -130,7 +130,7 @@ Total
 
 </th>
             <td>16.25h</td>
-            <td>7.5h</td>
+            <td>8.5h</td>
             <td>4.5h</td>
             <td>7h</td>
             <td>3.5h</td>
