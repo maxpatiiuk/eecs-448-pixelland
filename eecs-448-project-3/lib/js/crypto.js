@@ -3,8 +3,6 @@
  * @module Crypto
  */
 
-components
-
 /*
  * Generate 64-bit hash from a string
  *
