@@ -90,7 +90,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
         </tr>
         <tr>
-            <th rowspan=2>Integration</th>
+            <th rowspan=3>Integration</th>
             <td>Documentation (JSDoc Tagging)</td>
             <td>0h</td>
             <td>3h</td>
@@ -103,16 +103,24 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
             <td>2h</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>2h</td>
             <td>0h</td>
         </tr>
         <tr>
-            <th rowspan=2></th>
-            <td></td>
+            <td>Misc. Documentation</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
+            <td>2h</td>
             <td>0h</td>
+        </tr>
+        <tr>
+            <th rowspan=2>Testing</th>
+            <td>General Testing</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>0h</td>
+            <td>1.5h</td>
             <td>0h</td>
         </tr>
         <tr>
@@ -132,7 +140,7 @@ Total
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>6h</td>
             <td>0h</td>
         </tr>
     </tbody>
