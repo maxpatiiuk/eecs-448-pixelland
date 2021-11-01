@@ -1,7 +1,7 @@
 # Time Estimate
 
 This is a rough estimate of the amount of time this project would take to
-complete.
+complete. To aid in estimating our time-estimate, we loosely followed the Lines of Code approach. We were most comfortable with this method, and even though it has some obvious disadvantages, such as unreliability, it still provided us with a rough approximation of how long the project would take. Similar to how we chose our design pattern, we had also previously used this method, and the results had been satisfactory.
 
 <table>
     <thead>
