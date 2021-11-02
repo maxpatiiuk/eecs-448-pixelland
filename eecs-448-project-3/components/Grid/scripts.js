@@ -13,7 +13,6 @@
  * @public
  */
 class Grid extends Component {
-
   /**
    * @type {Boolean} destructorCalled
    * @memberof Grid
@@ -29,11 +28,12 @@ class Grid extends Component {
   #hasAnimatedCells = true;
 
   /**
+   * This get's overriden after render
    * @type {Integer} cellSize
    * @memberof Grid
    * @public
    */
-  #cellSize;
+  #cellSize = 40;
 
   /**
    * @type {Context} context
@@ -113,9 +113,6 @@ class Grid extends Component {
     console.log(this.options.canvas);
     this.#context = this.options.canvas.getContext('2d', { alpha: false });
 
-    // TODO: test if this and other options are remembered
-    this.#context.imageSmoothingEnabled = false;
-
     this.draw(0);
     return this;
   }
@@ -156,13 +153,17 @@ class Grid extends Component {
     }
 
     if (typeof cell.backgroundImage === 'object')
-      this.#context.drawImage(cell.backgroundImage, ...cellPosition);
+      this.#context.drawImage(
+        cell.backgroundImage,
+        ...cell.backgroundImageOptions,
+        ...cellPosition
+      );
 
     if (DEBUG) {
       // Draw cell borders
       this.#context.strokeRect(x, y, this.#cellSize, this.#cellSize);
-      this.#context.fillStyle = '#000';
 
+      this.#context.fillStyle = '#000';
       // Draw cell coordinates
       this.#context.fillText(absoluteCoordinates.join(' '), x, y);
     }
@@ -185,12 +186,6 @@ class Grid extends Component {
     const cellCount = dimensions.map(
       (size) => Math.ceil(size / this.#cellSize) + 2
     );
-
-    if (DEBUG) {
-      this.#context.lineWidth = 2;
-      this.#context.strokeStyle = '#fff';
-      this.#context.font = `${Math.ceil(this.#cellSize / 3)}px sans-serif`;
-    }
 
     if (
       this.#hasAnimatedCells ||
@@ -222,8 +217,16 @@ class Grid extends Component {
   handleCellResize(cellSize) {
     this.#cellSize = cellSize;
     this.#hadResize = true;
+
+    this.#context.imageSmoothingEnabled = false;
+
+    if (DEBUG) {
+      this.#context.lineWidth = 2;
+      this.#context.strokeStyle = '#fff';
+      this.#context.font = `${Math.ceil(this.#cellSize / 3)}px sans-serif`;
+    }
   }
-  
+
   /**
    * @function checkPressedKeys
    * @memberof Grid
@@ -233,7 +236,7 @@ class Grid extends Component {
     this.#movementDirection = this.options.getMovementDirection();
     if (this.#movementDirection.join('') !== '00') this.startMovement();
   }
-  
+
   /**
    * @function startMovement
    * @memberof Grid
