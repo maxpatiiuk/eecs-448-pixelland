@@ -12,7 +12,6 @@
  * @public
  */
 class Map extends Component {
-  
   /**
    * @type {String} seed
    * @memberof Map
@@ -86,13 +85,9 @@ class Map extends Component {
   getCellAtCoordinate(row, col) {
     if (typeof this.map[row]?.[col] === 'undefined')
       this.generateCell(row, col);
-    return (
-      this.map[row]?.[col] ?? {
-        isAnimated: false,
-      }
-    );
+    return this.map[row]?.[col] ?? {};
   }
-  
+
   /**
    * @function generateCell
    * @param row row for cell gen
@@ -103,7 +98,6 @@ class Map extends Component {
     this.map[row] ??= {};
     this.map[row][col] = {
       backgroundColor: `hsl(0deg, 0%, 50%)`,
-      isAnimated: false,
     };
   }
 }

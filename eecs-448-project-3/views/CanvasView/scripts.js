@@ -13,7 +13,6 @@
  * @public
  */
 class CanvasView extends View {
-
   /**
    * @type {Object} canvas
    * @memberof CanvasView
@@ -107,6 +106,7 @@ class CanvasView extends View {
     const mapInstance =
       {
         rainbowland: RainbowlandMap,
+        minecraft: MinecraftMap,
       }[mapType] ?? Map;
     this.#map = new mapInstance();
     await this.#map.render();
