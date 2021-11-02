@@ -1,4 +1,4 @@
-# Project 3: Pixelland
+# Project 4: Pixelland
 
 ## Group 5 - EECS 448
 

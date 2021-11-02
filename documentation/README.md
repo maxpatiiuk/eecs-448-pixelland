@@ -16,7 +16,7 @@ works cited.
 Clone this repository
 
 ```zsh
-git clone https://github.com/maxxxxxdlp/eecs-448-project-3
+git clone https://github.com/maxxxxxdlp/eecs-448-pixelland
 ```
 
 To start a development server, navigate to the inner `eecs-448-project-3`
@@ -67,7 +67,7 @@ npm i  # install development dependencies
 Clone this repository
 
 ```zsh
-git clone https://github.com/maxxxxxdlp/eecs-448-project-3
+git clone https://github.com/maxxxxxdlp/eecs-448-pixelland
 ```
 
 Configure a reverse proxy (e.x Nginx) that would serve eecs-448-project-3 folder
