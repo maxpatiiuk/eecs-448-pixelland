@@ -100,6 +100,17 @@ Open `docs-gen/index.html` in your browser to view the static docs.
 
 ## Modeling Diagrams, Design Paradigms, Design Patterns, Prototype Architecture, and Requirements Artifacts
 
+### Issue tracker
+
+```
+Use a defect tracking tool to manage software defects in your project
+```
+
+Fixed issues:
+https://github.com/maxxxxxdlp/eecs-448-pixelland/issues?q=is%3Aissue+is%3Aclosed
+
+Backlog of issues: https://github.com/maxxxxxdlp/eecs-448-pixelland/issues
+
 ### Design Pattern
 
 For the third project we decided to follow a factory method style of design
@@ -188,7 +199,7 @@ We generated a UML diagram using
 for the JetBrains Ultimate IDE. The plugin generates class diagrams that follow
 the latest EMCAScript 6 class standard. We have chosen to omit the field
 descriptions for each class in order to maintain readability.
-![UML Diagram](documentation/../UML.png)
+![UML Diagram](./UML.png)
 
 ### Prototype Requirements
 
