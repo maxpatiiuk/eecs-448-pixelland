@@ -211,7 +211,6 @@ class CanvasView extends View {
     switch (action) {
       /*
        * TODO: add a settings menu
-       * TODO: add save&load game functionality
        */
       case 'pause': {
         this.#pauseMenu.container.style.display = '';
