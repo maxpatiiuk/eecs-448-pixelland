@@ -23,6 +23,16 @@ class MinecraftMap extends Map {
    */
   #seedBasedVariation = 0.3;
 
+  #biomeScale = 32;
+
+  #biomeCutOff = 0.25;
+
+  #blockPathCutOff = 0.27;
+
+  #blockPathScale = 4;
+
+  #noiseFunction;
+
   #biomes = {
     grass: {
       // This biome would be used everywhere by default
@@ -158,6 +168,8 @@ class MinecraftMap extends Map {
 
   #image;
 
+  values;
+
   async render() {
     await super.render();
 
@@ -166,6 +178,23 @@ class MinecraftMap extends Map {
     await new Promise((resolve) =>
       this.#image.addEventListener('load', resolve, { once: true })
     );
+
+    const mutateObject = async (object, callback) =>
+      Object.fromEntries(
+        await Promise.all(
+          Object.entries(object).map(async ([key, value], index) => [
+            key,
+            await callback(key, value, index),
+          ])
+        )
+      );
+
+    const mutateProbabilities = async (baseProbabilities, seed) =>
+      mutateObject(
+        baseProbabilities,
+        async (_propertyName, propertyValues, propertyIndex) =>
+          mutatePropertyValues(propertyValues, `${seed},${propertyIndex}`)
+      );
 
     const mutatePropertyValues = async (propertyValues, seed) =>
       (
@@ -182,62 +211,37 @@ class MinecraftMap extends Map {
         )
       ).map(Math.round);
 
-    this.#biomes = Object.fromEntries(
-      await Promise.all(
-        Object.entries(this.#biomes).map(
-          async ([biomeName, biomeData], biomeIndex) => [
-            biomeName,
-            {
-              ...biomeData,
-              probabilities: Object.fromEntries(
-                await Promise.all(
-                  Object.entries(biomeData.baseProbabilities).map(
-                    async ([propertyName, propertyValues], propertyIndex) => [
-                      propertyName,
-                      await mutatePropertyValues(
-                        propertyValues,
-                        `${biomeIndex},${propertyIndex}`
-                      ),
-                    ]
-                  )
-                )
-              ),
-              blocks: Object.fromEntries(
-                await Promise.all(
-                  Object.entries(biomeData.blocks).map(
-                    async ([blockName, blockData], blockIndex) => [
-                      blockName,
-                      {
-                        ...blockData,
-                        probabilities: Object.fromEntries(
-                          await Promise.all(
-                            Object.entries({
-                              ...this.#blocks[blockName].baseProbabilities,
-                              ...blockData.baseProbabilities,
-                            }).map(
-                              async (
-                                [propertyName, propertyValues],
-                                propertyIndex
-                              ) => [
-                                propertyName,
-                                await mutatePropertyValues(
-                                  propertyValues,
-                                  `${biomeIndex},${blockIndex},${propertyIndex}`
-                                ),
-                              ]
-                            )
-                          )
-                        ),
-                      },
-                    ]
-                  )
-                )
-              ),
-            },
-          ]
-        )
-      )
+    this.#biomes = await mutateObject(
+      this.#biomes,
+      async (_biomeName, biomeData, biomeIndex) => ({
+        ...biomeData,
+        probabilities: await mutateProbabilities(
+          biomeData.baseProbabilities,
+          biomeIndex
+        ),
+        blocks: Object.fromEntries(
+          await Promise.all(
+            Object.entries(biomeData.blocks).map(
+              async ([blockName, blockData], blockIndex) => [
+                blockName,
+                {
+                  ...blockData,
+                  probabilities: await mutateProbabilities(
+                    {
+                      ...this.#blocks[blockName].baseProbabilities,
+                      ...blockData.baseProbabilities,
+                    },
+                    `${biomeIndex},${blockIndex}`
+                  ),
+                },
+              ]
+            )
+          )
+        ),
+      })
     );
+
+    this.#noiseFunction = makeNoise2D(stringToNumber(this.seed));
 
     return this;
   }
@@ -266,11 +270,35 @@ class MinecraftMap extends Map {
       Number.MAX_SAFE_INTEGER
     );
 
+    const block =
+      this.#noiseFunction(
+        row / this.#blockPathScale,
+        col / this.#blockPathScale
+      ) > this.#blockPathCutOff
+        ? 1
+        : 0;
+
+    const biome =
+      this.#noiseFunction(row / this.#biomeScale, col / this.#biomeScale) >
+      this.#biomeCutOff
+        ? 'stone'
+        : 'grass';
+
+    const biomeBlocks = Object.keys(this.#biomes[biome].blocks);
+    const biomeBlock = biomeBlocks[block];
+    /*
+     * Const biomeBlock =
+     *   biomeBlocks[pseudoRandomNumber % (biomeBlocks.length - 1)];
+     */
+    const blockTextures = this.#blocks[biomeBlock].variations;
+    const textureIndex =
+      blockTextures[pseudoRandomNumber % (blockTextures.length - 1)];
+
     this.map[row] ??= {};
     this.map[row][col] = {
       backgroundImage: this.#image,
       backgroundImageOptions: [
-        this.#textureSize * Math.floor(pseudoRandomNumber % 17),
+        this.#textureSize * textureIndex,
         0,
         this.#textureSize,
         this.#textureSize,

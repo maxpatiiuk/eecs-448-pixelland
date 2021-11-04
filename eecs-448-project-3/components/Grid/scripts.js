@@ -174,8 +174,6 @@ class Grid extends Component {
    * @memberof Grid
    */
   draw() {
-    // TODO: fix player's position changing on resize
-
     const dimensions = [this.options.canvas.width, this.options.canvas.height];
 
     const firstCellCoordinates = dimensions.map((size) =>
