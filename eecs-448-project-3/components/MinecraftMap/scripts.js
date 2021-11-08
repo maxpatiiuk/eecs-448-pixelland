@@ -11,35 +11,38 @@
  * @extends Component
  * @public
  */
-class MinecraftMap extends Map {
-  #mapType = 'minecraft';
 
-  #textureSize = 16;
-
+const biomeProbabilities = [
   /*
-   * All properties can sway in either direction by this amount depending on
-   * the map seed
-   *
+   * Two noise functions overlap to create 4 possible biomes
    */
-  #seedBasedVariation = 0.3;
+  {
+    /*
+     * The size of the biomes and the variance
+     */
+    scale: [64, 16],
+    /*
+     * The percentage of the screen that would be occupied by the base
+     * biome on average and the variance
+     */
+    cutOff: [50, 10],
+  },
+  {
+    /*
+     * Variance is going to be multiplied by a sudo-random float in the range
+     * from -1 to 1 and added to the base likelihood
+     */
+    scale: [64, 16],
+    cutOff: [50, 10],
+  },
+];
 
-  #biomeScale = 32;
-
-  #biomeCutOff = 0.25;
-
-  #blockPathCutOff = 0.27;
-
-  #blockPathScale = 4;
-
-  #noiseFunction;
-
-  #biomes = {
-    grass: {
-      // This biome would be used everywhere by default
-      isBaseBiome: true,
-      blocks: {
+const biomes = {
+  grass: {
+    blocks: {
+      dirt: {
         grass: {
-          // This block would be used everywhere within the biome by default
+          // This block would be used everywhere within the layer by default
           isBaseBlock: true,
           baseProbabilities: {
             likelihood: [80, 10],
@@ -49,124 +52,134 @@ class MinecraftMap extends Map {
              */
           },
         },
-        dirt: {
-          baseProbabilities: {
-            // If empty, it uses default probabilities for that block
-          },
-        },
-        sand: {
-          baseProbabilities: {},
+        baseProbabilities: {
+          // If empty, it uses default probabilities for that block
         },
       },
-      baseProbabilities: {
-        // [percentage, standard deviation]
-        likelihood: [50, 10],
-        /*
-         * If it's a base biome, you shouldn't specify size
-         * size: [],
-         */
+      sand: {
+        baseProbabilities: {},
       },
     },
-    sand: {
-      isBaseBiome: false,
-      blocks: {
-        sand: {
-          isBaseBlock: true,
-          baseProbabilities: {
-            likelihood: [80, 10],
-          },
-        },
-        dirt: {
-          baseProbabilities: {},
+    baseProbabilities: {
+      // [percentage, standard deviation]
+      likelihood: [50, 10],
+      /*
+       * If it's a base biome, you shouldn't specify size
+       * size: [],
+       */
+    },
+  },
+  sand: {
+    blocks: {
+      sand: {
+        isBaseBlock: true,
+        baseProbabilities: {
+          likelihood: [80, 10],
         },
       },
-      baseProbabilities: {
-        likelihood: [20, 5],
-        size: [5, 15],
+      dirt: {
+        baseProbabilities: {},
       },
     },
-    stone: {
-      isBaseBiome: false,
-      blocks: {
-        stone: {
-          isBaseBlock: true,
-          baseProbabilities: {
-            likelihood: [80, 10],
-          },
-        },
-        dirt: {
-          baseProbabilities: {},
-        },
-        gravel: {
-          baseProbabilities: {},
-        },
-        granite: {
-          baseProbabilities: {},
-        },
-        diorite: {
-          baseProbabilities: {},
+    baseProbabilities: {
+      likelihood: [20, 5],
+      size: [5, 15],
+    },
+  },
+  stone: {
+    blocks: {
+      stone: {
+        isBaseBlock: true,
+        baseProbabilities: {
+          likelihood: [80, 10],
         },
       },
-      baseProbabilities: {
-        likelihood: [30, 15],
-        size: [60, 20],
+      dirt: {
+        baseProbabilities: {},
+      },
+      gravel: {
+        baseProbabilities: {},
+      },
+      granite: {
+        baseProbabilities: {},
+      },
+      diorite: {
+        baseProbabilities: {},
       },
     },
-  };
+    baseProbabilities: {
+      likelihood: [30, 15],
+      size: [60, 20],
+    },
+  },
+  snow: {
+    // TODO: add dry ice, ice and snow textures
+    blocks: {
+      gravel: {},
+    },
+  },
+};
 
-  #blocks = {
-    grass: {
-      variations: [1, 2, 3, 4],
-      baseProbabilities: {
-        likelihood: [10, 10],
-        size: [30, 20],
-      },
+const blocks = {
+  grass: {
+    variations: [1, 2, 3, 4],
+    baseProbabilities: {
+      likelihood: [10, 10],
+      size: [30, 20],
     },
-    dirt: {
-      variations: [5, 6, 7],
-      baseProbabilities: {
-        likelihood: [10, 10],
-        size: [5, 10],
-      },
+  },
+  dirt: {
+    variations: [5, 6, 7],
+    baseProbabilities: {
+      likelihood: [10, 10],
+      size: [5, 10],
     },
-    sand: {
-      variations: [8],
-      baseProbabilities: {
-        likelihood: [10, 10],
-        size: [5, 10],
-      },
+  },
+  sand: {
+    variations: [8],
+    baseProbabilities: {
+      likelihood: [10, 10],
+      size: [5, 10],
     },
-    stone: {
-      variations: [9, 10],
-      baseProbabilities: {
-        likelihood: [10, 10],
-        size: [40, 20],
-      },
+  },
+  stone: {
+    variations: [9, 10],
+    baseProbabilities: {
+      likelihood: [10, 10],
+      size: [40, 20],
     },
-    gravel: {
-      variations: [11, 12, 13],
-      baseProbabilities: {
-        likelihood: [5, 5],
-        size: [8, 9],
-      },
+  },
+  gravel: {
+    variations: [11, 12, 13],
+    baseProbabilities: {
+      likelihood: [5, 5],
+      size: [8, 9],
     },
-    granite: {
-      variations: [14, 15],
-      baseProbabilities: {
-        likelihood: [8, 10],
-        size: [10, 20],
-      },
+  },
+  granite: {
+    variations: [14, 15],
+    baseProbabilities: {
+      likelihood: [8, 10],
+      size: [10, 20],
     },
-    diorite: {
-      variations: [16, 17],
-      baseProbabilities: {
-        likelihood: [8, 10],
-        size: [10, 20],
-      },
+  },
+  diorite: {
+    variations: [16, 17],
+    baseProbabilities: {
+      likelihood: [8, 10],
+      size: [10, 20],
     },
-  };
+  },
+};
+
+class MinecraftMap extends Map {
+  #mapType = 'minecraft';
+
+  #textureSize = 16;
 
   #image;
+
+  #getBiomeAtCell;
 
   values;
 
@@ -179,69 +192,37 @@ class MinecraftMap extends Map {
       this.#image.addEventListener('load', resolve, { once: true })
     );
 
-    const mutateObject = async (object, callback) =>
-      Object.fromEntries(
-        await Promise.all(
-          Object.entries(object).map(async ([key, value], index) => [
-            key,
-            await callback(key, value, index),
-          ])
+    const [biomeMaskBottom, biomeMaskTop] = await Promise.all(
+      biomeProbabilities.map(async (baseProbabilities, index) =>
+        generateMaskLayer(
+          baseProbabilities,
+          this.seed,
+          index,
+          this.getDeterministicRandom.bind(this)
         )
-      );
-
-    const mutateProbabilities = async (baseProbabilities, seed) =>
-      mutateObject(
-        baseProbabilities,
-        async (_propertyName, propertyValues, propertyIndex) =>
-          mutatePropertyValues(propertyValues, `${seed},${propertyIndex}`)
-      );
-
-    const mutatePropertyValues = async (propertyValues, seed) =>
-      (
-        await Promise.all(
-          propertyValues.map(async (value, valueIndex) => {
-            const randomNumber = await this.getDeterministicRandom(
-              `${seed},${valueIndex}`,
-              200
-            );
-            return (
-              value * (1 + this.#seedBasedVariation * (randomNumber / 100 - 1))
-            );
-          })
-        )
-      ).map(Math.round);
-
-    this.#biomes = await mutateObject(
-      this.#biomes,
-      async (_biomeName, biomeData, biomeIndex) => ({
-        ...biomeData,
-        probabilities: await mutateProbabilities(
-          biomeData.baseProbabilities,
-          biomeIndex
-        ),
-        blocks: Object.fromEntries(
-          await Promise.all(
-            Object.entries(biomeData.blocks).map(
-              async ([blockName, blockData], blockIndex) => [
-                blockName,
-                {
-                  ...blockData,
-                  probabilities: await mutateProbabilities(
-                    {
-                      ...this.#blocks[blockName].baseProbabilities,
-                      ...blockData.baseProbabilities,
-                    },
-                    `${biomeIndex},${blockIndex}`
-                  ),
-                },
-              ]
-            )
-          )
-        ),
-      })
+      )
     );
 
-    this.#noiseFunction = makeNoise2D(stringToNumber(this.seed));
+    this.#getBiomeAtCell = (x, y) => {
+      const leftBit = biomeMaskBottom(x, y) ? 0 : 1;
+      const rightBit = biomeMaskTop(x, y) ? 0 : 1;
+      const binaryIndex = `${leftBit}${rightBit}`;
+      const decimalIndex = Number.parseInt(binaryIndex, 2);
+      return Object.keys(biomes)[decimalIndex];
+    };
+
+    console.log(this.#getBiomeAtCell);
+
+    /*
+     *This.#biomes = mutateObject(
+     *this.#biomes,
+     *async (_biomeName, biomeData, biomeIndex) => ({
+     *  ...biomeData,
+     *})
+     *);
+     */
+
+    // This.#noiseFunction = makeNoise2D(stringToNumber(this.seed));
 
     return this;
   }
@@ -270,35 +251,16 @@ class MinecraftMap extends Map {
       Number.MAX_SAFE_INTEGER
     );
 
-    const block =
-      this.#noiseFunction(
-        row / this.#blockPathScale,
-        col / this.#blockPathScale
-      ) > this.#blockPathCutOff
-        ? 1
-        : 0;
-
-    const biome =
-      this.#noiseFunction(row / this.#biomeScale, col / this.#biomeScale) >
-      this.#biomeCutOff
-        ? 'stone'
-        : 'grass';
-
-    const biomeBlocks = Object.keys(this.#biomes[biome].blocks);
-    const biomeBlock = biomeBlocks[block];
-    /*
-     * Const biomeBlock =
-     *   biomeBlocks[pseudoRandomNumber % (biomeBlocks.length - 1)];
-     */
-    const blockTextures = this.#blocks[biomeBlock].variations;
-    const textureIndex =
-      blockTextures[pseudoRandomNumber % (blockTextures.length - 1)];
+    const biome = biomes[this.#getBiomeAtCell(row, col)];
+    const block = blocks[Object.keys(biome.blocks)[0]];
+    const textures = block.variations;
+    const textureIndex = textures[pseudoRandomNumber % textures.length];
 
     this.map[row] ??= {};
     this.map[row][col] = {
       backgroundImage: this.#image,
       backgroundImageOptions: [
-        this.#textureSize * textureIndex,
+        this.#textureSize * (textureIndex - 1),
         0,
         this.#textureSize,
         this.#textureSize,

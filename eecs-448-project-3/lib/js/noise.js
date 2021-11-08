@@ -59,6 +59,9 @@ function makeNoise2D(clientSeed) {
     perm2D[i] = perm[i] & 0x0e;
     source[r[0]] = source[i];
   }
+  const min = -0.87;
+  const max = 0.87;
+  const range = max - min;
   return (x, y) => {
     const stretchOffset = (x + y) * STRETCH_2D;
     const xs = x + stretchOffset;
@@ -90,7 +93,10 @@ function makeNoise2D(clientSeed) {
         value += attn * attn * attn * attn * valuePart;
       }
     }
-    return value * NORM_2D;
+
+    // Normalize the value between 0 and 1
+    const unNormalized = value * NORM_2D;
+    return (unNormalized - min) / range;
   };
 }
 const base2D = [
