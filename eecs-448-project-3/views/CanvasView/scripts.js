@@ -107,6 +107,7 @@ class CanvasView extends View {
       {
         rainbowland: RainbowlandMap,
         minecraft: MinecraftMap,
+        test: TestMap,
       }[mapType] ?? Map;
     this.#map = new mapInstance();
     await this.#map.render();

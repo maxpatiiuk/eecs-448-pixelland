@@ -49,6 +49,15 @@ though the `map` get parameter. For example:
 If you don't have python installed, you can use any one of
 [these static web servers](https://gist.github.com/willurd/5720255)
 
+### Testing Map Generation
+
+A hidden "test" map is available for testing map generation.
+
+Is is available at this URL:
+[https://localhost:8080/?development&map=test](https://localhost:8080/?development&map=test)
+
+It allows to adjust map generation parameters and see the result in real time.
+
 ### (Optional) Pre-commit hooks
 
 This project uses pre-commit.com hooks, which run code linters and validators
