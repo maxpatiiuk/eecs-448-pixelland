@@ -35,15 +35,15 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         </tr>
         <tr>
             <td>Minecraft Map</td>
-            <td>1.45h</td>
+            <td>3.75h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
-            <td>0h</td>
+            <td>A map for testing map generation</td>
+            <td>1.5h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
