@@ -44,88 +44,317 @@ const heightLayer = {
 const biomes = {
   grass: {
     layers: {
-      // TODO: implement flowers
-      top: 'grass',
-      middle: 'dirt',
-      bottom: 'stone',
+      /*
+       * Each cell has a height between 0 and 100
+       * You can define any number of layers. Names do not matter
+       * If you define 3 layers, heights 0-33 would correspond to the bottom
+       * layer, 33-66 to the middle layer and 66-100 to the top layer.
+       *
+       * Edges of each layer would be darkened to simulate a shadow
+       */
+      top: {
+        // Block this layer would consist of
+        block: 'grass',
+        patches: [
+          /*
+           * Patches of ores or other entities
+           * If transparent, base block is rendered behind them
+           * Can render only one of them at a time, with the first active patch
+           * taking precedence
+           */
+          {
+            block: 'yellowFlower',
+            probabilities: {
+              scale: [2, 1],
+              cutOff: [10, 3],
+            },
+            transparent: true,
+          },
+          {
+            block: 'redFlower',
+            probabilities: {
+              scale: [2, 1],
+              cutOff: [10, 3],
+            },
+            transparent: true,
+          },
+          {
+            block: 'whiteFlower',
+            probabilities: {
+              scale: [2, 1],
+              cutOff: [10, 3],
+            },
+            transparent: true,
+          },
+          {
+            block: 'blueFlower',
+            probabilities: {
+              scale: [2, 1],
+              cutOff: [10, 3],
+            },
+            transparent: true,
+          },
+        ],
+      },
+      middle: {
+        block: 'grass',
+        patches: [
+          {
+            block: 'tallGrass',
+            probabilities: {
+              scale: [5, 2],
+              cutOff: [15, 5],
+            },
+            transparent: true,
+          },
+          {
+            block: 'sugarCane',
+            probabilities: {
+              scale: [5, 2],
+              cutOff: [15, 5],
+            },
+            transparent: true,
+          },
+        ],
+      },
+      bottom: {
+        block: 'dirt',
+        patches: [
+          {
+            block: 'stone',
+            probabilities: {
+              scale: [2, 1],
+              cutOff: [16, 4],
+            },
+            transparent: false,
+          },
+        ],
+      },
     },
   },
   sand: {
     layers: {
-      top: 'sand',
-      // TODO: implement water
-      middle: 'sand',
-      bottom: 'sand',
+      top: {
+        block: 'sand',
+        patches: [
+          {
+            block: 'cactus',
+            probabilities: {
+              scale: [1, 0],
+              cutOff: [13, 3],
+            },
+            transparent: true,
+          },
+        ],
+      },
+      middle: {
+        block: 'sand',
+        patches: [
+          {
+            block: 'dryWood',
+            probabilities: {
+              scale: [1, 0],
+              cutOff: [13, 3],
+            },
+            transparent: true,
+          },
+        ],
+      },
+      bottom: {
+        block: 'sandStone',
+        patches: [
+          {
+            block: 'stone',
+            probabilities: {
+              scale: [2, 1],
+              cutOff: [16, 4],
+            },
+            transparent: false,
+          },
+        ],
+      },
     },
   },
   stone: {
     layers: {
-      // TODO: put ores here at certain places
-      top: 'stone',
-      middle: 'stone',
-      bottom: 'stone',
+      top: {
+        block: 'stone',
+        patches: [
+          {
+            block: 'gravel',
+            probabilities: {
+              scale: [4, 2],
+              cutOff: [20, 5],
+            },
+            transparent: false,
+          },
+          {
+            block: 'diorite',
+            probabilities: {
+              scale: [4, 2],
+              cutOff: [20, 5],
+            },
+            transparent: false,
+          },
+          {
+            block: 'granite',
+            probabilities: {
+              scale: [4, 2],
+              cutOff: [20, 5],
+            },
+            transparent: false,
+          },
+        ],
+      },
+      middle: {
+        block: 'stone',
+        patches: [
+          {
+            block: 'coalOre',
+            probabilities: {
+              scale: [4, 2],
+              cutOff: [20, 5],
+            },
+          },
+          {
+            block: 'ironOre',
+            probabilities: {
+              scale: [4, 1],
+              cutOff: [17, 3],
+            },
+          },
+          {
+            block: 'goldOre',
+            probabilities: {
+              scale: [4, 1],
+              cutOff: [17, 3],
+            },
+          },
+        ],
+      },
+      bottom: {
+        block: 'stone',
+        patches: [
+          {
+            block: 'redstone',
+            probabilities: {
+              scale: [4, 1],
+              cutOff: [14, 3],
+            },
+          },
+          {
+            block: 'lapis',
+            probabilities: {
+              scale: [4, 1],
+              cutOff: [10, 3],
+            },
+          },
+          {
+            block: 'emerald',
+            probabilities: {
+              scale: [2, 1],
+              cutOff: [5, 1],
+            },
+          },
+          {
+            block: 'diamond',
+            probabilities: {
+              scale: [10, 5],
+              cutOff: [10, 3],
+            },
+          },
+        ],
+      },
     },
   },
   snow: {
     // TODO: add dry ice, ice and snow textures
     layers: {
-      top: 'gravel',
-      middle: 'gravel',
-      bottom: 'gravel',
+      top: {
+        block: 'snow',
+        patches: [
+          {
+            block: 'yellowFlower',
+            probabilities: {
+              scale: [2, 1],
+              cutOff: [6, 3],
+            },
+            transparent: true,
+          },
+          {
+            block: 'redFlower',
+            probabilities: {
+              scale: [2, 1],
+              cutOff: [6, 3],
+            },
+            transparent: true,
+          },
+          {
+            block: 'whiteFlower',
+            probabilities: {
+              scale: [2, 1],
+              cutOff: [6, 3],
+            },
+            transparent: true,
+          },
+          {
+            block: 'blueFlower',
+            probabilities: {
+              scale: [2, 1],
+              cutOff: [0, 3],
+            },
+            transparent: true,
+          },
+        ],
+      },
+      middle: {
+        block: 'snow',
+        patches: [
+          {
+            block: 'tallGrass',
+            probabilities: {
+              scale: [6, 2],
+              cutOff: [13, 5],
+            },
+            transparent: true,
+          },
+        ],
+      },
+      bottom: {
+        block: 'ice',
+        patches: [
+          {
+            block: 'blueIce',
+            probabilities: {
+              scale: [20, 5],
+              cutOff: [27, 3],
+            },
+          },
+          {
+            block: 'packedIce',
+            probabilities: {
+              scale: [20, 5],
+              cutOff: [27, 3],
+            },
+          },
+        ],
+      },
     },
   },
 };
 
 const blocks = {
-  grass: {
-    variations: [1, 2, 3, 4],
-    baseProbabilities: {
-      likelihood: [10, 10],
-      size: [30, 20],
-    },
-  },
-  dirt: {
-    variations: [5, 6, 7],
-    baseProbabilities: {
-      likelihood: [10, 10],
-      size: [5, 10],
-    },
-  },
-  sand: {
-    variations: [8],
-    baseProbabilities: {
-      likelihood: [10, 10],
-      size: [5, 10],
-    },
-  },
-  stone: {
-    variations: [9, 10],
-    baseProbabilities: {
-      likelihood: [10, 10],
-      size: [40, 20],
-    },
-  },
-  gravel: {
-    variations: [11, 12, 13],
-    baseProbabilities: {
-      likelihood: [5, 5],
-      size: [8, 9],
-    },
-  },
-  granite: {
-    variations: [14, 15],
-    baseProbabilities: {
-      likelihood: [8, 10],
-      size: [10, 20],
-    },
-  },
-  diorite: {
-    variations: [16, 17],
-    baseProbabilities: {
-      likelihood: [8, 10],
-      size: [10, 20],
-    },
-  },
+  /*
+   * The positions of the textures for this block in the texture file
+   * If multiple are specified, a single one would be selected pseudo-randomly
+   */
+  grass: [0, 1, 2, 3],
+  dirt: [4, 4, 6],
+  sand: [7],
+  stone: [8, 9],
+  gravel: [10, 11, 12],
+  granite: [13, 14],
+  diorite: [15, 16],
 };
 
 class MinecraftMap extends Map {
@@ -219,8 +448,7 @@ class MinecraftMap extends Map {
     const layers = Object.keys(biome.layers);
     const layerSize = 100 / layers.length;
     const layer = layers[Math.floor(height / layerSize)];
-    const block = blocks[biome.layers[layer]];
-    const textures = block.variations;
+    const textures = blocks[biome.layers[layer].block];
     const textureIndex = textures[pseudoRandomNumber % textures.length];
 
     // Darken deeper blocks
@@ -230,7 +458,7 @@ class MinecraftMap extends Map {
     this.map[row][col] = {
       backgroundImage: this.#image,
       backgroundImageOptions: [
-        this.#textureSize * (textureIndex - 1),
+        this.#textureSize * textureIndex,
         0,
         this.#textureSize,
         this.#textureSize,
