@@ -14,14 +14,15 @@ async function generateMaskLayer(
   seed,
   randomGenerator
 ) {
-  const { scale, cutOff, step } = await mutateProbabilities(
+  const { scale, cutOff } = await mutateProbabilities(
     baseProbabilities,
     seed,
     randomGenerator
   );
   const noiseFunction = makeNoise2D(stringToNumber(`${baseSeed}${seed}`));
+  // Generate either elevation map or mask layer
   return typeof cutOff === 'undefined'
-    ? (x, y) => Math.floor(noiseFunction(x / scale, y / scale) / step)
+    ? (x, y) => noiseFunction(x / scale, y / scale) * 100
     : (x, y) => noiseFunction(x / scale, y / scale) * 100 > cutOff;
 }
 

@@ -147,17 +147,17 @@ class Grid extends Component {
 
     this.#hasAnimatedCells ||= cell.isAnimated === true;
 
-    if (typeof cell.backgroundColor === 'string') {
-      this.#context.fillStyle = cell.backgroundColor;
-      this.#context.fillRect(...cellPosition);
-    }
-
     if (typeof cell.backgroundImage === 'object')
       this.#context.drawImage(
         cell.backgroundImage,
         ...cell.backgroundImageOptions,
         ...cellPosition
       );
+
+    if (typeof cell.backgroundColor === 'string') {
+      this.#context.fillStyle = cell.backgroundColor;
+      this.#context.fillRect(...cellPosition);
+    }
 
     if (DEBUG) {
       // Draw cell borders

@@ -1,7 +1,7 @@
 /*
  * The name of this view
  * Later, to render this view, call:
- * New MinecraftMap(options).render(this.container)
+ * new MinecraftMap(options).render(this.container)
  */
 /**
  * Draw current player / NPC
@@ -37,85 +37,41 @@ const biomeProbabilities = [
   },
 ];
 
+const heightLayer = {
+  scale: [10, 5],
+};
+
 const biomes = {
   grass: {
-    blocks: {
-      dirt: {
-        grass: {
-          // This block would be used everywhere within the layer by default
-          isBaseBlock: true,
-          baseProbabilities: {
-            likelihood: [80, 10],
-            /*
-             * If it's a base block, you shouldn't specify size
-             * size: [],
-             */
-          },
-        },
-        baseProbabilities: {
-          // If empty, it uses default probabilities for that block
-        },
-      },
-      sand: {
-        baseProbabilities: {},
-      },
-    },
-    baseProbabilities: {
-      // [percentage, standard deviation]
-      likelihood: [50, 10],
-      /*
-       * If it's a base biome, you shouldn't specify size
-       * size: [],
-       */
+    layers: {
+      // TODO: implement flowers
+      top: 'grass',
+      middle: 'dirt',
+      bottom: 'stone',
     },
   },
   sand: {
-    blocks: {
-      sand: {
-        isBaseBlock: true,
-        baseProbabilities: {
-          likelihood: [80, 10],
-        },
-      },
-      dirt: {
-        baseProbabilities: {},
-      },
-    },
-    baseProbabilities: {
-      likelihood: [20, 5],
-      size: [5, 15],
+    layers: {
+      top: 'sand',
+      // TODO: implement water
+      middle: 'sand',
+      bottom: 'sand',
     },
   },
   stone: {
-    blocks: {
-      stone: {
-        isBaseBlock: true,
-        baseProbabilities: {
-          likelihood: [80, 10],
-        },
-      },
-      dirt: {
-        baseProbabilities: {},
-      },
-      gravel: {
-        baseProbabilities: {},
-      },
-      granite: {
-        baseProbabilities: {},
-      },
-      diorite: {
-        baseProbabilities: {},
-      },
-    },
-    baseProbabilities: {
-      likelihood: [30, 15],
-      size: [60, 20],
+    layers: {
+      // TODO: put ores here at certain places
+      top: 'stone',
+      middle: 'stone',
+      bottom: 'stone',
     },
   },
   snow: {
     // TODO: add dry ice, ice and snow textures
-    blocks: {
-      gravel: {},
+    layers: {
+      top: 'gravel',
+      middle: 'gravel',
+      bottom: 'gravel',
     },
   },
 };
@@ -181,6 +137,8 @@ class MinecraftMap extends Map {
 
   #getBiomeAtCell;
 
+  #getHeightAtCell;
+
   values;
 
   async render() {
@@ -192,14 +150,16 @@ class MinecraftMap extends Map {
       this.#image.addEventListener('load', resolve, { once: true })
     );
 
+    const createMaskLayer = async (baseProbabilities, index = '') =>
+      generateMaskLayer(
+        baseProbabilities,
+        this.seed,
+        index,
+        this.getDeterministicRandom.bind(this)
+      );
     const [biomeMaskBottom, biomeMaskTop] = await Promise.all(
       biomeProbabilities.map(async (baseProbabilities, index) =>
-        generateMaskLayer(
-          baseProbabilities,
-          this.seed,
-          index,
-          this.getDeterministicRandom.bind(this)
-        )
+        createMaskLayer(baseProbabilities, index)
       )
     );
 
@@ -211,7 +171,9 @@ class MinecraftMap extends Map {
       return Object.keys(biomes)[decimalIndex];
     };
 
-    console.log(this.#getBiomeAtCell);
+    this.#getHeightAtCell = await createMaskLayer(heightLayer);
+
+    console.log(this.#getHeightAtCell);
 
     /*
      *This.#biomes = mutateObject(
@@ -252,9 +214,17 @@ class MinecraftMap extends Map {
     );
 
     const biome = biomes[this.#getBiomeAtCell(row, col)];
-    const block = blocks[Object.keys(biome.blocks)[0]];
+
+    const height = this.#getHeightAtCell(row, col);
+    const layers = Object.keys(biome.layers);
+    const layerSize = 100 / layers.length;
+    const layer = layers[Math.floor(height / layerSize)];
+    const block = blocks[biome.layers[layer]];
     const textures = block.variations;
     const textureIndex = textures[pseudoRandomNumber % textures.length];
+
+    // Darken deeper blocks
+    const depth = (100 - (height % (100 / 3)) * 3) * 0.2;
 
     this.map[row] ??= {};
     this.map[row][col] = {
@@ -265,6 +235,7 @@ class MinecraftMap extends Map {
         this.#textureSize,
         this.#textureSize,
       ],
+      backgroundColor: `rgba(1, 1, 1, ${depth}%)`,
     };
   }
 }
