@@ -189,7 +189,8 @@ class Grid extends Component {
       this.#hasAnimatedCells ||
       this.#isMoving ||
       this.#hadResize ||
-      this.#renderedFrameCount < 120
+      this.#renderedFrameCount < 120 ||
+      this.options.didMapChange()
     ) {
       this.#hasAnimatedCells = false;
       Array.from({ length: cellCount[0] }, (_, columnIndex) =>

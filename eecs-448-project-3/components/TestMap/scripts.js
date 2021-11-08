@@ -73,6 +73,7 @@ class TestMap extends Map {
 
   handleInputChange() {
     this.map = [];
+    this.mapChanged = true;
     let step = this.#getParameter.step();
     if (Number.isNaN(step)) step = 1;
     let scale = Math.max(1, this.#getParameter.scale());
@@ -110,6 +111,7 @@ class TestMap extends Map {
    * @memberof MinecraftMap
    */
   async generateCell(row, col) {
+    this.mapChanged = false;
     this.map[row] ??= {};
     this.map[row][col] ??= {
       backgroundColor: `hsl(0deg, 0%, ${this.#noiseFunction(row, col)}%)`,

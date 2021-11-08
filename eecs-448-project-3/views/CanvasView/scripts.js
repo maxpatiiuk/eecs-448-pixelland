@@ -132,6 +132,7 @@ class CanvasView extends View {
     this.#grid = new Grid({
       canvas: this.#canvas,
       getCellAtCoordinate: this.#map.getCellAtCoordinate.bind(this.#map),
+      didMapChange: this.#map.didMapChange.bind(this.#map),
       getMovementDirection: this.#controls.getMovementDirection.bind(
         this.#controls
       ),

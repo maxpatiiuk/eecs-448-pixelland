@@ -33,6 +33,12 @@ class Map extends Component {
    */
   mapType = 'rainbowland';
 
+  mapChanged = true;
+
+  didMapChange() {
+    return this.mapChanged;
+  }
+
   constructor(options) {
     super({ ...options, hasContainer: false });
   }
