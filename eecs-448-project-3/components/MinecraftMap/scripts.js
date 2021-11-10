@@ -145,13 +145,8 @@ const biomes = {
             },
             transparent: true,
           },
-        ],
-      },
-      middle: {
-        block: 'sand',
-        patches: [
           {
-            block: 'dryWood',
+            block: 'deadBush',
             probabilities: {
               scale: [1, 0],
               cutOff: [13, 3],
@@ -160,9 +155,30 @@ const biomes = {
           },
         ],
       },
-      bottom: {
+      middle: {
         block: 'sandStone',
         patches: [
+          {
+            block: 'sandStones',
+            probabilities: {
+              scale: [2, 1],
+              cutOff: [16, 4],
+            },
+            transparent: false,
+          },
+        ],
+      },
+      bottom: {
+        block: 'redSandStone',
+        patches: [
+          {
+            block: 'redSandStones',
+            probabilities: {
+              scale: [2, 1],
+              cutOff: [16, 4],
+            },
+            transparent: false,
+          },
           {
             block: 'stone',
             probabilities: {
@@ -236,28 +252,28 @@ const biomes = {
         block: 'stone',
         patches: [
           {
-            block: 'redstone',
+            block: 'redstoneOre',
             probabilities: {
               scale: [4, 1],
               cutOff: [14, 3],
             },
           },
           {
-            block: 'lapis',
+            block: 'lapisOre',
             probabilities: {
               scale: [4, 1],
               cutOff: [10, 3],
             },
           },
           {
-            block: 'emerald',
+            block: 'emeraldOre',
             probabilities: {
               scale: [2, 1],
               cutOff: [5, 1],
             },
           },
           {
-            block: 'diamond',
+            block: 'diamondOre',
             probabilities: {
               scale: [10, 5],
               cutOff: [10, 3],
@@ -355,6 +371,27 @@ const blocks = {
   gravel: [10, 11, 12],
   granite: [13, 14],
   diorite: [15, 16],
+  redFlower: [17],
+  yellowFlower: [18],
+  whiteFlower: [19],
+  deadBush: [20, 21, 22],
+  tallGrass: [23],
+  sugarCane: [24, 25],
+  sandStone: [26],
+  sandStones: [27, 28, 29],
+  redSandStone: [31],
+  redSandStones: [30, 32, 33],
+  coalOre: [34],
+  ironOre: [35],
+  goldOre: [36],
+  lapisOre: [37],
+  redstoneOre: [38],
+  emeraldOre: [39],
+  diamondOre: [40],
+  snow: [41],
+  ice: [42],
+  blueIce: [43],
+  packedIce: [44],
 };
 
 class MinecraftMap extends Map {
@@ -452,7 +489,7 @@ class MinecraftMap extends Map {
     const textureIndex = textures[pseudoRandomNumber % textures.length];
 
     // Darken deeper blocks
-    const depth = (100 - (height % (100 / 3)) * 3) * 0.2;
+    const depth = Math.round((100 - (height % (100 / 3)) * 3) * 20) / 100;
 
     this.map[row] ??= {};
     this.map[row][col] = {
