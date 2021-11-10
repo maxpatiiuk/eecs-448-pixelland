@@ -23,7 +23,7 @@ async function generateMaskLayer(
   // Generate either elevation map or mask layer
   return typeof cutOff === 'undefined'
     ? (x, y) => noiseFunction(x / scale, y / scale) * 100
-    : (x, y) => noiseFunction(x / scale, y / scale) * 100 > cutOff;
+    : (x, y) => noiseFunction(x / scale, y / scale) * 100 < cutOff;
 }
 
 const mutateProbabilities = async (baseProbabilities, seed, randomGenerator) =>

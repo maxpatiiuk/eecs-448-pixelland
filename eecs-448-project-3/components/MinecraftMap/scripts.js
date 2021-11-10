@@ -161,8 +161,8 @@ const biomes = {
           {
             block: 'sandStones',
             probabilities: {
-              scale: [2, 1],
-              cutOff: [16, 4],
+              scale: [5, 2],
+              cutOff: [20, 5],
             },
             transparent: false,
           },
@@ -174,8 +174,8 @@ const biomes = {
           {
             block: 'redSandStones',
             probabilities: {
-              scale: [2, 1],
-              cutOff: [16, 4],
+              scale: [5, 2],
+              cutOff: [20, 5],
             },
             transparent: false,
           },
@@ -284,7 +284,6 @@ const biomes = {
     },
   },
   snow: {
-    // TODO: add dry ice, ice and snow textures
     layers: {
       top: {
         block: 'snow',
@@ -392,6 +391,8 @@ const blocks = {
   ice: [42],
   blueIce: [43],
   packedIce: [44],
+  cactus: [45],
+  blueFlower: [46],
 };
 
 class MinecraftMap extends Map {
@@ -405,7 +406,7 @@ class MinecraftMap extends Map {
 
   #getHeightAtCell;
 
-  values;
+  #biomes;
 
   async render() {
     await super.render();
@@ -437,20 +438,31 @@ class MinecraftMap extends Map {
       return Object.keys(biomes)[decimalIndex];
     };
 
+    this.#biomes = await mutateObject(
+      biomes,
+      async (_biomeName, biomeData, biomeIndex) => ({
+        ...biomeData,
+        layers: await mutateObject(
+          biomeData.layers,
+          async (_layerName, layerData, layerIndex) => ({
+            ...layerData,
+            patches: await Promise.all(
+              layerData.patches.map(
+                async ({ probabilities, ...patchData }, patchIndex) => ({
+                  ...patchData,
+                  maskLayer: await createMaskLayer(
+                    probabilities,
+                    `${biomeIndex},${layerIndex},${patchIndex}`
+                  ),
+                })
+              )
+            ),
+          })
+        ),
+      })
+    );
+
     this.#getHeightAtCell = await createMaskLayer(heightLayer);
-
-    console.log(this.#getHeightAtCell);
-
-    /*
-     *This.#biomes = mutateObject(
-     *this.#biomes,
-     *async (_biomeName, biomeData, biomeIndex) => ({
-     *  ...biomeData,
-     *})
-     *);
-     */
-
-    // This.#noiseFunction = makeNoise2D(stringToNumber(this.seed));
 
     return this;
   }
@@ -479,13 +491,27 @@ class MinecraftMap extends Map {
       Number.MAX_SAFE_INTEGER
     );
 
-    const biome = biomes[this.#getBiomeAtCell(row, col)];
+    const biome = this.#biomes[this.#getBiomeAtCell(row, col)];
 
     const height = this.#getHeightAtCell(row, col);
     const layers = Object.keys(biome.layers);
     const layerSize = 100 / layers.length;
-    const layer = layers[Math.floor(height / layerSize)];
-    const textures = blocks[biome.layers[layer].block];
+    const layer = biome.layers[layers[Math.floor(height / layerSize)]];
+    let block = layer.block;
+
+    const activePatch = layer.patches.find(({ maskLayer }) =>
+      maskLayer(row, col)
+    );
+
+    let overlayTextureIndex = undefined;
+    if (typeof activePatch !== 'undefined') {
+      if (activePatch.transparent) {
+        const textures = blocks[activePatch.block];
+        overlayTextureIndex = textures[pseudoRandomNumber % textures.length];
+      } else block = activePatch.block;
+    }
+
+    const textures = blocks[block];
     const textureIndex = textures[pseudoRandomNumber % textures.length];
 
     // Darken deeper blocks
@@ -500,7 +526,18 @@ class MinecraftMap extends Map {
         this.#textureSize,
         this.#textureSize,
       ],
+      // TODO: experiment with different depth colors for different biomes
       backgroundColor: `rgba(1, 1, 1, ${depth}%)`,
+      ...(typeof overlayTextureIndex === 'number'
+        ? {
+            backgroundOverlayOptions: [
+              this.#textureSize * overlayTextureIndex,
+              0,
+              this.#textureSize,
+              this.#textureSize,
+            ],
+          }
+        : {}),
     };
   }
 }

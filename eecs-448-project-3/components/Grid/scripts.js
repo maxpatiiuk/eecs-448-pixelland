@@ -154,6 +154,13 @@ class Grid extends Component {
         ...cellPosition
       );
 
+    if (typeof cell.backgroundOverlayOptions === 'object')
+      this.#context.drawImage(
+        cell.backgroundImage,
+        ...cell.backgroundOverlayOptions,
+        ...cellPosition
+      );
+
     if (typeof cell.backgroundColor === 'string') {
       this.#context.fillStyle = cell.backgroundColor;
       this.#context.fillRect(...cellPosition);
