@@ -201,6 +201,29 @@ be expected from a traditional web app, but it molded to fit our needs in making
 a JavaScript-based video game. Furthermore, we neccessarily follow the
 client-server architecture so that people can reach and play our game.
 
+### Deployment Plan
+
+As an indie game development studio, our primary goal is to have our game be 
+accessible, while still turning a profit - a goal that is made easier by the fact that Pixelland was
+written in Javascript. Our most obvious platform for deployment is on the web; we
+could initially host the game on some of our team's own server hardware, then as the need arises and
+cash-flow increases with popularity, it may become feasable to switch over to something more dynamic, 
+like AWS instances. The aforementioned cash-flow would be based around a subscription, pay-for-access
+model; paying a small monthly fee gives you access to all gameplay features, maps, and updates.
+Overtime, this cash-flow helps pay our developers, cover hosting costs (including cloud storage 
+for worlds), and enables the growth of Pixelland as a whole.
+
+The creation of Pixelland was inspired by the notion of "undying imagination," and this 
+philosophy just as well informs our approach to marketing Pixelland. We believe that it is a game
+for all - enjoyment is there to be had regardless of age or aptness to playing video games - it is
+a world to let your imagination run free. Being playable from a web brower means that it is relatively 
+accessible, regardless of if you run Linux, MacOS, or Windows. The gameplay is straightforward and 
+easy to grasp for anyone. Ultimately, all of these things mean that we have a large potential market
+to work with that exists in a distinctly gray area. We cannot clearly define what our market is because
+our game is one that is not meant to appeal to any particular group of people.
+
+    
+
 ### Generated UML Diagram
 
 We generated a UML diagram using
