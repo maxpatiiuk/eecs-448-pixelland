@@ -219,10 +219,25 @@ for all - enjoyment is there to be had regardless of age or aptness to playing v
 a world to let your imagination run free. Being playable from a web brower means that it is relatively 
 accessible, regardless of if you run Linux, MacOS, or Windows. The gameplay is straightforward and 
 easy to grasp for anyone. Ultimately, all of these things mean that we have a large potential market
-to work with that exists in a distinctly gray area. We cannot clearly define what our market is because
-our game is one that is not meant to appeal to any particular group of people.
+to work with; one that exists in a distinctly gray area. We cannot clearly define what our market is 
+because our game is one that is not meant to appeal to any particular group of people. In having no clear, 
+specific market pool, our marketing strategy is forced to be less concrete. Where and how we spend money on 
+spreading word of our game is not clearly defined. As such, we would not be allocating much of our budget 
+to large marketing campaigns; instead, we could generate hype through various social media platforms (ie, 
+Reddit), and use that initial pool of customers as a jumping-off point. 
 
-    
+There will be other initial costs to supporting our game's launch: it was already described that we could 
+avoid a high starting cost of hosting by using our own server hardware to support the people who initially 
+want to pay-to-play Pixelland. Using rudimentary estimates of our game's popularity, we can gauge if it is 
+necessary to also set up some elastic AWS instances alongside our own servers. Being cautiously prepared is
+important, but also can be costly if not done right. Next, a domain (ie. PlayPixelland.net) would only 
+represent a small fraction of cost. Google Domains offers that exact domain for just twelve dollars per 
+year. Now, assuming we have money to spare after bearing the initial infrastructure costs, all that is left
+to do is find people that want to play the game, or platforms on which we can spread the word. It would 
+make sense to release Pixelland around the time that some indie game development conferences are happening -
+this would enable our team to show off the game and garner support for its release. The associated costs 
+to attending conventions, while non-trivial, is not as considerable as the cost of time spreading news of 
+our newly releasing game to the public.
 
 ### Generated UML Diagram
 
