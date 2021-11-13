@@ -85,6 +85,12 @@ class Grid extends Component {
    */
   coordinates = [0, 0];
 
+  #cellCount;
+
+  #halfCellCount;
+
+  #centerCellCoordinates;
+
   /*
    * While walking between cells, this.#animationOffset
    * are smoothly transitioning between [0,0] and the movement destination
@@ -113,6 +119,8 @@ class Grid extends Component {
     console.log(this.options.canvas);
     this.#context = this.options.canvas.getContext('2d', { alpha: false });
 
+    this.handleCellResize(this.cellSize);
+
     this.draw(0);
     return this;
   }
@@ -122,17 +130,16 @@ class Grid extends Component {
    * @memberof Grid
    * @param rowIndex relative row index
    * @param columnIndex relative column index
-   * @param firstCellCoordinates starting cell coordinates
    */
-  drawCell(rowIndex, columnIndex, firstCellCoordinates) {
+  drawCell(rowIndex, columnIndex) {
     const x = Math.floor(
       columnIndex * this.#cellSize +
-        firstCellCoordinates[0] -
+        this.#centerCellCoordinates[0] -
         this.#cellSize * this.#animationOffset[1]
     );
     const y = Math.floor(
       rowIndex * this.#cellSize +
-        firstCellCoordinates[1] -
+        this.#centerCellCoordinates[1] -
         this.#cellSize * this.#animationOffset[0]
     );
 
@@ -181,22 +188,6 @@ class Grid extends Component {
    * @memberof Grid
    */
   draw() {
-    const dimensions = [this.options.canvas.width, this.options.canvas.height];
-
-    const cellCount = dimensions.map(
-      (size) => Math.ceil(size / this.#cellSize) + 2
-    );
-
-    const cellHalfCount = cellCount.map(
-      (count) => (count - 2 - (count % 2)) / 2 - 1
-    );
-
-    const firstCellCoordinates = dimensions.map(
-      (size, index) =>
-        Math.round(((size - this.#cellSize) / 2) % this.#cellSize) +
-        cellHalfCount[index] * this.#cellSize
-    );
-
     if (
       this.#hasAnimatedCells ||
       this.#isMoving ||
@@ -205,12 +196,11 @@ class Grid extends Component {
       this.options.didMapChange()
     ) {
       this.#hasAnimatedCells = false;
-      Array.from({ length: cellCount[0] }, (_, columnIndex) =>
-        Array.from({ length: cellCount[1] }, (_, rowIndex) =>
+      Array.from({ length: this.#cellCount[0] }, (_, columnIndex) =>
+        Array.from({ length: this.#cellCount[1] }, (_, rowIndex) =>
           this.drawCell(
-            rowIndex - cellHalfCount[1] - 2,
-            columnIndex - cellHalfCount[0] - 2,
-            firstCellCoordinates
+            rowIndex - this.#halfCellCount[1] - 2,
+            columnIndex - this.#halfCellCount[0] - 2
           )
         )
       );
@@ -240,6 +230,25 @@ class Grid extends Component {
       this.#context.strokeStyle = '#fff';
       this.#context.font = `${Math.ceil(this.#cellSize / 3)}px sans-serif`;
     }
+
+    const dimensions = [this.options.canvas.width, this.options.canvas.height];
+
+    // Render two extra cells outside the viewport in all directions
+    const renderOffset = 2;
+
+    this.#cellCount = dimensions.map(
+      (size) => Math.ceil(size / this.#cellSize) + renderOffset
+    );
+
+    this.#halfCellCount = this.#cellCount.map(
+      (count) => (count - renderOffset - (count % 2)) / 2 - 1
+    );
+
+    this.#centerCellCoordinates = dimensions.map(
+      (size, index) =>
+        Math.round(((size - this.#cellSize) / 2) % this.#cellSize) +
+        this.#halfCellCount[index] * this.#cellSize
+    );
   }
 
   /**
