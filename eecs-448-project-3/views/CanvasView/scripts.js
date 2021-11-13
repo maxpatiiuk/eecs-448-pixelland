@@ -109,10 +109,8 @@ class CanvasView extends View {
         minecraft: MinecraftMap,
         test: TestMap,
       }[mapType] ?? Map;
-    this.#map = new mapInstance();
+    this.#map = new mapInstance({ seed: this.options.state?.seed });
     await this.#map.render();
-    if (typeof this.options.state?.seed === 'string')
-      this.#map.seed = this.options.state.seed;
     this.destructors.push(() => this.#map.remove());
 
     // Controls

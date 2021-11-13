@@ -396,7 +396,7 @@ const blocks = {
 };
 
 class MinecraftMap extends Map {
-  #mapType = 'minecraft';
+  mapType = 'minecraft';
 
   #textureSize = 16;
 

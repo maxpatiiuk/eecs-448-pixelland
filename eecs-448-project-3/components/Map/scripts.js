@@ -41,6 +41,9 @@ class Map extends Component {
 
   constructor(options) {
     super({ ...options, hasContainer: false });
+
+    // Generate random seed for this world
+    this.seed = options.seed ?? getHash(Math.random());
   }
 
   /**
@@ -51,14 +54,7 @@ class Map extends Component {
   async render() {
     await super.render();
 
-    // Generate random seed for this world
-    this.seed = await getHash(Math.random());
-
-    /*
-     *Var img = new Image();
-     *img.src = 'canvas_createpattern.png';
-     *img.onload = function() {
-     */
+    this.seed = await this.seed;
 
     if (DEVELOPMENT) console.log(`Map seed: ${this.seed}`);
 

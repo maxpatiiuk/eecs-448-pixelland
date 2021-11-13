@@ -12,7 +12,7 @@
  * @public
  */
 class RainbowlandMap extends Map {
-  #mapType = 'rainbowland';
+  mapType = 'rainbowland';
 
   async generateCell(row, col) {
     const random = this.getDeterministicRandom.bind(this, `${row},${col}`);
