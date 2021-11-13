@@ -102,7 +102,7 @@ To generate new documentation recursively for all files within the
 `eecs-448-project-3` directory, start in the root of the repository and run:
 
 ```zsh
-documentation build eecs-448-pixelland/** -f html -o documentation/auto-docs-gen
+documentation build eecs-448-project-3/** -f html -o documentation/auto-docs-gen
 ```
 
 Open `docs-gen/index.html` in your browser to view the static docs.

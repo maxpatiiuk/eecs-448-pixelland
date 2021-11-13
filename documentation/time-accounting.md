@@ -35,7 +35,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         </tr>
         <tr>
             <td>Minecraft Map</td>
-            <td>3.75h</td>
+            <td>6.75h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
