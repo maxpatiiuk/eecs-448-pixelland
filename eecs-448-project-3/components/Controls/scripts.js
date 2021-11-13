@@ -17,8 +17,10 @@
  */
 const movementKeys = new Set(['up', 'down', 'left', 'right']);
 
+const zoomKeys = new Set(['zoomIn', 'zoomOut', 'zoomReset']);
+
 /**
- * Maps keys with the in-game function key equivelant  
+ * Maps keys with the in-game function key equivelant
  * @constant
  * @param {json} keys
  * @param {String} keys.KeyW "up"
@@ -51,10 +53,13 @@ const keyMapper = {
   KeyH: 'left',
   KeyL: 'right',
   Escape: 'escape',
+  Minus: 'zoomOut',
+  Equal: 'zoomIn',
+  Digit0: 'zoomReset',
 };
 
 /**
- * Maps keys toggle  
+ * Maps keys toggle
  * @constant
  * @param {json} toggleKey
  * @param {String} toggleKey.Escape "escape"
@@ -73,8 +78,7 @@ const toggleKeys = {
  * @extends Component
  * @public
  */
- class Controls extends Component {
-
+class Controls extends Component {
   /**
    * @type {Set} pressedKeys
    * @memberof Controls
@@ -120,7 +124,6 @@ const toggleKeys = {
    * @param {type, code}
    */
   handleKeyPress({ type, code }) {
-
     if (code in toggleKeys) {
       if (type === 'keyup') this.options.handleKeyToggle(toggleKeys[code]);
       return;
@@ -136,6 +139,17 @@ const toggleKeys = {
       this.#pressedKeys.delete('down');
     if (this.#pressedKeys.has('left') && this.#pressedKeys.has('right'))
       this.#pressedKeys.delete('left');
+
+    if (type === 'keydown' && zoomKeys.has(keyMapper[code])) {
+      const action = keyMapper[code];
+      if (action === 'zoomReset') cellSize = INITIAL_CELL_SIZE;
+      else if (action === 'zoomIn' && cellSize < MAX_CELL_SIZE)
+        cellSize += CELL_SIZE_STEP;
+      else if (action === 'zoomOut' && cellSize > MIN_CELL_SIZE)
+        cellSize -= CELL_SIZE_STEP;
+      if (DEVELOPMENT) console.log(`Cell size: ${cellSize}`);
+      this.options.handleZoom();
+    }
 
     if (typeof this.afterKeyPress !== 'undefined') this.afterKeyPress();
   }

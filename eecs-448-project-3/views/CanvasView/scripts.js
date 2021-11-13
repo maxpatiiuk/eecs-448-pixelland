@@ -121,6 +121,7 @@ class CanvasView extends View {
             this.#grid.paused ? 'resume' : 'pause'
           );
       },
+      handleZoom: this.handleResize.bind(this),
     });
     await this.#controls.render();
     this.destructors.push(() => this.#controls.remove());
@@ -186,7 +187,7 @@ class CanvasView extends View {
     this.#canvas.width = window.innerWidth;
     this.#canvas.height = window.innerHeight;
     this.#cellSize = Math.ceil(
-      Math.max(window.innerHeight, window.innerWidth) * CELL_SIZE
+      Math.max(window.innerHeight, window.innerWidth) * cellSize
     );
     this.container.style.setProperty('--cell-size', `${this.#cellSize}px`);
 
