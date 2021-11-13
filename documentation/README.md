@@ -102,23 +102,30 @@ To generate new documentation recursively for all files within the
 `eecs-448-project-3` directory, start in the root of the repository and run:
 
 ```zsh
-documentation build eecs-448-project-3/** -f html -o documentation/auto-docs-gen
+documentation build eecs-448-pixelland/** -f html -o documentation/auto-docs-gen
 ```
 
 Open `docs-gen/index.html` in your browser to view the static docs.
 
 ## Modeling Diagrams, Design Paradigms, Design Patterns, Prototype Architecture, and Requirements Artifacts
 
-### Issue tracker
+### Issue Tracking
 
 ```
-Use a defect tracking tool to manage software defects in your project
+Use a defect tracking tool to manage software defects in your project.
 ```
 
-Fixed issues:
+Github has a robust, flexible, built-in system for creating, tracking, and resolving issues.
+Any contributor to this project can open an issue, and Github keeps track of all the relevant information
+in a comment stream within that issue.
+
+**Fixed issues:**
+
 https://github.com/maxxxxxdlp/eecs-448-pixelland/issues?q=is%3Aissue+is%3Aclosed
 
-Backlog of issues: https://github.com/maxxxxxdlp/eecs-448-pixelland/issues
+**Backlog of issues:** 
+
+https://github.com/maxxxxxdlp/eecs-448-pixelland/issues
 
 ### Design Pattern
 
@@ -193,21 +200,33 @@ case, "components") which house core game functionality and logic. The views are
 the front-end UI designs that enable user interaction with models - but this
 user interaction cannot happen without a controller to mediate between the two
 in a traditional MVC pattern. For our implementation, the views create and
-handle any neccessary objects for that view, and ultimately destroy them. There
+handle any necessary objects for that view, and ultimately destroy them. There
 is no explicit controller to handle communication.
 
 Overall, our software architecture follows standard MVC design patterns as would
 be expected from a traditional web app, but it molded to fit our needs in making
-a JavaScript-based video game. Furthermore, we neccessarily follow the
+a JavaScript-based video game. Furthermore, we necessarily follow the
 client-server architecture so that people can reach and play our game.
 
 ### Deployment Plan
+
+```
+- What are the steps required to deploy your project? 
+- Who is the potential market? 
+- What will it cost to deploy it? 
+- Example costs include
+    app store costs
+    costs to get your game on XBoxLive 
+    costs to print disks for distribution 
+    costs to buy domains 
+    costs to attend conventions and conference and set up booths
+```
 
 As an indie game development studio, our primary goal is to have our game be 
 accessible, while still turning a profit - a goal that is made easier by the fact that Pixelland was
 written in Javascript. Our most obvious platform for deployment is on the web; we
 could initially host the game on some of our team's own server hardware, then as the need arises and
-cash-flow increases with popularity, it may become feasable to switch over to something more dynamic, 
+cash-flow increases with popularity, it may become feasible to switch over to something more dynamic, 
 like AWS instances. The aforementioned cash-flow would be based around a subscription, pay-for-access
 model; paying a small monthly fee gives you access to all gameplay features, maps, and updates.
 Overtime, this cash-flow helps pay our developers, cover hosting costs (including cloud storage 
@@ -216,7 +235,7 @@ for worlds), and enables the growth of Pixelland as a whole.
 The creation of Pixelland was inspired by the notion of "undying imagination," and this 
 philosophy just as well informs our approach to marketing Pixelland. We believe that it is a game
 for all - enjoyment is there to be had regardless of age or aptness to playing video games - it is
-a world to let your imagination run free. Being playable from a web brower means that it is relatively 
+a world to let your imagination run free. Being playable from a web browser means that it is relatively 
 accessible, regardless of if you run Linux, MacOS, or Windows. The gameplay is straightforward and 
 easy to grasp for anyone. Ultimately, all of these things mean that we have a large potential market
 to work with; one that exists in a distinctly gray area. We cannot clearly define what our market is 
@@ -237,7 +256,7 @@ to do is find people that want to play the game, or platforms on which we can sp
 make sense to release Pixelland around the time that some indie game development conferences are happening -
 this would enable our team to show off the game and garner support for its release. The associated costs 
 to attending conventions, while non-trivial, is not as considerable as the cost of time spreading news of 
-our newly releasing game to the public.
+our newly releasing game to the public. For our team of five, those costs might reach about $1500 dollars per person, considering flight tickets, hotels, convention tickets, etc.
 
 ### Generated UML Diagram
 
@@ -248,11 +267,11 @@ the latest EMCAScript 6 class standard. We have chosen to omit the field
 descriptions for each class in order to maintain readability.
 ![UML Diagram](./UML.png)
 
-### Prototype Requirements
+### Project Requirements
 
 We've gone with a collection of features approach for our requirements, and they
 can be found
-[here](https://github.com/maxxxxxdlp/eecs-448-project-3/issues?q=is%3Aissue)
+[here](https://github.com/maxxxxxdlp/eecs-448-project-3/issues?q=is%3Aissue).
 
 ### Time Estimate
 
