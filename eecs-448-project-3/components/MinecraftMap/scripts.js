@@ -180,7 +180,7 @@ const biomes = {
             transparent: false,
           },
           {
-            block: 'stone',
+            block: 'dirt',
             probabilities: {
               scale: [2, 1],
               cutOff: [16, 4],

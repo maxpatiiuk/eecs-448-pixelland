@@ -3,11 +3,11 @@
  */
 
 // Single cell would be 3vmax in size
-let cellSize = 0.03;
-const INITIAL_CELL_SIZE = 0.03;
-const MAX_CELL_SIZE = 0.06;
-const MIN_CELL_SIZE = 0.01;
-const CELL_SIZE_STEP = 0.01;
+let cellSize = 3;
+const INITIAL_CELL_SIZE = 3;
+const MAX_CELL_SIZE = 6;
+const MIN_CELL_SIZE = 1;
+const CELL_SIZE_STEP = 1;
 
 // Lower value is faster
 const MOVEMENT_SPEED = 200;

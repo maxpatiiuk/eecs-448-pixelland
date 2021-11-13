@@ -187,7 +187,7 @@ class CanvasView extends View {
     this.#canvas.width = window.innerWidth;
     this.#canvas.height = window.innerHeight;
     this.#cellSize = Math.ceil(
-      Math.max(window.innerHeight, window.innerWidth) * cellSize
+      (Math.max(window.innerHeight, window.innerWidth) * cellSize) / 100
     );
     this.container.style.setProperty('--cell-size', `${this.#cellSize}px`);
 
