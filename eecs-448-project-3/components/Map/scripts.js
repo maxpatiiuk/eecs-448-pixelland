@@ -80,25 +80,25 @@ class Map extends Component {
 
   /**
    * @function getCellAtCoordinate
-   * @param row row of cell at coordinate
    * @param col column of cell at coordinate
+   * @param row row of cell at coordinate
    * @memberof Map
    */
-  getCellAtCoordinate(row, col) {
-    if (typeof this.map[row]?.[col] === 'undefined')
-      this.generateCell(row, col);
-    return this.map[row]?.[col] ?? {};
+  getCellAtCoordinate(col, row) {
+    if (typeof this.map[col]?.[row] === 'undefined')
+      this.generateCell(col, row);
+    return this.map[col]?.[row] ?? {};
   }
 
   /**
    * @function generateCell
-   * @param row row for cell gen
    * @param col column for cell gen
+   * @param row row for cell gen
    * @memberof Map
    */
-  generateCell(row, col) {
-    this.map[row] ??= {};
-    this.map[row][col] = {
+  generateCell(col, row) {
+    this.map[col] ??= {};
+    this.map[col][row] = {
       backgroundColor: `hsl(0deg, 0%, 50%)`,
     };
   }

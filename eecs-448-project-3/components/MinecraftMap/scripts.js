@@ -468,39 +468,27 @@ class MinecraftMap extends Map {
   }
 
   /**
-   * @function getCellAtCoordinate
-   * @param row row of cell at coordinate
-   * @param col column of cell at coordinate
-   * @memberof MinecraftMap
-   */
-  getCellAtCoordinate(row, col) {
-    if (typeof this.map[row]?.[col] === 'undefined')
-      this.generateCell(row, col);
-    return this.map[row]?.[col] ?? {};
-  }
-
-  /**
    * @function generateCell
-   * @param row row for cell gen
    * @param col column for cell gen
+   * @param row row for cell gen
    * @memberof MinecraftMap
    */
-  async generateCell(row, col) {
+  async generateCell(col, row) {
     const pseudoRandomNumber = await this.getDeterministicRandom(
-      `${row},${col}`,
+      `${col},${row}`,
       Number.MAX_SAFE_INTEGER
     );
 
-    const biome = this.#biomes[this.#getBiomeAtCell(row, col)];
+    const biome = this.#biomes[this.#getBiomeAtCell(col, row)];
 
-    const height = this.#getHeightAtCell(row, col);
+    const height = this.#getHeightAtCell(col, row);
     const layers = Object.keys(biome.layers);
     const layerSize = 100 / layers.length;
     const layer = biome.layers[layers[Math.floor(height / layerSize)]];
     let block = layer.block;
 
     const activePatch = layer.patches.find(({ maskLayer }) =>
-      maskLayer(row, col)
+      maskLayer(col, row)
     );
 
     let overlayTextureIndex = undefined;
@@ -517,8 +505,8 @@ class MinecraftMap extends Map {
     // Darken deeper blocks
     const depth = Math.round((100 - (height % (100 / 3)) * 3) * 20) / 100;
 
-    this.map[row] ??= {};
-    this.map[row][col] = {
+    this.map[col] ??= {};
+    this.map[col][row] = {
       backgroundImage: this.#image,
       backgroundImageOptions: [
         this.#textureSize * textureIndex,

@@ -175,11 +175,11 @@ class Controls extends Component {
 
     const movementDirection = [0, 0];
 
-    if (pressedKeys.has('up')) movementDirection[0] = -1;
-    else if (pressedKeys.has('down')) movementDirection[0] = 1;
+    if (pressedKeys.has('left')) movementDirection[0] = -1;
+    else if (pressedKeys.has('right')) movementDirection[0] = 1;
 
-    if (pressedKeys.has('left')) movementDirection[1] = -1;
-    else if (pressedKeys.has('right')) movementDirection[1] = 1;
+    if (pressedKeys.has('up')) movementDirection[1] = -1;
+    else if (pressedKeys.has('down')) movementDirection[1] = 1;
 
     return movementDirection;
   }

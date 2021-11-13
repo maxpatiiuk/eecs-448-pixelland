@@ -77,7 +77,9 @@ class Grid extends Component {
    */
   paused = false;
 
-  // Real player coordinates
+  #blockSize = 1000;
+
+  // Real player coordinates (1000 = 1 block)
   /**
    * @type {Array} coordinates
    * @memberof Grid
@@ -92,16 +94,10 @@ class Grid extends Component {
   #centerCellCoordinates;
 
   /*
-   * While walking between cells, this.#animationOffset
-   * are smoothly transitioning between [0,0] and the movement destination
-   * (e.x, [1,0] or [-1, -1])
+   * Render two extra cells outside the viewport in all directions
+   * TODO: check if this is necessary
    */
-  /**
-   * @type {Array} animationOffset
-   * @memberof Grid
-   * @public
-   */
-  #animationOffset = [0, 0];
+  #renderOffset = 2;
 
   constructor(options) {
     super({ ...options, hasContainer: false });
@@ -119,7 +115,7 @@ class Grid extends Component {
     console.log(this.options.canvas);
     this.#context = this.options.canvas.getContext('2d', { alpha: false });
 
-    this.handleCellResize(this.cellSize);
+    this.handleCellResize(this.#cellSize);
 
     this.draw(0);
     return this;
@@ -128,24 +124,21 @@ class Grid extends Component {
   /**
    * @function drawCell
    * @memberof Grid
-   * @param rowIndex relative row index
    * @param columnIndex relative column index
+   * @param rowIndex relative row index
+   * @param coordinates coordinates of the top left cell
    */
-  drawCell(rowIndex, columnIndex) {
+  drawCell(columnIndex, rowIndex, coordinates) {
     const x = Math.floor(
-      columnIndex * this.#cellSize +
-        this.#centerCellCoordinates[0] -
-        this.#cellSize * this.#animationOffset[1]
+      columnIndex * this.#cellSize + this.#centerCellCoordinates[0]
     );
     const y = Math.floor(
-      rowIndex * this.#cellSize +
-        this.#centerCellCoordinates[1] -
-        this.#cellSize * this.#animationOffset[0]
+      rowIndex * this.#cellSize + this.#centerCellCoordinates[1]
     );
 
     const absoluteCoordinates = [
-      this.coordinates[0] + rowIndex,
-      this.coordinates[1] + columnIndex,
+      coordinates[0] + columnIndex,
+      coordinates[1] + rowIndex,
     ];
 
     const cell = this.options.getCellAtCoordinate(...absoluteCoordinates);
@@ -192,23 +185,33 @@ class Grid extends Component {
       this.#hasAnimatedCells ||
       this.#isMoving ||
       this.#hadResize ||
+      // TODO: check if this is necessary
       this.#renderedFrameCount < 120 ||
       this.options.didMapChange()
     ) {
       this.#hasAnimatedCells = false;
+      this.#hadResize = false;
+
+      const coordinates = [
+        Math[this.coordinates[0] > 0 ? 'floor' : 'ceil'](
+          this.coordinates[0] / this.#blockSize
+        ),
+        Math[this.coordinates[1] > 0 ? 'floor' : 'ceil'](
+          this.coordinates[1] / this.#blockSize
+        ),
+      ];
       Array.from({ length: this.#cellCount[0] }, (_, columnIndex) =>
         Array.from({ length: this.#cellCount[1] }, (_, rowIndex) =>
           this.drawCell(
-            rowIndex - this.#halfCellCount[1] - 2,
-            columnIndex - this.#halfCellCount[0] - 2
+            columnIndex - this.#halfCellCount[0] - this.#renderOffset,
+            rowIndex - this.#halfCellCount[1] - this.#renderOffset,
+            coordinates
           )
         )
       );
     }
 
     this.#renderedFrameCount += 1;
-
-    this.#hadResize = false;
 
     if (!this.#destructorCalled)
       window.requestAnimationFrame(this.draw.bind(this));
@@ -233,22 +236,34 @@ class Grid extends Component {
 
     const dimensions = [this.options.canvas.width, this.options.canvas.height];
 
-    // Render two extra cells outside the viewport in all directions
-    const renderOffset = 2;
-
     this.#cellCount = dimensions.map(
-      (size) => Math.ceil(size / this.#cellSize) + renderOffset
+      (size) => Math.ceil(size / this.#cellSize) + this.#renderOffset
     );
 
     this.#halfCellCount = this.#cellCount.map(
-      (count) => (count - renderOffset - (count % 2)) / 2 - 1
+      (count) => (count - this.#renderOffset - (count % 2)) / 2 - 1
     );
 
-    this.#centerCellCoordinates = dimensions.map(
-      (size, index) =>
-        Math.round(((size - this.#cellSize) / 2) % this.#cellSize) +
-        this.#halfCellCount[index] * this.#cellSize
-    );
+    this.recalculateCenter(dimensions);
+  }
+
+  recalculateCenter(dimensions) {
+    const screenSize = dimensions ?? [
+      this.options.canvas.width,
+      this.options.canvas.height,
+    ];
+
+    this.#centerCellCoordinates = screenSize.map((size, index) => {
+      const screenOffset = Math.round(
+        ((size - this.#cellSize) / 2) % this.#cellSize
+      );
+      const cellCountOffset =
+        this.#halfCellCount[index] -
+        (this.coordinates[index] % this.#blockSize) / this.#blockSize;
+      return screenOffset + cellCountOffset * this.#cellSize;
+    });
+
+    if (DEVELOPMENT) console.log('Center:', this.#centerCellCoordinates);
   }
 
   /**
@@ -272,33 +287,36 @@ class Grid extends Component {
         ? DIAGONAL_MOVEMENT_SPEED
         : MOVEMENT_SPEED;
 
-    let counter = 0;
+    // Update current position 60 times per second
     const step = Math.floor(1000 / 60);
+
+    let counter = 0;
+    const initialCoordinates = Array.from(this.coordinates);
     const interval = setInterval(() => {
       if (this.paused) return;
 
       counter += step;
 
+      const animationPercentage =
+        Math.min(1, counter / animationDuration) * this.#blockSize;
+      this.#movementDirection.forEach((amount, index) => {
+        this.coordinates[index] = Math.round(
+          initialCoordinates[index] + amount * animationPercentage
+        );
+      });
+
+      this.recalculateCenter();
+
       if (counter > animationDuration) {
         clearInterval(interval);
-        this.#movementDirection.forEach((amount, index) => {
-          this.coordinates[index] += amount;
-        });
 
         if (DEVELOPMENT)
           console.log(`Coordinates: ${this.coordinates.join(' ')}`);
 
-        this.#animationOffset = [0, 0];
         this.#isMoving = false;
         this.#hadResize = true;
         this.checkPressedKeys();
-        return;
       }
-
-      const animationPercentage = Math.min(1, counter / animationDuration);
-      this.#movementDirection.forEach((amount, index) => {
-        this.#animationOffset[index] = amount * animationPercentage;
-      });
     }, step);
   }
 }
