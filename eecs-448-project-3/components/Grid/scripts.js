@@ -183,13 +183,18 @@ class Grid extends Component {
   draw() {
     const dimensions = [this.options.canvas.width, this.options.canvas.height];
 
-    const firstCellCoordinates = dimensions.map((size) =>
-      Math.round(
-        -2 * this.#cellSize + (((size - this.#cellSize) / 2) % this.#cellSize)
-      )
-    );
     const cellCount = dimensions.map(
       (size) => Math.ceil(size / this.#cellSize) + 2
+    );
+
+    const cellHalfCount = cellCount.map(
+      (count) => (count - 2 - (count % 2)) / 2 - 1
+    );
+
+    const firstCellCoordinates = dimensions.map(
+      (size, index) =>
+        Math.round(((size - this.#cellSize) / 2) % this.#cellSize) +
+        cellHalfCount[index] * this.#cellSize
     );
 
     if (
@@ -202,7 +207,11 @@ class Grid extends Component {
       this.#hasAnimatedCells = false;
       Array.from({ length: cellCount[0] }, (_, columnIndex) =>
         Array.from({ length: cellCount[1] }, (_, rowIndex) =>
-          this.drawCell(rowIndex, columnIndex, firstCellCoordinates)
+          this.drawCell(
+            rowIndex - cellHalfCount[1] - 2,
+            columnIndex - cellHalfCount[0] - 2,
+            firstCellCoordinates
+          )
         )
       );
     }
