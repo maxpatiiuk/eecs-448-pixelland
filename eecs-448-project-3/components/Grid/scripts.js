@@ -79,13 +79,16 @@ class Grid extends Component {
 
   #blockSize = 1000;
 
-  // Real player coordinates (1000 = 1 block)
   /**
+   * Real player coordinates (1000 = 1 block)
    * @type {Array} coordinates
    * @memberof Grid
    * @public
    */
   coordinates = [0, 0];
+
+  // Decimal coordinates. 1 = 1 block
+  #decimalCoordinates = [0, 0];
 
   #cellCount;
 
@@ -126,9 +129,8 @@ class Grid extends Component {
    * @memberof Grid
    * @param columnIndex relative column index
    * @param rowIndex relative row index
-   * @param coordinates coordinates of the top left cell
    */
-  drawCell(columnIndex, rowIndex, coordinates) {
+  drawCell(columnIndex, rowIndex) {
     const x = Math.floor(
       columnIndex * this.#cellSize + this.#centerCellCoordinates[0]
     );
@@ -137,8 +139,8 @@ class Grid extends Component {
     );
 
     const absoluteCoordinates = [
-      coordinates[0] + columnIndex,
-      coordinates[1] + rowIndex,
+      this.#decimalCoordinates[0] + columnIndex,
+      this.#decimalCoordinates[1] + rowIndex,
     ];
 
     const cell = this.options.getCellAtCoordinate(...absoluteCoordinates);
@@ -192,20 +194,11 @@ class Grid extends Component {
       this.#hasAnimatedCells = false;
       this.#hadResize = false;
 
-      const coordinates = [
-        Math[this.coordinates[0] > 0 ? 'floor' : 'ceil'](
-          this.coordinates[0] / this.#blockSize
-        ),
-        Math[this.coordinates[1] > 0 ? 'floor' : 'ceil'](
-          this.coordinates[1] / this.#blockSize
-        ),
-      ];
       Array.from({ length: this.#cellCount[0] }, (_, columnIndex) =>
         Array.from({ length: this.#cellCount[1] }, (_, rowIndex) =>
           this.drawCell(
             columnIndex - this.#halfCellCount[0] - this.#renderOffset,
-            rowIndex - this.#halfCellCount[1] - this.#renderOffset,
-            coordinates
+            rowIndex - this.#halfCellCount[1] - this.#renderOffset
           )
         )
       );
@@ -262,8 +255,18 @@ class Grid extends Component {
         (this.coordinates[index] % this.#blockSize) / this.#blockSize;
       return screenOffset + cellCountOffset * this.#cellSize;
     });
+  }
 
-    if (DEVELOPMENT) console.log('Center:', this.#centerCellCoordinates);
+  // Call this after changing coordinates
+  recalculateDecimalCoordinates() {
+    this.#decimalCoordinates = [
+      Math[this.coordinates[0] > 0 ? 'floor' : 'ceil'](
+        this.coordinates[0] / this.#blockSize
+      ),
+      Math[this.coordinates[1] > 0 ? 'floor' : 'ceil'](
+        this.coordinates[1] / this.#blockSize
+      ),
+    ];
   }
 
   /**
@@ -305,16 +308,26 @@ class Grid extends Component {
         );
       });
 
+      this.recalculateDecimalCoordinates();
       this.recalculateCenter();
 
       if (counter > animationDuration) {
         clearInterval(interval);
 
-        if (DEVELOPMENT)
+        const currentCell = this.options.getCellAtCoordinate(
+          ...this.#decimalCoordinates
+        );
+
+        if (DEVELOPMENT) {
           console.log(`Coordinates: ${this.coordinates.join(' ')}`);
+          if (typeof currentCell.onStep !== 'undefined')
+            console.log(`onStep: ${currentCell.onStep}`);
+        }
 
         this.#isMoving = false;
         this.#hadResize = true;
+
+        currentCell.onStep?.();
         this.checkPressedKeys();
       }
     }, step);
