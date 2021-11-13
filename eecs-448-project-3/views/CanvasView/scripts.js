@@ -109,7 +109,12 @@ class CanvasView extends View {
         minecraft: MinecraftMap,
         test: TestMap,
       }[mapType] ?? Map;
-    this.#map = new mapInstance({ seed: this.options.state?.seed });
+
+    this.#map = new mapInstance({
+      seed: this.options.state?.seed,
+      setCoordinates: this.setCoordinates.bind(this),
+    });
+
     await this.#map.render();
     this.destructors.push(() => this.#map.remove());
 
@@ -177,6 +182,11 @@ class CanvasView extends View {
     this.destructors.push(() => this.#pauseMenu.remove());
 
     return this;
+  }
+
+  setCoordinates(x, y) {
+    this.#grid.coordinates = [x * 1000, y * 1000];
+    this.#grid.recalculateDecimalCoordinates();
   }
 
   /**

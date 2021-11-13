@@ -11,6 +11,13 @@
   row-gap: var(--size);
 }
 
+.MapSetupView h1 {
+  background: white;
+  background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .MapSetupView .map-setup-view-wrapper {
   display: flex;
   align-items: center;
@@ -48,6 +55,7 @@
 .MapSetupView button span {
   height: 100%;
   display: flex;
+  color: white;
   justify-content: center;
   align-items: center;
   background: var(--darken);
