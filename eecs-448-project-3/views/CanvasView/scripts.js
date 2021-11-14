@@ -144,9 +144,9 @@ class CanvasView extends View {
     if (Array.isArray(this.options.state?.coordinates))
       this.#grid.coordinates = this.options.state.coordinates;
     await this.#grid.render();
-    this.#controls.afterKeyPress = () => {
-      this.#grid.checkPressedKeys();
-    };
+    this.#controls.afterMovementChange = this.#grid.handleMovementChange.bind(
+      this.#grid
+    );
     this.destructors.push(() => this.#grid.remove());
 
     // Resize Listeners

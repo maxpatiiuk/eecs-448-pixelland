@@ -87,7 +87,7 @@ class Controls extends Component {
   #pressedKeys = new Set();
 
   // This callback is set in CanvasView
-  afterKeyPress = undefined;
+  afterMovementChange = undefined;
 
   constructor(options) {
     super({
@@ -135,11 +135,6 @@ class Controls extends Component {
 
     if (DEVELOPMENT) console.log(Array.from(this.#pressedKeys));
 
-    if (this.#pressedKeys.has('up') && this.#pressedKeys.has('down'))
-      this.#pressedKeys.delete('down');
-    if (this.#pressedKeys.has('left') && this.#pressedKeys.has('right'))
-      this.#pressedKeys.delete('left');
-
     if (type === 'keydown' && zoomKeys.has(keyMapper[code])) {
       const action = keyMapper[code];
       if (action === 'zoomReset') cellSize = INITIAL_CELL_SIZE;
@@ -149,19 +144,15 @@ class Controls extends Component {
         cellSize -= CELL_SIZE_STEP;
       if (DEVELOPMENT) console.log(`Cell size: ${cellSize}`);
       this.options.handleZoom();
+      return;
     }
 
-    if (typeof this.afterKeyPress !== 'undefined') this.afterKeyPress();
-  }
+    if (this.#pressedKeys.has('up') && this.#pressedKeys.has('down'))
+      this.#pressedKeys.delete('down');
+    if (this.#pressedKeys.has('left') && this.#pressedKeys.has('right'))
+      this.#pressedKeys.delete('left');
 
-  /**
-   * @function getPressedSpecialKeys
-   * @memberof Controls
-   */
-  getPressedSpecialKeys() {
-    return Array.from(this.#pressedKeys).filter(
-      (key) => !movementKeys.has(key)
-    );
+    this.afterMovementChange?.(this.getMovementDirection());
   }
 
   /**
