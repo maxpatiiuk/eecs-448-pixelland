@@ -396,24 +396,24 @@ const blocks = {
 };
 
 class MinecraftMap extends Map {
-  #textureSize = 16;
-
-  #image;
-
   #getBiomeAtCell;
 
   #getHeightAtCell;
 
   #biomes;
 
+  texturesSrc = './static/textures/minecraft.png';
+
+  textureSize = 16;
+
+  texturesCount;
+
+  textures;
+
   async render() {
     await super.render();
 
-    this.#image = new Image();
-    this.#image.src = './static/textures/minecraft.png';
-    await new Promise((resolve) =>
-      this.#image.addEventListener('load', resolve, { once: true })
-    );
+    this.texturesCount = Math.max(...Object.values(blocks).flat());
 
     const createMaskLayer = async (baseProbabilities, index = '') =>
       generateMaskLayer(
@@ -505,23 +505,12 @@ class MinecraftMap extends Map {
 
     this.map[col] ??= {};
     this.map[col][row] = {
-      backgroundImage: this.#image,
-      backgroundImageOptions: [
-        this.#textureSize * textureIndex,
-        0,
-        this.#textureSize,
-        this.#textureSize,
-      ],
+      backgroundImage: this.textures[textureIndex],
       // TODO: experiment with different depth colors for different biomes
       backgroundColor: `rgba(1, 1, 1, ${depth}%)`,
       ...(typeof overlayTextureIndex === 'number'
         ? {
-            backgroundOverlayOptions: [
-              this.#textureSize * overlayTextureIndex,
-              0,
-              this.#textureSize,
-              this.#textureSize,
-            ],
+            backgroundOverlayOptions: this.textures[overlayTextureIndex],
           }
         : {}),
     };

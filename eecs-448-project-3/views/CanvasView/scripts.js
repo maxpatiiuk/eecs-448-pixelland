@@ -69,6 +69,8 @@ class CanvasView extends View {
    */
   #pauseMenu;
 
+  #textures;
+
   /**
    * @type {Object} saveLoad
    * @memberof CanvasView
@@ -119,6 +121,18 @@ class CanvasView extends View {
 
     await this.#map.render();
     this.destructors.push(() => this.#map.remove());
+
+    // Texture Cache
+    this.#textures = new TextureCache({
+      src: this.#map.texturesSrc,
+      texturesCount: this.#map.texturesCount,
+      textureSize: this.#map.textureSize,
+    });
+    await this.#textures.render();
+    this.#map.textures = this.#textures.canvases;
+    this.#cellSizeUpdateListeners.push(
+      this.#textures.handleCellResize.bind(this.#textures)
+    );
 
     // Controls
     this.#controls = new Controls({

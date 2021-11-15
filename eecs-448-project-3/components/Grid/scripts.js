@@ -141,18 +141,10 @@ class Grid extends Component {
     const cellPosition = [x, y, this.#cellSize, this.#cellSize];
 
     if (typeof cell.backgroundImage === 'object')
-      this.#context.drawImage(
-        cell.backgroundImage,
-        ...cell.backgroundImageOptions,
-        ...cellPosition
-      );
+      this.#context.drawImage(cell.backgroundImage, ...cellPosition);
 
     if (typeof cell.backgroundOverlayOptions === 'object')
-      this.#context.drawImage(
-        cell.backgroundImage,
-        ...cell.backgroundOverlayOptions,
-        ...cellPosition
-      );
+      this.#context.drawImage(cell.backgroundImage, ...cellPosition);
 
     if (typeof cell.backgroundColor === 'string') {
       this.#context.fillStyle = cell.backgroundColor;
@@ -250,7 +242,6 @@ class Grid extends Component {
           blockSize;
       return Math.round(screenCenter + cellCountOffset * this.#cellSize);
     });
-    console.log(this.#centerCellCoordinates);
   }
 
   // Call this after changing coordinates
