@@ -161,6 +161,9 @@ class CanvasView extends View {
           );
       },
       handleZoom: this.handleResize.bind(this),
+      handleToolbarSelected: this.#inventory.handleToolbarSelected.bind(
+        this.#inventory
+      ),
     });
     await this.#controls.render();
     this.destructors.push(() => this.#controls.remove());

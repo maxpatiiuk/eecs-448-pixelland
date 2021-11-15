@@ -23,6 +23,8 @@ class Inventory extends Component {
 
   isOpen = false;
 
+  #toolbar;
+
   /**
    * @async
    * @function render
@@ -33,10 +35,10 @@ class Inventory extends Component {
     await super.render(container);
 
     // TODO: Set event listeners and call callbacks on click
-    const toolbar = document.getElementsByClassName('inventory-toolbar')[0];
-    toolbar.innerHTML = Array.from(
+    this.#toolbar = document.getElementsByClassName('inventory-toolbar')[0];
+    this.#toolbar.innerHTML = Array.from(
       { length: cols },
-      () => `<button class='cell toolbar-cell'></button>`
+      () => `<button class='cell'></button>`
     ).join('');
 
     this.#overlay = document.getElementsByClassName('inventory-overlay')[0];
@@ -112,14 +114,6 @@ class Inventory extends Component {
     this.currentToolbarBlock.classList.add('active');
   }
 
-  /*
-   *ClearToolbarBlock(slot) {
-   *slot.style.removeProperty('--texture-index');
-   *slot.style.removeProperty('background-image');
-   *slot.removeAttribute('data-block');
-   *}
-   */
-
   setToolbarBlock(slot, cell) {
     slot.style.setProperty(
       '--texture-index',
@@ -132,17 +126,23 @@ class Inventory extends Component {
     slot.dataset.block = cell.getAttribute('data-block');
   }
 
-  handleCellSelect({ target }) {
+  handleToolbarSelected(index) {
+    this.handleCellSelect({
+      target: this.#toolbar.children[index === 0 ? 9 : index - 1],
+      path: [this.#toolbar],
+    });
+  }
+
+  handleCellSelect({ target, path }) {
     const block = target.getAttribute('data-block');
     const cellHasBlock = block !== null;
 
-    const isToolbarCell = target.classList.contains('toolbar-cell');
+    const isToolbarCell = path.includes(this.#toolbar);
 
     if (isToolbarCell) {
       if (typeof this.#currentInventoryBlock !== 'undefined')
         this.setToolbarBlock(target, this.#currentInventoryBlock);
-      if (typeof this.#currentInventoryBlock !== 'undefined' || cellHasBlock)
-        this.selectToolbarBlock(target);
+      this.selectToolbarBlock(target);
       this.deselectInventoryBlock();
     } else {
       if (cellHasBlock) this.selectInventoryBlock(target);

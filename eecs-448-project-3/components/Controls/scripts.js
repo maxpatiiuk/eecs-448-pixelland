@@ -19,8 +19,21 @@ const movementKeys = new Set(['up', 'down', 'left', 'right']);
 
 const zoomKeys = new Set(['zoomIn', 'zoomOut', 'zoomReset']);
 
+const inventoryKeys = new Set([
+  'slot0',
+  'slot1',
+  'slot2',
+  'slot3',
+  'slot4',
+  'slot5',
+  'slot6',
+  'slot7',
+  'slot8',
+  'slot9',
+]);
+
 /**
- * Maps keys with the in-game function key equivelant
+ * Maps keys with the in-game function key equivalent
  * @constant
  * @param {json} keys
  * @param {String} keys.KeyW "up"
@@ -55,7 +68,17 @@ const keyMapper = {
   Escape: 'escape',
   Minus: 'zoomOut',
   Equal: 'zoomIn',
-  Digit0: 'zoomReset',
+  KeyO: 'zoomReset',
+  Digit0: 'slot0',
+  Digit1: 'slot1',
+  Digit2: 'slot2',
+  Digit3: 'slot3',
+  Digit4: 'slot4',
+  Digit5: 'slot5',
+  Digit6: 'slot6',
+  Digit7: 'slot7',
+  Digit8: 'slot8',
+  Digit9: 'slot9',
 };
 
 /**
@@ -132,12 +155,13 @@ class Controls extends Component {
 
     if (!(code in keyMapper)) return;
 
-    this.#pressedKeys[type === 'keydown' ? 'add' : 'delete'](keyMapper[code]);
+    const action = keyMapper[code];
+
+    this.#pressedKeys[type === 'keydown' ? 'add' : 'delete'](action);
 
     if (DEVELOPMENT) console.log(Array.from(this.#pressedKeys));
 
-    if (type === 'keydown' && zoomKeys.has(keyMapper[code])) {
-      const action = keyMapper[code];
+    if (type === 'keydown' && zoomKeys.has(action)) {
       if (action === 'zoomReset') cellSize = INITIAL_CELL_SIZE;
       else if (action === 'zoomIn' && cellSize < MAX_CELL_SIZE)
         cellSize += CELL_SIZE_STEP;
@@ -147,6 +171,9 @@ class Controls extends Component {
       this.options.handleZoom();
       return;
     }
+
+    if (type === 'keydown' && inventoryKeys.has(action))
+      this.options.handleToolbarSelected(Number.parseInt(action.slice(4)));
 
     if (this.#pressedKeys.has('up') && this.#pressedKeys.has('down'))
       this.#pressedKeys.delete('down');
