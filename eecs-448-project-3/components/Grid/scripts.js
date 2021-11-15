@@ -12,6 +12,10 @@
  * @extends Component
  * @public
  */
+
+// 1 block is a 1000 coordinate units
+const blockSize = 1000;
+
 class Grid extends Component {
   /**
    * @type {Boolean} destructorCalled
@@ -77,8 +81,6 @@ class Grid extends Component {
    */
   paused = false;
 
-  #blockSize = 1000;
-
   /**
    * Real player coordinates (1000 = 1 block)
    * @type {Array} coordinates
@@ -101,6 +103,9 @@ class Grid extends Component {
    * TODO: check if this is necessary
    */
   #renderOffset = 2;
+
+  // Callback to stop current movement
+  #stopMovement;
 
   constructor(options) {
     super({ ...options, hasContainer: false });
@@ -252,7 +257,7 @@ class Grid extends Component {
       );
       const cellCountOffset =
         this.#halfCellCount[index] -
-        (this.coordinates[index] % this.#blockSize) / this.#blockSize;
+        (this.coordinates[index] % blockSize) / blockSize;
       return screenOffset + cellCountOffset * this.#cellSize;
     });
   }
@@ -261,21 +266,23 @@ class Grid extends Component {
   recalculateDecimalCoordinates() {
     this.#decimalCoordinates = [
       Math[this.coordinates[0] > 0 ? 'floor' : 'ceil'](
-        this.coordinates[0] / this.#blockSize
+        this.coordinates[0] / blockSize
       ),
       Math[this.coordinates[1] > 0 ? 'floor' : 'ceil'](
-        this.coordinates[1] / this.#blockSize
+        this.coordinates[1] / blockSize
       ),
     ];
   }
 
   /**
-   * @function checkPressedKeys
+   * @function handleMovementChange
    * @memberof Grid
    */
-  checkPressedKeys() {
-    if (this.#isMoving) return;
-    this.#movementDirection = this.options.getMovementDirection();
+  handleMovementChange(movementDirection) {
+    if (this.#movementDirection.join(',') === movementDirection.join(','))
+      return;
+    this.#movementDirection = movementDirection;
+    this.#stopMovement?.();
     if (this.#movementDirection.join('') !== '00') this.startMovement();
   }
 
@@ -285,51 +292,46 @@ class Grid extends Component {
    */
   startMovement() {
     this.#isMoving = true;
-    const animationDuration =
+
+    const speed =
       this.#movementDirection[0] !== 0 && this.#movementDirection[1] !== 0
         ? DIAGONAL_MOVEMENT_SPEED
         : MOVEMENT_SPEED;
 
-    // Update current position 60 times per second
-    const step = Math.floor(1000 / 60);
+    const targetFps = 60;
+    const oneSecond = 1000;
+    // 2 Blocks per second
+    const stepDuration = Math.floor(oneSecond / targetFps);
+    const stepSize = Math.floor((stepDuration * blockSize) / speed);
 
-    let counter = 0;
-    const initialCoordinates = Array.from(this.coordinates);
     const interval = setInterval(() => {
       if (this.paused) return;
 
-      counter += step;
-
-      const animationPercentage =
-        Math.min(1, counter / animationDuration) * this.#blockSize;
       this.#movementDirection.forEach((amount, index) => {
-        this.coordinates[index] = Math.round(
-          initialCoordinates[index] + amount * animationPercentage
-        );
+        this.coordinates[index] += stepSize * amount;
       });
 
       this.recalculateDecimalCoordinates();
       this.recalculateCenter();
+    }, stepDuration);
 
-      if (counter > animationDuration) {
-        clearInterval(interval);
+    this.#stopMovement = () => {
+      clearInterval(interval);
 
-        const currentCell = this.options.getCellAtCoordinate(
-          ...this.#decimalCoordinates
-        );
+      const currentCell = this.options.getCellAtCoordinate(
+        ...this.#decimalCoordinates
+      );
 
-        if (DEVELOPMENT) {
-          console.log(`Coordinates: ${this.coordinates.join(' ')}`);
-          if (typeof currentCell.onStep !== 'undefined')
-            console.log(`onStep: ${currentCell.onStep}`);
-        }
-
-        this.#isMoving = false;
-        this.#hadResize = true;
-
-        currentCell.onStep?.();
-        this.checkPressedKeys();
+      if (DEVELOPMENT) {
+        console.log(`Coordinates: ${this.coordinates.join(' ')}`);
+        if (typeof currentCell.onStep !== 'undefined')
+          console.log(`onStep: ${currentCell.onStep}`);
       }
-    }, step);
+
+      this.#isMoving = false;
+      this.#hadResize = true;
+
+      currentCell.onStep?.();
+    };
   }
 }
