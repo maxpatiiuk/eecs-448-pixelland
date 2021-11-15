@@ -18,11 +18,11 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         <tr>
             <th rowspan=1>Planning</th>
             <td>Team meetings</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
+            <td>3h</td>
+            <td>3h</td>
+            <td>3h</td>
+            <td>3h</td>
+            <td>3h</td>
         </tr>
         <tr>
             <th rowspan=8>Implementation</th>
@@ -35,7 +35,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         </tr>
         <tr>
             <td>Minecraft Map</td>
-            <td>6.75h</td>
+            <td>7.75h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
@@ -50,16 +50,16 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
-            <td>0h</td>
+            <td>Improving performance</td>
+            <td>3h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
-            <td>0h</td>
+            <td>Making movement more realisict</td>
+            <td>4h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
