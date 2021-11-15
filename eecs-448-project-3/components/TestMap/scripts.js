@@ -22,6 +22,8 @@ class TestMap extends Map {
 
     const ui = document.getElementsByClassName('ui')[0];
     const testControls = document.createElement('div');
+    testControls.style.position = 'fixed';
+    testControls.style.top = '0';
     testControls.innerHTML = await fetch('./components/TestMap/testPanel.html')
       .then(async (response) => response.text())
       .catch(console.error);
