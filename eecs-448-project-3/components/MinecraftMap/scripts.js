@@ -275,7 +275,7 @@ const biomes = {
           {
             block: 'diamondOre',
             probabilities: {
-              scale: [10, 5],
+              scale: [4, 2],
               cutOff: [10, 3],
             },
           },
@@ -428,11 +428,20 @@ class MinecraftMap extends Map {
       )
     );
 
+    const invertLeftBit = await this.getDeterministicRandom('1', 2);
+    const invertRightBit = await this.getDeterministicRandom('2', 2);
+    const reverseBits = await this.getDeterministicRandom('3', 2);
+    const bitToInt = (bit) => (bit ? 1 : 0);
     this.#getBiomeAtCell = (x, y) => {
-      const leftBit = biomeMaskBottom(x, y) ? 0 : 1;
-      const rightBit = biomeMaskTop(x, y) ? 0 : 1;
-      const binaryIndex = `${leftBit}${rightBit}`;
-      const decimalIndex = Number.parseInt(binaryIndex, 2);
+      const leftBit = bitToInt(biomeMaskBottom(x, y));
+      const invertedLeftBit = invertLeftBit ? bitToInt(!leftBit) : leftBit;
+      const rightBit = bitToInt(biomeMaskTop(x, y));
+      const invertedRightBit = invertRightBit ? bitToInt(!rightBit) : rightBit;
+      const binaryIndex = `${invertedLeftBit}${invertedRightBit}`;
+      const reversedIndex = reverseBits
+        ? binaryIndex.split('').reverse().join('')
+        : binaryIndex;
+      const decimalIndex = Number.parseInt(reversedIndex, 2);
       return Object.keys(biomes)[decimalIndex];
     };
 

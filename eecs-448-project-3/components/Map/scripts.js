@@ -72,10 +72,7 @@ class Map extends Component {
     const randomNumber = stringToNumber(
       await getHash(`${this.seed.slice(0, 5)}${salt}`)
     );
-    return clampInt(
-      max,
-      randomNumber * Math.max(1, Math.floor(max / Math.abs(randomNumber)))
-    );
+    return clampInt(max, randomNumber);
   }
 
   /**
