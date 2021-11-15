@@ -138,7 +138,11 @@ class CanvasView extends View {
 
     // Inventory
     this.#inventory = new Inventory({
-      blocks: this.#map.blocks,
+      // TODO: make this more reusable
+      blocks,
+      src: this.#map.texturesSrc,
+      textureSize: this.#map.textureSize,
+      texturesCount: this.#map.texturesCount,
     });
     const inventory = this.container.getElementsByClassName('inventory')[0];
     await this.#inventory.render(inventory);

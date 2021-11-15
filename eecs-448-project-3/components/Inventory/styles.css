@@ -1,4 +1,8 @@
 .Inventory {
+  --texture-index: 0;
+  --texture-size: 16px;
+  --texture-count: 46;
+
   display: flex;
   height: 100%;
   width: 100%;
@@ -17,10 +21,8 @@
 }
 
 .inventory-grid {
-  --rows: 3;
   --cols: 10;
   display: grid;
-  grid-template-rows: repeat(var(--rows), 1fr);
   grid-template-columns: repeat(var(--cols), 1fr);
 }
 
@@ -28,15 +30,31 @@
   display: flex;
   background: var(--b1);
   border: var(--border-size) size var(--border);
+  z-index: calc(var(--z-index) + 1);
 }
 
 .Inventory .cell {
-  width: calc(1.5 * var(--double-size));
-  height: calc(1.5 * var(--double-size));
+  --cell-size: calc(1.5 * var(--double-size));
+
+  width: var(--cell-size);
+  height: var(--cell-size);
   border: var(--border-size) solid var(--border);
   cursor: pointer;
+  background-position: calc(
+      calc(var(--texture-count) - var(--texture-index)) * var(--cell-size)
+    )
+    0;
+  background-size: calc(var(--texture-count) * var(--cell-size))
+    var(--cell-size);
+  background-color: var(--b2);
+  image-rendering: pixelated;
 }
 
-.Inventory .cell:hover {
-  background: var(--b2);
+.Inventory .cell:not(.active):hover {
+  opacity: 0.5;
+}
+
+.Inventory .cell.active {
+  border-color: var(--error);
+  border-width: calc(var(--border-size) * 4);
 }
