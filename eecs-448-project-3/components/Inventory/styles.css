@@ -1,3 +1,42 @@
 .Inventory {
-  /* TODO: add styles */
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.Inventory .inventory-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--darken);
+  justify-content: center;
+  align-items: center;
+}
+
+.inventory-grid {
+  --rows: 3;
+  --cols: 10;
+  display: grid;
+  grid-template-rows: repeat(var(--rows), 1fr);
+  grid-template-columns: repeat(var(--cols), 1fr);
+}
+
+.Inventory .inventory-toolbar {
+  display: flex;
+  background: var(--b1);
+  border: var(--border-size) size var(--border);
+}
+
+.Inventory .cell {
+  width: calc(1.5 * var(--double-size));
+  height: calc(1.5 * var(--double-size));
+  border: var(--border-size) solid var(--border);
+  cursor: pointer;
+}
+
+.Inventory .cell:hover {
+  background: var(--b2);
 }

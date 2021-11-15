@@ -80,6 +80,8 @@ class CanvasView extends View {
 
   #mapType;
 
+  #inventory;
+
   constructor(options) {
     super(options);
   }
@@ -134,10 +136,22 @@ class CanvasView extends View {
       this.#textures.handleCellResize.bind(this.#textures)
     );
 
+    // Inventory
+    this.#inventory = new Inventory({
+      blocks: this.#map.blocks,
+    });
+    const inventory = this.container.getElementsByClassName('inventory')[0];
+    await this.#inventory.render(inventory);
+
     // Controls
     this.#controls = new Controls({
       handleKeyToggle: (type) => {
-        if (type === 'escape')
+        if (
+          (type === 'inventory' && !this.#grid.paused) ||
+          (type === 'escape' && this.#inventory.isOpen)
+        )
+          this.#inventory.toggleOverlay();
+        else if (type === 'escape')
           this.handlePauseMenuInteraction(
             this.#grid.paused ? 'resume' : 'pause'
           );

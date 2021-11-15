@@ -68,6 +68,7 @@ const keyMapper = {
  */
 const toggleKeys = {
   Escape: 'escape',
+  KeyE: 'inventory',
 };
 
 /**
