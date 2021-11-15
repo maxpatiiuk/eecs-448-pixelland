@@ -44,6 +44,8 @@ class Grid extends Component {
    */
   #context;
 
+  #cacheIsValid = false;
+
   /**
    * @type {Boolean} needRedraw
    * @memberof Grid
@@ -79,6 +81,9 @@ class Grid extends Component {
    * @public
    */
   coordinates = [0, 0];
+
+  // Coordinates at the moment of last reDraw
+  #staleCoordinates = [0, 0];
 
   // Decimal coordinates. 1 = 1 block
   #decimalCoordinates = [0, 0];
@@ -174,11 +179,30 @@ class Grid extends Component {
    * @memberof Grid
    */
   draw() {
-    if (
-      this.#needRedraw ||
-      this.#renderedFrameCount < 120 ||
-      this.options.didMapChange()
-    ) {
+    this.#cacheIsValid &&=
+      this.#renderedFrameCount > 120 && !this.options.didMapChange();
+
+    // If cache is valid, move the canvas (and redraw the edges)
+    if (this.#cacheIsValid) {
+      const imageData = this.#context.getImageData(
+        0,
+        0,
+        this.options.canvas.width,
+        this.options.canvas.height
+      );
+
+      const movement = this.coordinates.map(
+        (coordinate, index) => coordinate - this.#staleCoordinates[index]
+      );
+
+      this.#context.putImageData(imageData, ...movement);
+
+      this.#needRedraw = true;
+    }
+
+    this.#staleCoordinates = Array.from(this.coordinates);
+
+    if (!this.#cacheIsValid || this.#needRedraw) {
       this.#needRedraw = false;
 
       const count = this.#cellCount.map(
@@ -194,8 +218,17 @@ class Grid extends Component {
           rowIndex < count[1];
           rowIndex += 1
         )
-          this.drawCell(columnIndex, rowIndex);
+          // If cache is valid, only redraw the edges
+          if (
+            !this.#cacheIsValid ||
+            columnIndex < 2 ||
+            rowIndex < 2 ||
+            columnIndex + 2 >= count[0] ||
+            rowIndex + 2 >= count[1]
+          )
+            this.drawCell(columnIndex, rowIndex);
     }
+    this.#cacheIsValid = true;
 
     this.#renderedFrameCount += 1;
 
@@ -210,7 +243,7 @@ class Grid extends Component {
    */
   handleCellResize(cellSize) {
     this.#cellSize = cellSize;
-    this.#needRedraw = true;
+    this.#cacheIsValid = false;
 
     this.#context.imageSmoothingEnabled = false;
 
