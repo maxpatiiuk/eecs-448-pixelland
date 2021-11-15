@@ -15,7 +15,7 @@ const cols = 10;
  * @public
  */
 class Inventory extends Component {
-  #overlay;
+  overlay;
 
   currentToolbarBlock;
 
@@ -23,7 +23,7 @@ class Inventory extends Component {
 
   isOpen = false;
 
-  #toolbar;
+  toolbar;
 
   /**
    * @async
@@ -35,13 +35,13 @@ class Inventory extends Component {
     await super.render(container);
 
     // TODO: Set event listeners and call callbacks on click
-    this.#toolbar = document.getElementsByClassName('inventory-toolbar')[0];
-    this.#toolbar.innerHTML = Array.from(
+    this.toolbar = document.getElementsByClassName('inventory-toolbar')[0];
+    this.toolbar.innerHTML = Array.from(
       { length: cols },
       () => `<button class='cell'></button>`
     ).join('');
 
-    this.#overlay = document.getElementsByClassName('inventory-overlay')[0];
+    this.overlay = document.getElementsByClassName('inventory-overlay')[0];
 
     this.container.style.setProperty(
       '--texture-count',
@@ -52,7 +52,7 @@ class Inventory extends Component {
       `${this.options.textureSize}px`
     );
 
-    const grid = this.#overlay.getElementsByClassName('inventory-grid')[0];
+    const grid = this.overlay.getElementsByClassName('inventory-grid')[0];
     grid.style.setProperty('--cols', cols);
     grid.innerHTML = Object.entries(this.options.blocks)
       .map(
@@ -87,7 +87,7 @@ class Inventory extends Component {
 
   toggleOverlay() {
     this.isOpen = !this.isOpen;
-    this.#overlay.style.display = this.isOpen ? 'flex' : 'none';
+    this.overlay.style.display = this.isOpen ? 'flex' : 'none';
     this.deselectInventoryBlock();
   }
 
@@ -128,16 +128,16 @@ class Inventory extends Component {
 
   handleToolbarSelected(index) {
     this.handleCellSelect({
-      target: this.#toolbar.children[index === 0 ? 9 : index - 1],
-      path: [this.#toolbar],
+      target: this.toolbar.children[index === 0 ? 9 : index - 1],
+      path: [this.toolbar],
     });
   }
 
   handleCellSelect({ target, path }) {
+    const isToolbarCell = path.includes(this.toolbar);
+
     const block = target.getAttribute('data-block');
     const cellHasBlock = block !== null;
-
-    const isToolbarCell = path.includes(this.#toolbar);
 
     if (isToolbarCell) {
       if (typeof this.#currentInventoryBlock !== 'undefined')
@@ -151,7 +151,7 @@ class Inventory extends Component {
 
     if (DEVELOPMENT)
       console.log(
-        `Select ${block} in the ${isToolbarCell ? 'toolbar' : 'inventory'}`
+        `Selected ${block} in the ${isToolbarCell ? 'toolbar' : 'inventory'}`
       );
   }
 }

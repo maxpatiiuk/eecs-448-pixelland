@@ -100,4 +100,8 @@ class Map extends Component {
       backgroundColor: `hsl(0deg, 0%, 50%)`,
     };
   }
+
+  setBlockAtCoordinates(x, y, block) {
+    throw new Error('Not implemented');
+  }
 }

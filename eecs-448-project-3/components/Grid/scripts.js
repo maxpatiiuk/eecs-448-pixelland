@@ -144,7 +144,7 @@ class Grid extends Component {
       this.#context.drawImage(cell.backgroundImage, ...cellPosition);
 
     if (typeof cell.backgroundOverlayOptions === 'object')
-      this.#context.drawImage(cell.backgroundImage, ...cellPosition);
+      this.#context.drawImage(cell.backgroundOverlayOptions, ...cellPosition);
 
     if (typeof cell.backgroundColor === 'string') {
       this.#context.fillStyle = cell.backgroundColor;
@@ -319,5 +319,13 @@ class Grid extends Component {
       this.#needRedraw = true;
       clearInterval(interval);
     };
+  }
+
+  pxToCoordinates(x, y) {
+    return [x, y].map(
+      (px, index) =>
+        this.#decimalCoordinates[index] +
+        Math.floor((px - this.#centerCellCoordinates[index]) / this.#cellSize)
+    );
   }
 }

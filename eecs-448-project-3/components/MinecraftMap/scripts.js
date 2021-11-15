@@ -604,4 +604,21 @@ class MinecraftMap extends Map {
         : {}),
     };
   }
+
+  async setBlockAtCoordinates(col, row, block) {
+    const pseudoRandomNumber = await this.getDeterministicRandom(
+      `${col},${row}`,
+      Number.MAX_SAFE_INTEGER
+    );
+
+    const textures = blocks[block];
+    const textureIndex =
+      textures.variations[pseudoRandomNumber % textures.variations.length];
+    const blockType = textures.transparent
+      ? 'backgroundOverlayOptions'
+      : 'backgroundImage';
+    this.map[col][row][blockType] = this.textures[textureIndex];
+
+    this.mapChanged = true;
+  }
 }

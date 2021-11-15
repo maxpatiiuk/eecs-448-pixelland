@@ -55,6 +55,8 @@ class CanvasView extends View {
    */
   #controls;
 
+  #mouseControls;
+
   /**
    * @type {Object} map
    * @memberof CanvasView
@@ -138,7 +140,7 @@ class CanvasView extends View {
 
     // Inventory
     this.#inventory = new Inventory({
-      // TODO: make this more reusable
+      // TODO: add separate inventory for Rainbowland map
       blocks,
       src: this.#map.texturesSrc,
       textureSize: this.#map.textureSize,
@@ -167,6 +169,22 @@ class CanvasView extends View {
     });
     await this.#controls.render();
     this.destructors.push(() => this.#controls.remove());
+
+    // Mouse Controls
+    this.#mouseControls = new MouseControls({
+      getIgnoredBlocks: () => [
+        this.#inventory.overlay,
+        this.#inventory.toolbar,
+        this.#pauseMenu.container,
+      ],
+      pxToCoordinates: (...args) => this.#grid.pxToCoordinates(...args),
+      getCurrentToolbarBlock: () =>
+        this.#inventory.currentToolbarBlock?.getAttribute('data-block') ??
+        undefined,
+      setBlockAtCoordinates: this.#map.setBlockAtCoordinates.bind(this.#map),
+    });
+    await this.#mouseControls.render();
+    this.destructors.push(() => this.#mouseControls.remove());
 
     // Grid
     this.#canvas = this.container.getElementsByTagName('canvas')[0];
