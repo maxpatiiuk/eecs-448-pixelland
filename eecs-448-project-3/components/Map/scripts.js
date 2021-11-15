@@ -85,6 +85,7 @@ class Map extends Component {
    * @memberof Map
    */
   getCellAtCoordinate(col, row) {
+    this.mapChanged = false;
     if (typeof this.map[col]?.[row] === 'undefined')
       this.generateCell(col, row);
     return this.map[col]?.[row] ?? {};

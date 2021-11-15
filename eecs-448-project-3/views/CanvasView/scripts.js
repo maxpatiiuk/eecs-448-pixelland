@@ -76,6 +76,8 @@ class CanvasView extends View {
    */
   #saveLoad;
 
+  #mapType;
+
   constructor(options) {
     super(options);
   }
@@ -102,13 +104,13 @@ class CanvasView extends View {
     this.destructors.push(() => this.#player.remove());
 
     // Map Generator
-    const mapType = this.options.state?.mapType ?? MAP_TYPE;
+    this.#mapType = this.options.state?.mapType ?? MAP_TYPE;
     const mapInstance =
       {
         rainbowland: RainbowlandMap,
         minecraft: MinecraftMap,
         test: TestMap,
-      }[mapType] ?? Map;
+      }[this.#mapType] ?? Map;
 
     this.#map = new mapInstance({
       seed: this.options.state?.seed,
@@ -243,7 +245,7 @@ class CanvasView extends View {
         this.#saveLoad.save({
           seed: this.#map.seed,
           coordinates: this.#grid.coordinates,
-          mapType: this.#map.mapType,
+          mapType: this.#mapType,
         });
         this.#pauseMenu.loadButton.disabled = false;
         alert('Saved');

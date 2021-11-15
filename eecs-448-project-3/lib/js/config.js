@@ -12,7 +12,7 @@ const CELL_SIZE_STEP = 1;
 void (() => (cellSize += 1));
 
 // Lower value is faster
-const MOVEMENT_SPEED = 100;
+const MOVEMENT_SPEED = 150;
 
 // Movement is slower when moving diagonally
 const DIAGONAL_MOVEMENT_SPEED = Math.sqrt(MOVEMENT_SPEED ** 2 * 2);
