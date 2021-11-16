@@ -279,6 +279,7 @@ We generated a UML diagram using
 for the JetBrains Ultimate IDE. The plugin generates class diagrams that follow
 the latest EMCAScript 6 class standard. We have chosen to omit the field
 descriptions for each class in order to maintain readability.
+
 ![UML Diagram](./UML.png)
 
 ### Project Requirements
