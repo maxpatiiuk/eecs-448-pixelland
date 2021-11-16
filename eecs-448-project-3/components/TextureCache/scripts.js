@@ -7,7 +7,7 @@
 /**
  * Resize the textures to correct size once after every screen resolution
  * change, rather than on every render
- * @class Grid
+ * @class TextureCache
  * @constructor
  * @param options
  * @extends Component
@@ -28,7 +28,7 @@ class TextureCache extends Component {
   /**
    * @async
    * @function render
-   * @memberof Grid
+   * @memberof TextureCache
    */
   async render() {
     await super.render();
@@ -63,7 +63,7 @@ class TextureCache extends Component {
   /**
    * @function handleCellResize
    * @param cellSize size of game cell in viewport (relative size)
-   * @memberof Grid
+   * @memberof TextureCache
    */
   handleCellResize(cellSize) {
     if (typeof this.#image === 'undefined') return;

@@ -15,14 +15,39 @@ const cols = 10;
  * @public
  */
 class Inventory extends Component {
+  /**
+   * @type {object} overlay
+   * @memberof Inventory
+   * @public
+   */
   overlay;
 
+  /**
+   * @type {object} currentToolbarBlock
+   * @memberof Inventory
+   * @public
+   */
   currentToolbarBlock;
 
+  /**
+   * @type {object} currentInventoryBlock
+   * @memberof Inventory
+   * @public
+   */
   #currentInventoryBlock;
 
+  /**
+   * @type {Boolean} isOpen
+   * @memberof Inventory
+   * @public
+   */
   isOpen = false;
 
+  /**
+   * @type {object} toolbar
+   * @memberof Inventory
+   * @public
+   */
   toolbar;
 
   /**
@@ -85,28 +110,50 @@ class Inventory extends Component {
     return this;
   }
 
+  /**
+   * @function toggleOverlay
+   * @memberof Inventory
+   */
   toggleOverlay() {
     this.isOpen = !this.isOpen;
     this.overlay.style.display = this.isOpen ? 'flex' : 'none';
     this.deselectInventoryBlock();
   }
 
+  /**
+   * @function deselectInventoryBlock
+   * @memberof Inventory
+   */
   deselectInventoryBlock() {
     this.#currentInventoryBlock?.classList.remove('active');
     this.#currentInventoryBlock = undefined;
   }
 
+  /**
+   * @function selectInventoryBlock
+   * @memberof Inventory
+   * @param cell
+   */
   selectInventoryBlock(cell) {
     this.deselectInventoryBlock();
     this.#currentInventoryBlock = cell;
     this.#currentInventoryBlock.classList.add('active');
   }
 
+  /**
+   * @function deselectToolbarBlock
+   * @memberof Inventory
+   */
   deselectToolbarBlock() {
     this.currentToolbarBlock?.classList.remove('active');
     this.currentToolbarBlock = undefined;
   }
 
+  /**
+   * @function selectToolbarBlock
+   * @memberof Inventory
+   * @param cell
+   */
   selectToolbarBlock(cell) {
     this.deselectToolbarBlock();
     this.currentToolbarBlock?.classList.remove('active');
@@ -114,6 +161,12 @@ class Inventory extends Component {
     this.currentToolbarBlock.classList.add('active');
   }
 
+  /**
+   * @function setToolbarBlock
+   * @memberof Inventory
+   * @param slot
+   * @param cell
+   */
   setToolbarBlock(slot, cell) {
     slot.style.setProperty(
       '--texture-index',
@@ -126,6 +179,11 @@ class Inventory extends Component {
     slot.dataset.block = cell.getAttribute('data-block');
   }
 
+  /**
+   * @function handleToolbarSelected
+   * @memberof Inventory
+   * @param index
+   */
   handleToolbarSelected(index) {
     this.handleCellSelect({
       target: this.toolbar.children[index === 0 ? 9 : index - 1],
@@ -133,6 +191,11 @@ class Inventory extends Component {
     });
   }
 
+  /**
+   * @function handleCellSelect
+   * @memberof Inventory
+   * @param {target, path}
+   */
   handleCellSelect({ target, path }) {
     const isToolbarCell = path.includes(this.toolbar);
 

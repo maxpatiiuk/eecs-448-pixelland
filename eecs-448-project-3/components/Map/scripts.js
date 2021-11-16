@@ -33,8 +33,19 @@ class Map extends Component {
    */
   mapType = 'rainbowland';
 
+  /**
+   * @type {Boolean} mapChanged
+   * @memberof Map
+   * @public
+   */
   mapChanged = true;
 
+  /**
+   * @async
+   * @function didMapChange
+   * @memberof Map
+   * @returns {Boolean} mapChanged
+   */
   didMapChange() {
     return this.mapChanged;
   }
@@ -101,6 +112,13 @@ class Map extends Component {
     };
   }
 
+  /**
+   * @function setBlockAtCoordinates
+   * @param x X coordinate
+   * @param y Y coordinate
+   * @param block block to be placed
+   * @memberof Map
+   */
   setBlockAtCoordinates(x, y, block) {
     throw new Error('Not implemented');
   }

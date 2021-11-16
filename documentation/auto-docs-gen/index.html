@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>eecs-448-battleship 1.0.0 | Documentation</title>
-  <meta name='description' content='EECS 448: Battleship'>
+  <title>eecs-448-pixelland 1.0.0 | Documentation</title>
+  <meta name='description' content='EECS 448: Pixelland'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
   <link href='assets/style.css' rel='stylesheet'>
@@ -14,7 +14,7 @@
     <div class='flex'>
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
-          <h3 class='mb0 no-anchor'>eecs-448-battleship</h3>
+          <h3 class='mb0 no-anchor'>eecs-448-pixelland</h3>
           <div class='mb1'><code>1.0.0</code></div>
           <input
             placeholder='Filter'
@@ -47,6 +47,18 @@
                       </a></li>
                     
                       <li><a
+                        href='#controlszoomkeys'
+                        class='regular pre-open'>
+                        .zoomKeys
+                      </a></li>
+                    
+                      <li><a
+                        href='#controlsinventorykeys'
+                        class='regular pre-open'>
+                        .inventoryKeys
+                      </a></li>
+                    
+                      <li><a
                         href='#controlskeymapper'
                         class='regular pre-open'>
                         .keyMapper
@@ -71,15 +83,15 @@
                       </a></li>
                     
                       <li><a
-                        href='#controlshandlekeypress'
+                        href='#controlsrender'
                         class='regular pre-open'>
-                        .handleKeyPress
+                        .render
                       </a></li>
                     
                       <li><a
-                        href='#controlsgetpressedspecialkeys'
+                        href='#controlshandlekeypress'
                         class='regular pre-open'>
-                        .getPressedSpecialKeys
+                        .handleKeyPress
                       </a></li>
                     
                       <li><a
@@ -117,12 +129,6 @@
                       </a></li>
                     
                       <li><a
-                        href='#gridhasanimatedcells'
-                        class='regular pre-open'>
-                        .hasAnimatedCells
-                      </a></li>
-                    
-                      <li><a
                         href='#gridcellsize'
                         class='regular pre-open'>
                         .cellSize
@@ -135,15 +141,9 @@
                       </a></li>
                     
                       <li><a
-                        href='#gridismoving'
+                        href='#gridneedredraw'
                         class='regular pre-open'>
-                        .isMoving
-                      </a></li>
-                    
-                      <li><a
-                        href='#gridhadresize'
-                        class='regular pre-open'>
-                        .hadResize
+                        .needRedraw
                       </a></li>
                     
                       <li><a
@@ -171,9 +171,21 @@
                       </a></li>
                     
                       <li><a
-                        href='#gridanimationoffset'
+                        href='#gridcellcount'
                         class='regular pre-open'>
-                        .animationOffset
+                        .cellCount
+                      </a></li>
+                    
+                      <li><a
+                        href='#gridhalfcellcount'
+                        class='regular pre-open'>
+                        .halfCellCount
+                      </a></li>
+                    
+                      <li><a
+                        href='#gridcentercellcoordinates'
+                        class='regular pre-open'>
+                        .centerCellCoordinates
                       </a></li>
                     
                       <li><a
@@ -201,15 +213,145 @@
                       </a></li>
                     
                       <li><a
-                        href='#gridcheckpressedkeys'
+                        href='#gridrecalculatecenter'
                         class='regular pre-open'>
-                        .checkPressedKeys
+                        .recalculateCenter
+                      </a></li>
+                    
+                      <li><a
+                        href='#gridrecalculatedecimalcoordinates'
+                        class='regular pre-open'>
+                        .recalculateDecimalCoordinates
+                      </a></li>
+                    
+                      <li><a
+                        href='#gridhandlemovementchange'
+                        class='regular pre-open'>
+                        .handleMovementChange
+                      </a></li>
+                    
+                      <li><a
+                        href='#gridhandleblockchange'
+                        class='regular pre-open'>
+                        .handleBlockChange
                       </a></li>
                     
                       <li><a
                         href='#gridstartmovement'
                         class='regular pre-open'>
                         .startMovement
+                      </a></li>
+                    
+                      <li><a
+                        href='#gridpxtocoordinates'
+                        class='regular pre-open'>
+                        .pxToCoordinates
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#inventory'
+                  class=" toggle-sibling">
+                  Inventory
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#inventoryoverlay'
+                        class='regular pre-open'>
+                        .overlay
+                      </a></li>
+                    
+                      <li><a
+                        href='#inventorycurrenttoolbarblock'
+                        class='regular pre-open'>
+                        .currentToolbarBlock
+                      </a></li>
+                    
+                      <li><a
+                        href='#inventorycurrentinventoryblock'
+                        class='regular pre-open'>
+                        .currentInventoryBlock
+                      </a></li>
+                    
+                      <li><a
+                        href='#inventoryisopen'
+                        class='regular pre-open'>
+                        .isOpen
+                      </a></li>
+                    
+                      <li><a
+                        href='#inventorytoolbar'
+                        class='regular pre-open'>
+                        .toolbar
+                      </a></li>
+                    
+                      <li><a
+                        href='#inventoryrender'
+                        class='regular pre-open'>
+                        .render
+                      </a></li>
+                    
+                      <li><a
+                        href='#inventorytoggleoverlay'
+                        class='regular pre-open'>
+                        .toggleOverlay
+                      </a></li>
+                    
+                      <li><a
+                        href='#inventorydeselectinventoryblock'
+                        class='regular pre-open'>
+                        .deselectInventoryBlock
+                      </a></li>
+                    
+                      <li><a
+                        href='#inventoryselectinventoryblock'
+                        class='regular pre-open'>
+                        .selectInventoryBlock
+                      </a></li>
+                    
+                      <li><a
+                        href='#inventorydeselecttoolbarblock'
+                        class='regular pre-open'>
+                        .deselectToolbarBlock
+                      </a></li>
+                    
+                      <li><a
+                        href='#inventoryselecttoolbarblock'
+                        class='regular pre-open'>
+                        .selectToolbarBlock
+                      </a></li>
+                    
+                      <li><a
+                        href='#inventorysettoolbarblock'
+                        class='regular pre-open'>
+                        .setToolbarBlock
+                      </a></li>
+                    
+                      <li><a
+                        href='#inventoryhandletoolbarselected'
+                        class='regular pre-open'>
+                        .handleToolbarSelected
+                      </a></li>
+                    
+                      <li><a
+                        href='#inventoryhandlecellselect'
+                        class='regular pre-open'>
+                        .handleCellSelect
                       </a></li>
                     
                     </ul>
@@ -253,6 +395,18 @@
                       </a></li>
                     
                       <li><a
+                        href='#mapmapchanged'
+                        class='regular pre-open'>
+                        .mapChanged
+                      </a></li>
+                    
+                      <li><a
+                        href='#mapdidmapchange'
+                        class='regular pre-open'>
+                        .didMapChange
+                      </a></li>
+                    
+                      <li><a
                         href='#maprender'
                         class='regular pre-open'>
                         .render
@@ -276,12 +430,56 @@
                         .generateCell
                       </a></li>
                     
+                      <li><a
+                        href='#mapsetblockatcoordinates'
+                        class='regular pre-open'>
+                        .setBlockAtCoordinates
+                      </a></li>
+                    
                     </ul>
                   
                   
                   
                   
                 </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#minecraftmap'
+                  class=" toggle-sibling">
+                  MinecraftMap
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#minecraftmapgeneratecell'
+                        class='regular pre-open'>
+                        .generateCell
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#mousecontrols'
+                  class="">
+                  MouseControls
+                  
+                </a>
                 
                 </li>
               
@@ -355,6 +553,40 @@
               
                 
                 <li><a
+                  href='#rainbowlandmap'
+                  class=" toggle-sibling">
+                  RainbowlandMap
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#rainbowlandmapgeneratecell'
+                        class='regular pre-open'>
+                        .generateCell
+                      </a></li>
+                    
+                      <li><a
+                        href='#rainbowlandmaprandomteleport'
+                        class='regular pre-open'>
+                        .randomTeleport
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
                   href='#saveload'
                   class=" toggle-sibling">
                   SaveLoad
@@ -395,9 +627,93 @@
               
                 
                 <li><a
+                  href='#testmap'
+                  class=" toggle-sibling">
+                  TestMap
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#testmaprender'
+                        class='regular pre-open'>
+                        .render
+                      </a></li>
+                    
+                      <li><a
+                        href='#testmaphandleinputchange'
+                        class='regular pre-open'>
+                        .handleInputChange
+                      </a></li>
+                    
+                      <li><a
+                        href='#testmapgeneratecell'
+                        class='regular pre-open'>
+                        .generateCell
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#texturecache'
+                  class=" toggle-sibling">
+                  TextureCache
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#texturecacherender'
+                        class='regular pre-open'>
+                        .render
+                      </a></li>
+                    
+                      <li><a
+                        href='#texturecachehandlecellresize'
+                        class='regular pre-open'>
+                        .handleCellResize
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
                   href='#component'
                   class="">
                   Component
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#gethash'
+                  class="">
+                  getHash
                   
                 </a>
                 
@@ -415,6 +731,80 @@
               
                 
                 <li><a
+                  href='#utils'
+                  class="">
+                  Utils
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#view'
+                  class=" toggle-sibling">
+                  View
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#viewname'
+                        class='regular pre-open'>
+                        .name
+                      </a></li>
+                    
+                      <li><a
+                        href='#viewdestructors'
+                        class='regular pre-open'>
+                        .destructors
+                      </a></li>
+                    
+                      <li><a
+                        href='#viewhascontainer'
+                        class='regular pre-open'>
+                        .hasContainer
+                      </a></li>
+                    
+                      <li><a
+                        href='#viewindex'
+                        class='regular pre-open'>
+                        .index
+                      </a></li>
+                    
+                      <li><a
+                        href='#viewactiveviews'
+                        class='regular pre-open'>
+                        .activeViews
+                      </a></li>
+                    
+                      <li><a
+                        href='#viewviewtemplate'
+                        class='regular pre-open'>
+                        .viewTemplate
+                      </a></li>
+                    
+                      <li><a
+                        href='#viewrender'
+                        class='regular pre-open'>
+                        .render
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
                   href='#canvasview'
                   class=" toggle-sibling">
                   CanvasView
@@ -425,12 +815,6 @@
                   
                   <ul class='list-reset py1-ul pl1'>
                     <li class='h5'><span>Static members</span></li>
-                    
-                      <li><a
-                        href='#canvasviewgethash'
-                        class='regular pre-open'>
-                        .getHash
-                      </a></li>
                     
                       <li><a
                         href='#canvasviewcanvas'
@@ -502,80 +886,6 @@
                         href='#canvasviewhandlepausemenuinteraction'
                         class='regular pre-open'>
                         .handlePauseMenuInteraction
-                      </a></li>
-                    
-                    </ul>
-                  
-                  
-                  
-                  
-                </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#utils'
-                  class="">
-                  Utils
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#view'
-                  class=" toggle-sibling">
-                  View
-                  <span class='icon'>▸</span>
-                </a>
-                
-                <div class='toggle-target display-none'>
-                  
-                  <ul class='list-reset py1-ul pl1'>
-                    <li class='h5'><span>Static members</span></li>
-                    
-                      <li><a
-                        href='#viewname'
-                        class='regular pre-open'>
-                        .name
-                      </a></li>
-                    
-                      <li><a
-                        href='#viewdestructors'
-                        class='regular pre-open'>
-                        .destructors
-                      </a></li>
-                    
-                      <li><a
-                        href='#viewhascontainer'
-                        class='regular pre-open'>
-                        .hasContainer
-                      </a></li>
-                    
-                      <li><a
-                        href='#viewindex'
-                        class='regular pre-open'>
-                        .index
-                      </a></li>
-                    
-                      <li><a
-                        href='#viewactiveviews'
-                        class='regular pre-open'>
-                        .activeViews
-                      </a></li>
-                    
-                      <li><a
-                        href='#viewviewtemplate'
-                        class='regular pre-open'>
-                        .viewTemplate
-                      </a></li>
-                    
-                      <li><a
-                        href='#viewrender'
-                        class='regular pre-open'>
-                        .render
                       </a></li>
                     
                     </ul>
@@ -856,6 +1166,160 @@
       </div>
     </div>
   
+    <div class='border-bottom' id='controlszoomkeys'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>zoomKeys</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Sets zoom keys</p>
+
+    <div class='pre p1 fill-light mt0'>zoomKeys</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set">Set</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>zoomReset</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    zoom reset key
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>zoomOut</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    zoom out key
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>zoomIn</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    zoom in key
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='controlsinventorykeys'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>inventoryKeys</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Sets inventory keys</p>
+
+    <div class='pre p1 fill-light mt0'>inventoryKeys</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set">Set</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>slotN</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    nth slot [0-9]
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
     <div class='border-bottom' id='controlskeymapper'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -868,7 +1332,7 @@
 
   
 
-  <p>Maps keys with the in-game function key equivelant</p>
+  <p>Maps keys with the in-game function key equivalent</p>
 
     <div class='pre p1 fill-light mt0'>keyMapper</div>
   
@@ -1240,11 +1704,11 @@
       </div>
     </div>
   
-    <div class='border-bottom' id='controlshandlekeypress'>
+    <div class='border-bottom' id='controlsrender'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>handleKeyPress()</span>
+            <span class='code strong strong truncate'>render()</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -1252,8 +1716,9 @@
 
   
 
-  
-    <div class='pre p1 fill-light mt0'>handleKeyPress()</div>
+  <p>Handle render-related functionality for controls</p>
+
+    <div class='pre p1 fill-light mt0'>render()</div>
   
   
 
@@ -1288,11 +1753,11 @@
       </div>
     </div>
   
-    <div class='border-bottom' id='controlsgetpressedspecialkeys'>
+    <div class='border-bottom' id='controlshandlekeypress'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>getPressedSpecialKeys()</span>
+            <span class='code strong strong truncate'>handleKeyPress()</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -1301,7 +1766,7 @@
   
 
   
-    <div class='pre p1 fill-light mt0'>getPressedSpecialKeys()</div>
+    <div class='pre p1 fill-light mt0'>handleKeyPress()</div>
   
   
 
@@ -1513,59 +1978,6 @@
       </div>
     </div>
   
-    <div class='border-bottom' id='gridhasanimatedcells'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>hasAnimatedCells</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-    <div class='pre p1 fill-light mt0'>hasAnimatedCells</div>
-  
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
     <div class='border-bottom' id='gridcellsize'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -1578,7 +1990,8 @@
 
   
 
-  
+  <p>This gets overridden after render</p>
+
     <div class='pre p1 fill-light mt0'>cellSize</div>
   
     <p>
@@ -1672,11 +2085,11 @@
       </div>
     </div>
   
-    <div class='border-bottom' id='gridismoving'>
+    <div class='border-bottom' id='gridneedredraw'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>isMoving</span>
+            <span class='code strong strong truncate'>needRedraw</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -1685,60 +2098,7 @@
   
 
   
-    <div class='pre p1 fill-light mt0'>isMoving</div>
-  
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='gridhadresize'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>hadResize</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-    <div class='pre p1 fill-light mt0'>hadResize</div>
+    <div class='pre p1 fill-light mt0'>needRedraw</div>
   
     <p>
       Type:
@@ -1949,7 +2309,8 @@
 
   
 
-  
+  <p>Real player coordinates (1000 = 1 block)</p>
+
     <div class='pre p1 fill-light mt0'>coordinates</div>
   
     <p>
@@ -1990,11 +2351,11 @@
       </div>
     </div>
   
-    <div class='border-bottom' id='gridanimationoffset'>
+    <div class='border-bottom' id='gridcellcount'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>animationOffset</span>
+            <span class='code strong strong truncate'>cellCount</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -2002,12 +2363,121 @@
 
   
 
-  
-    <div class='pre p1 fill-light mt0'>animationOffset</div>
+  <p>Cell count</p>
+
+    <div class='pre p1 fill-light mt0'>cellCount</div>
   
     <p>
       Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='gridhalfcellcount'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>halfCellCount</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Cell count / 2</p>
+
+    <div class='pre p1 fill-light mt0'>halfCellCount</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='gridcentercellcoordinates'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>centerCellCoordinates</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Coordinates of the center cell within the viewport</p>
+
+    <div class='pre p1 fill-light mt0'>centerCellCoordinates</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
     </p>
   
   
@@ -2109,7 +2579,7 @@
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>drawCell(rowIndex, columnIndex, firstCellCoordinates)</span>
+            <span class='code strong strong truncate'>drawCell(columnIndex, rowIndex)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -2118,7 +2588,7 @@
   
 
   
-    <div class='pre p1 fill-light mt0'>drawCell(rowIndex: any, columnIndex: any, firstCellCoordinates: any)</div>
+    <div class='pre p1 fill-light mt0'>drawCell(columnIndex: any, rowIndex: any)</div>
   
   
 
@@ -2135,15 +2605,6 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>rowIndex</span> <code class='quiet'>(any)</code>
-	    relative row index
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
             <span class='code bold'>columnIndex</span> <code class='quiet'>(any)</code>
 	    relative column index
 
@@ -2153,8 +2614,8 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>firstCellCoordinates</span> <code class='quiet'>(any)</code>
-	    starting cell coordinates
+            <span class='code bold'>rowIndex</span> <code class='quiet'>(any)</code>
+	    relative row index
 
           </div>
           
@@ -2295,11 +2756,11 @@
       </div>
     </div>
   
-    <div class='border-bottom' id='gridcheckpressedkeys'>
+    <div class='border-bottom' id='gridrecalculatecenter'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>checkPressedKeys()</span>
+            <span class='code strong strong truncate'>recalculateCenter(dimensions)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -2308,7 +2769,165 @@
   
 
   
-    <div class='pre p1 fill-light mt0'>checkPressedKeys()</div>
+    <div class='pre p1 fill-light mt0'>recalculateCenter(dimensions: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>dimensions</span> <code class='quiet'>(any)</code>
+	    width x height
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='gridrecalculatedecimalcoordinates'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>recalculateDecimalCoordinates()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>recalculateDecimalCoordinates()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='gridhandlemovementchange'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>handleMovementChange()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>handleMovementChange()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='gridhandleblockchange'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>handleBlockChange()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>handleBlockChange()</div>
   
   
 
@@ -2357,6 +2976,924 @@
 
   
     <div class='pre p1 fill-light mt0'>startMovement()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='gridpxtocoordinates'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>pxToCoordinates(x, y)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>pxToCoordinates(x: any, y: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>x</span> <code class='quiet'>(any)</code>
+	    X coordinate
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>y</span> <code class='quiet'>(any)</code>
+	    Y coordinate
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='inventory'>
+      Inventory
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Draw player inventory</p>
+
+    <div class='pre p1 fill-light mt0'>new Inventory(options: any)</div>
+  
+  
+    <p>
+      Extends
+      
+        <a href="#component">Component</a>
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='inventoryoverlay'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>overlay</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>overlay</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='inventorycurrenttoolbarblock'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>currentToolbarBlock</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>currentToolbarBlock</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='inventorycurrentinventoryblock'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>currentInventoryBlock</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>currentInventoryBlock</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='inventoryisopen'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>isOpen</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>isOpen</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='inventorytoolbar'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>toolbar</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>toolbar</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='inventoryrender'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>render(container)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>render(container: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>container</span> <code class='quiet'>(any)</code>
+	    Container to render the view within
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='inventorytoggleoverlay'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>toggleOverlay()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>toggleOverlay()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='inventorydeselectinventoryblock'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>deselectInventoryBlock()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>deselectInventoryBlock()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='inventoryselectinventoryblock'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>selectInventoryBlock(cell)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>selectInventoryBlock(cell: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cell</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='inventorydeselecttoolbarblock'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>deselectToolbarBlock()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>deselectToolbarBlock()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='inventoryselecttoolbarblock'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>selectToolbarBlock(cell)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>selectToolbarBlock(cell: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cell</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='inventorysettoolbarblock'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>setToolbarBlock(slot, cell)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>setToolbarBlock(slot: any, cell: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>slot</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cell</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='inventoryhandletoolbarselected'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>handleToolbarSelected(index)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>handleToolbarSelected(index: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>index</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='inventoryhandlecellselect'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>handleCellSelect()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>handleCellSelect()</div>
   
   
 
@@ -2626,6 +4163,115 @@
       </div>
     </div>
   
+    <div class='border-bottom' id='mapmapchanged'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>mapChanged</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>mapChanged</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='mapdidmapchange'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>didMapChange()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>didMapChange(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>:
+        mapChanged
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
     <div class='border-bottom' id='maprender'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -2749,7 +4395,7 @@
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>getCellAtCoordinate(row, col)</span>
+            <span class='code strong strong truncate'>getCellAtCoordinate(col, row)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -2758,7 +4404,7 @@
   
 
   
-    <div class='pre p1 fill-light mt0'>getCellAtCoordinate(row: any, col: any)</div>
+    <div class='pre p1 fill-light mt0'>getCellAtCoordinate(col: any, row: any)</div>
   
   
 
@@ -2775,8 +4421,8 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>row</span> <code class='quiet'>(any)</code>
-	    row of cell at coordinate
+            <span class='code bold'>col</span> <code class='quiet'>(any)</code>
+	    column of cell at coordinate
 
           </div>
           
@@ -2784,8 +4430,8 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>col</span> <code class='quiet'>(any)</code>
-	    column of cell at coordinate
+            <span class='code bold'>row</span> <code class='quiet'>(any)</code>
+	    row of cell at coordinate
 
           </div>
           
@@ -2820,7 +4466,7 @@
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>generateCell(row, col)</span>
+            <span class='code strong strong truncate'>generateCell(col, row)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -2829,7 +4475,7 @@
   
 
   
-    <div class='pre p1 fill-light mt0'>generateCell(row: any, col: any)</div>
+    <div class='pre p1 fill-light mt0'>generateCell(col: any, row: any)</div>
   
   
 
@@ -2846,8 +4492,8 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>row</span> <code class='quiet'>(any)</code>
-	    row for cell gen
+            <span class='code bold'>col</span> <code class='quiet'>(any)</code>
+	    column for cell gen
 
           </div>
           
@@ -2855,8 +4501,88 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>col</span> <code class='quiet'>(any)</code>
-	    column for cell gen
+            <span class='code bold'>row</span> <code class='quiet'>(any)</code>
+	    row for cell gen
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='mapsetblockatcoordinates'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>setBlockAtCoordinates(x, y, block)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>setBlockAtCoordinates(x: any, y: any, block: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>x</span> <code class='quiet'>(any)</code>
+	    X coordinate
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>y</span> <code class='quiet'>(any)</code>
+	    Y coordinate
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>block</span> <code class='quiet'>(any)</code>
+	    block to be placed
 
           </div>
           
@@ -2888,6 +4614,223 @@
     </div>
   
 </div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='minecraftmap'>
+      MinecraftMap
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Draw Minecraft-styled map</p>
+
+    <div class='pre p1 fill-light mt0'>new MinecraftMap(options: any)</div>
+  
+  
+    <p>
+      Extends
+      
+        <a href="#map">Map</a>
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='minecraftmapgeneratecell'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>generateCell(col, row)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>generateCell(col: any, row: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>col</span> <code class='quiet'>(any)</code>
+	    column for cell gen
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>row</span> <code class='quiet'>(any)</code>
+	    row for cell gen
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='mousecontrols'>
+      MouseControls
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Handle game control keys</p>
+
+    <div class='pre p1 fill-light mt0'>new MouseControls(options: any)</div>
+  
+  
+    <p>
+      Extends
+      
+        <a href="#component">Component</a>
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -3288,6 +5231,212 @@
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='rainbowlandmap'>
+      RainbowlandMap
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Draw Rainbow-styled map</p>
+
+    <div class='pre p1 fill-light mt0'>new RainbowlandMap(options: any)</div>
+  
+  
+    <p>
+      Extends
+      
+        <a href="#map">Map</a>
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='rainbowlandmapgeneratecell'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>generateCell(col, row)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>generateCell(col: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, row: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>col</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>row</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='rainbowlandmaprandomteleport'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>randomTeleport(object)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>randomTeleport(object: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>object</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='saveload'>
       SaveLoad
     </h3>
@@ -3527,6 +5676,436 @@
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='testmap'>
+      TestMap
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Draw a test map environment</p>
+
+    <div class='pre p1 fill-light mt0'>new TestMap(options: any)</div>
+  
+  
+    <p>
+      Extends
+      
+        <a href="#map">Map</a>
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='testmaprender'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>render()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>render()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='testmaphandleinputchange'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>handleInputChange()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>handleInputChange()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='testmapgeneratecell'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>generateCell(row, col)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>generateCell(row: any, col: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>row</span> <code class='quiet'>(any)</code>
+	    row for cell gen
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>col</span> <code class='quiet'>(any)</code>
+	    column for cell gen
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='texturecache'>
+      TextureCache
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Resize the textures to correct size once after every screen resolution
+change, rather than on every render</p>
+
+    <div class='pre p1 fill-light mt0'>new TextureCache(options: any)</div>
+  
+  
+    <p>
+      Extends
+      
+        <a href="#component">Component</a>
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='texturecacherender'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>render()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>render()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='texturecachehandlecellresize'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>handleCellResize(cellSize)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>handleCellResize(cellSize: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cellSize</span> <code class='quiet'>(any)</code>
+	    size of game cell in viewport (relative size)
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='component'>
       Component
     </h3>
@@ -3563,6 +6142,80 @@
           <div>
             <span class='code bold'>renderOptions</span> <code class='quiet'>(any)</code>
 	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='gethash'>
+      getHash
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Renders a defined view into a container. Passes in necessary, predefined
+render parameters.</p>
+
+    <div class='pre p1 fill-light mt0'>getHash(string: any, algorithm: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>string</span> <code class='quiet'>(any)</code>
+	    String to encode
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>algorithm</span> <code class='quiet'>(any)</code>
+	    Algorithm to use
+
           </div>
           
         </div>
@@ -3647,6 +6300,521 @@
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='utils'>
+      Utils
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Utility functions</p>
+
+    <div class='pre p1 fill-light mt0'>Utils</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='view'>
+      View
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Base class for views</p>
+
+    <div class='pre p1 fill-light mt0'>new View(options: options, templateDirectory: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(options)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>templateDirectory</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='viewname'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>name</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>View Name</p>
+
+    <div class='pre p1 fill-light mt0'>name</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='viewdestructors'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>destructors</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Destructors</p>
+
+    <div class='pre p1 fill-light mt0'>destructors</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='viewhascontainer'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>hasContainer</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>hasContainer</p>
+
+    <div class='pre p1 fill-light mt0'>hasContainer</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='viewindex'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>index</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Total count of rendered views</p>
+
+    <div class='pre p1 fill-light mt0'>index</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='viewactiveviews'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>activeViews</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Record&#x3C;id, view> of currently visible views</p>
+
+    <div class='pre p1 fill-light mt0'>activeViews</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='viewviewtemplate'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>viewTemplate</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Record&#x3C;viewName, string|Promise> of view templates</p>
+
+    <div class='pre p1 fill-light mt0'>viewTemplate</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='viewrender'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>render(container)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Renders a defined view into a container. Passes in necessary, predefined
+render parameters.</p>
+
+    <div class='pre p1 fill-light mt0'>render(container: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>container</span> <code class='quiet'>(any)</code>
+	    Container to render the view within
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='canvasview'>
       CanvasView
     </h3>
@@ -3703,70 +6871,6 @@
   
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
-  
-    <div class='border-bottom' id='canvasviewgethash'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>getHash(container)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Renders a defined view into a container. Passes in necessary, predefined
-render parameters.</p>
-
-    <div class='pre p1 fill-light mt0'>getHash(container: any)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>container</span> <code class='quiet'>(any)</code>
-	    Container to render the view within
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
   
     <div class='border-bottom' id='canvasviewcanvas'>
       <div class="clearfix small pointer toggle-sibling">
@@ -4389,521 +7493,6 @@ render parameters.</p>
           <div>
             <span class='code bold'>action</span> <code class='quiet'>(any)</code>
 	    string description of action case
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-</div>
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='utils'>
-      Utils
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Utility functions</p>
-
-    <div class='pre p1 fill-light mt0'>Utils</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='view'>
-      View
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Base class for views</p>
-
-    <div class='pre p1 fill-light mt0'>new View(options: options, templateDirectory: any)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(options)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>templateDirectory</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Static Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='viewname'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>name</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>View Name</p>
-
-    <div class='pre p1 fill-light mt0'>name</div>
-  
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='viewdestructors'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>destructors</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Destructors</p>
-
-    <div class='pre p1 fill-light mt0'>destructors</div>
-  
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='viewhascontainer'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>hasContainer</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>hasContainer</p>
-
-    <div class='pre p1 fill-light mt0'>hasContainer</div>
-  
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='viewindex'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>index</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Total count of rendered views</p>
-
-    <div class='pre p1 fill-light mt0'>index</div>
-  
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='viewactiveviews'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>activeViews</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Record&#x3C;id, view> of currently visible views</p>
-
-    <div class='pre p1 fill-light mt0'>activeViews</div>
-  
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='viewviewtemplate'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>viewTemplate</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Record&#x3C;viewName, string|Promise> of view templates</p>
-
-    <div class='pre p1 fill-light mt0'>viewTemplate</div>
-  
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='viewrender'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>render(container)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Renders a defined view into a container. Passes in necessary, predefined
-render parameters.</p>
-
-    <div class='pre p1 fill-light mt0'>render(container: any)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>container</span> <code class='quiet'>(any)</code>
-	    Container to render the view within
 
           </div>
           

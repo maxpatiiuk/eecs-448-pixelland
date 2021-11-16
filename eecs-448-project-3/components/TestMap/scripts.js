@@ -3,20 +3,25 @@
  * Later, to render this view, call:
  * new TestMap(options).render(this.container)
  */
+
 /**
- * Draw current player / NPC
+ * Draw a test map environment
  * @class TestMap
  * @constructor
  * @param options
- * @extends Component
+ * @extends Map
  * @public
  */
-
 class TestMap extends Map {
   #getParameter;
 
   #noiseFunction;
 
+  /**
+   * @async
+   * @function render
+   * @memberof TestMap
+   */
   async render() {
     await super.render();
 
@@ -46,6 +51,10 @@ class TestMap extends Map {
     return this;
   }
 
+  /**
+   * @function handleInputChange
+   * @memberof TestMap
+   */
   handleInputChange() {
     this.map = [];
     this.mapChanged = true;
@@ -71,7 +80,7 @@ class TestMap extends Map {
    * @function generateCell
    * @param row row for cell gen
    * @param col column for cell gen
-   * @memberof MinecraftMap
+   * @memberof TestMap
    */
   async generateCell(row, col) {
     this.map[row] ??= {};

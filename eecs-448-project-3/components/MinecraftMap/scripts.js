@@ -4,11 +4,11 @@
  * new MinecraftMap(options).render(this.container)
  */
 /**
- * Draw current player / NPC
+ * Draw Minecraft-styled map
  * @class MinecraftMap
  * @constructor
  * @param options
- * @extends Component
+ * @extends Map
  * @public
  */
 

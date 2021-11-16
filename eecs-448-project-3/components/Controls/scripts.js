@@ -17,8 +17,26 @@
  */
 const movementKeys = new Set(['up', 'down', 'left', 'right']);
 
+/**
+ * Sets zoom keys
+ * @constant
+ * @type {Set}
+ * @param {String} zoomReset zoom reset key
+ * @param {String} zoomOut zoom out key
+ * @param {String} zoomIn zoom in key
+ * @memberof Controls
+ * @public
+ */
 const zoomKeys = new Set(['zoomIn', 'zoomOut', 'zoomReset']);
 
+/**
+ * Sets inventory keys
+ * @constant
+ * @type {Set}
+ * @param {String} slotN nth slot [0-9]
+ * @memberof Controls
+ * @public
+ */
 const inventoryKeys = new Set([
   'slot0',
   'slot1',

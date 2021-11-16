@@ -4,14 +4,22 @@
  * New RainbowlandMap(options).render(this.container)
  */
 /**
- * Draw current player / NPC
+ * Draw Rainbow-styled map
  * @class RainbowlandMap
  * @constructor
  * @param options
- * @extends Component
+ * @extends Map
  * @public
  */
 class RainbowlandMap extends Map {
+  
+  /**
+   * @async
+   * @function generateCell
+   * @memberof RainbowlandMap
+   * @param {object} col 
+   * @param {object} row 
+   */
   async generateCell(col, row) {
     const random = this.getDeterministicRandom.bind(this, `${col},${row}`);
     const isColorChanger = (await random(1000)) < 1;
@@ -31,6 +39,12 @@ class RainbowlandMap extends Map {
     };
   }
 
+  /**
+   * @async
+   * @function randomTeleport
+   * @memberof RainbowlandMap
+   * @param {object} 
+   */
   async randomTeleport([col, row]) {
     if (DEVELOPMENT) console.log('Teleporting...');
 

@@ -4,6 +4,13 @@
  * New Grid(options).render(this.container)
  */
 
+// 1 block is a 1000 coordinate units
+const blockSize = 1000;
+const targetFps = 60;
+const oneSecond = 1000;
+// 2 Blocks per second
+const stepDuration = Math.floor(oneSecond / targetFps);
+
 /**
  * Draw current player / NPC
  * @class Grid
@@ -12,15 +19,6 @@
  * @extends Component
  * @public
  */
-
-// 1 block is a 1000 coordinate units
-const blockSize = 1000;
-
-const targetFps = 60;
-const oneSecond = 1000;
-// 2 Blocks per second
-const stepDuration = Math.floor(oneSecond / targetFps);
-
 class Grid extends Component {
   /**
    * @type {Boolean} destructorCalled
@@ -83,10 +81,28 @@ class Grid extends Component {
   // Decimal coordinates. 1 = 1 block
   #decimalCoordinates = [0, 0];
 
+  /**
+   * Cell count
+   * @type {object}
+   * @memberof Grid
+   * @public
+   */
   #cellCount;
 
+  /**
+   * Cell count / 2
+   * @type {object}
+   * @memberof Grid
+   * @public
+   */
   #halfCellCount;
 
+  /**
+   * Coordinates of the center cell within the viewport
+   * @type {object}
+   * @memberof Grid
+   * @public
+   */
   #centerCellCoordinates;
 
   // Render one extra cells outside the viewport in all directions
@@ -227,6 +243,11 @@ class Grid extends Component {
     this.recalculateCenter(dimensions);
   }
 
+  /**
+   * @function recalculateCenter
+   * @param dimensions width x height
+   * @memberof Grid
+   */
   recalculateCenter(dimensions) {
     const screenSize = dimensions ?? [
       this.options.canvas.width,
@@ -244,7 +265,11 @@ class Grid extends Component {
     });
   }
 
-  // Call this after changing coordinates
+  /**
+   * @function recalculateDecimalCoordinates
+   * @memberof Grid
+   */
+  // Call this after changing coordinates (helper function)
   recalculateDecimalCoordinates() {
     this.#decimalCoordinates = [
       Math[this.coordinates[0] > 0 ? 'floor' : 'ceil'](
@@ -268,6 +293,10 @@ class Grid extends Component {
     if (this.#movementDirection.join('') !== '00') this.startMovement();
   }
 
+  /**
+   * @function handleBlockChange
+   * @memberof Grid
+   */
   handleBlockChange() {
     const currentCell = this.options.getCellAtCoordinate(
       ...this.#decimalCoordinates
@@ -321,6 +350,12 @@ class Grid extends Component {
     };
   }
 
+  /**
+   * @function pxToCoordinates
+   * @param x X coordinate
+   * @param y Y coordinate
+   * @memberof Grid
+   */
   pxToCoordinates(x, y) {
     return [x, y].map(
       (px, index) =>
