@@ -4,11 +4,11 @@
  * new MinecraftMap(options).render(this.container)
  */
 /**
- * Draw current player / NPC
+ * Draw Minecraft-styled map
  * @class MinecraftMap
  * @constructor
  * @param options
- * @extends Component
+ * @extends Map
  * @public
  */
 
@@ -58,7 +58,6 @@ const biomes = {
         patches: [
           /*
            * Patches of ores or other entities
-           * If transparent, base block is rendered behind them
            * Can render only one of them at a time, with the first active patch
            * taking precedence
            */
@@ -68,7 +67,6 @@ const biomes = {
               scale: [2, 1],
               cutOff: [10, 3],
             },
-            transparent: true,
           },
           {
             block: 'redFlower',
@@ -76,7 +74,6 @@ const biomes = {
               scale: [2, 1],
               cutOff: [10, 3],
             },
-            transparent: true,
           },
           {
             block: 'whiteFlower',
@@ -84,7 +81,6 @@ const biomes = {
               scale: [2, 1],
               cutOff: [10, 3],
             },
-            transparent: true,
           },
           {
             block: 'blueFlower',
@@ -92,7 +88,6 @@ const biomes = {
               scale: [2, 1],
               cutOff: [10, 3],
             },
-            transparent: true,
           },
         ],
       },
@@ -105,7 +100,6 @@ const biomes = {
               scale: [5, 2],
               cutOff: [15, 5],
             },
-            transparent: true,
           },
           {
             block: 'sugarCane',
@@ -113,7 +107,6 @@ const biomes = {
               scale: [5, 2],
               cutOff: [15, 5],
             },
-            transparent: true,
           },
         ],
       },
@@ -126,7 +119,6 @@ const biomes = {
               scale: [2, 1],
               cutOff: [16, 4],
             },
-            transparent: false,
           },
         ],
       },
@@ -143,7 +135,6 @@ const biomes = {
               scale: [1, 0],
               cutOff: [13, 3],
             },
-            transparent: true,
           },
           {
             block: 'deadBush',
@@ -151,7 +142,6 @@ const biomes = {
               scale: [1, 0],
               cutOff: [13, 3],
             },
-            transparent: true,
           },
         ],
       },
@@ -164,7 +154,6 @@ const biomes = {
               scale: [5, 2],
               cutOff: [20, 5],
             },
-            transparent: false,
           },
         ],
       },
@@ -177,7 +166,6 @@ const biomes = {
               scale: [5, 2],
               cutOff: [20, 5],
             },
-            transparent: false,
           },
           {
             block: 'dirt',
@@ -185,7 +173,6 @@ const biomes = {
               scale: [2, 1],
               cutOff: [16, 4],
             },
-            transparent: false,
           },
         ],
       },
@@ -202,7 +189,6 @@ const biomes = {
               scale: [4, 2],
               cutOff: [20, 5],
             },
-            transparent: false,
           },
           {
             block: 'diorite',
@@ -210,7 +196,6 @@ const biomes = {
               scale: [4, 2],
               cutOff: [20, 5],
             },
-            transparent: false,
           },
           {
             block: 'granite',
@@ -218,7 +203,6 @@ const biomes = {
               scale: [4, 2],
               cutOff: [20, 5],
             },
-            transparent: false,
           },
         ],
       },
@@ -275,7 +259,7 @@ const biomes = {
           {
             block: 'diamondOre',
             probabilities: {
-              scale: [10, 5],
+              scale: [4, 2],
               cutOff: [10, 3],
             },
           },
@@ -294,7 +278,6 @@ const biomes = {
               scale: [2, 1],
               cutOff: [6, 3],
             },
-            transparent: true,
           },
           {
             block: 'redFlower',
@@ -302,7 +285,6 @@ const biomes = {
               scale: [2, 1],
               cutOff: [6, 3],
             },
-            transparent: true,
           },
           {
             block: 'whiteFlower',
@@ -310,7 +292,6 @@ const biomes = {
               scale: [2, 1],
               cutOff: [6, 3],
             },
-            transparent: true,
           },
           {
             block: 'blueFlower',
@@ -318,7 +299,6 @@ const biomes = {
               scale: [2, 1],
               cutOff: [0, 3],
             },
-            transparent: true,
           },
         ],
       },
@@ -331,7 +311,6 @@ const biomes = {
               scale: [6, 2],
               cutOff: [13, 5],
             },
-            transparent: true,
           },
         ],
       },
@@ -359,62 +338,159 @@ const biomes = {
 };
 
 const blocks = {
-  /*
-   * The positions of the textures for this block in the texture file
-   * If multiple are specified, a single one would be selected pseudo-randomly
-   */
-  grass: [0, 1, 2, 3],
-  dirt: [4, 4, 6],
-  sand: [7],
-  stone: [8, 9],
-  gravel: [10, 11, 12],
-  granite: [13, 14],
-  diorite: [15, 16],
-  redFlower: [17],
-  yellowFlower: [18],
-  whiteFlower: [19],
-  deadBush: [20, 21, 22],
-  tallGrass: [23],
-  sugarCane: [24, 25],
-  sandStone: [26],
-  sandStones: [27, 28, 29],
-  redSandStone: [31],
-  redSandStones: [30, 32, 33],
-  coalOre: [34],
-  ironOre: [35],
-  goldOre: [36],
-  lapisOre: [37],
-  redstoneOre: [38],
-  emeraldOre: [39],
-  diamondOre: [40],
-  snow: [41],
-  ice: [42],
-  blueIce: [43],
-  packedIce: [44],
-  cactus: [45],
-  blueFlower: [46],
+  grass: {
+    /*
+     * The positions of the textures for this block in the texture file
+     * If multiple are specified, a single one would be selected pseudo-randomly
+     */
+    variations: [0, 1, 2, 3],
+    /*
+     * If transparent, base block is rendered behind them
+     */
+    transparent: false,
+  },
+  dirt: {
+    variations: [4, 4, 6],
+    transparent: false,
+  },
+  sand: {
+    variations: [7],
+    transparent: false,
+  },
+  stone: {
+    variations: [8, 9],
+    transparent: false,
+  },
+  gravel: {
+    variations: [10, 11, 12],
+    transparent: false,
+  },
+  granite: {
+    variations: [13, 14],
+    transparent: false,
+  },
+  diorite: {
+    variations: [15, 16],
+    transparent: false,
+  },
+  redFlower: {
+    variations: [17],
+    transparent: true,
+  },
+  yellowFlower: {
+    variations: [18],
+    transparent: true,
+  },
+  whiteFlower: {
+    variations: [19],
+    transparent: true,
+  },
+  deadBush: {
+    variations: [20, 21, 22],
+    transparent: true,
+  },
+  tallGrass: {
+    variations: [23],
+    transparent: true,
+  },
+  sugarCane: {
+    variations: [24, 25],
+    transparent: true,
+  },
+  sandStone: {
+    variations: [26],
+    transparent: false,
+  },
+  sandStones: {
+    variations: [27, 28, 29],
+    transparent: false,
+  },
+  redSandStone: {
+    variations: [31],
+    transparent: false,
+  },
+  redSandStones: {
+    variations: [30, 32, 33],
+    transparent: false,
+  },
+  coalOre: {
+    variations: [34],
+    transparent: false,
+  },
+  ironOre: {
+    variations: [35],
+    transparent: false,
+  },
+  goldOre: {
+    variations: [36],
+    transparent: false,
+  },
+  lapisOre: {
+    variations: [37],
+    transparent: false,
+  },
+  redstoneOre: {
+    variations: [38],
+    transparent: false,
+  },
+  emeraldOre: {
+    variations: [39],
+    transparent: false,
+  },
+  diamondOre: {
+    variations: [40],
+    transparent: false,
+  },
+  snow: {
+    variations: [41],
+    transparent: false,
+  },
+  ice: {
+    variations: [42],
+    transparent: false,
+  },
+  blueIce: {
+    variations: [43],
+    transparent: false,
+  },
+  packedIce: {
+    variations: [44],
+    transparent: false,
+  },
+  cactus: {
+    variations: [45],
+    transparent: true,
+  },
+  blueFlower: {
+    variations: [46],
+    transparent: true,
+  },
+  testFlower: {
+    variations: [46],
+    transparent: true,
+  },
 };
 
 class MinecraftMap extends Map {
-  mapType = 'minecraft';
-
-  #textureSize = 16;
-
-  #image;
-
   #getBiomeAtCell;
 
   #getHeightAtCell;
 
   #biomes;
 
+  texturesSrc = './static/textures/minecraft.png';
+
+  textureSize = 16;
+
+  texturesCount;
+
+  textures;
+
   async render() {
     await super.render();
 
-    this.#image = new Image();
-    this.#image.src = './static/textures/minecraft.png';
-    await new Promise((resolve) =>
-      this.#image.addEventListener('load', resolve, { once: true })
+    this.texturesCount = Math.max(
+      ...Object.values(blocks).flatMap(({ variations }) => variations)
     );
 
     const createMaskLayer = async (baseProbabilities, index = '') =>
@@ -430,11 +506,20 @@ class MinecraftMap extends Map {
       )
     );
 
+    const invertLeftBit = await this.getDeterministicRandom('1', 2);
+    const invertRightBit = await this.getDeterministicRandom('2', 2);
+    const reverseBits = await this.getDeterministicRandom('3', 2);
+    const bitToInt = (bit) => (bit ? 1 : 0);
     this.#getBiomeAtCell = (x, y) => {
-      const leftBit = biomeMaskBottom(x, y) ? 0 : 1;
-      const rightBit = biomeMaskTop(x, y) ? 0 : 1;
-      const binaryIndex = `${leftBit}${rightBit}`;
-      const decimalIndex = Number.parseInt(binaryIndex, 2);
+      const leftBit = bitToInt(biomeMaskBottom(x, y));
+      const invertedLeftBit = invertLeftBit ? bitToInt(!leftBit) : leftBit;
+      const rightBit = bitToInt(biomeMaskTop(x, y));
+      const invertedRightBit = invertRightBit ? bitToInt(!rightBit) : rightBit;
+      const binaryIndex = `${invertedLeftBit}${invertedRightBit}`;
+      const reversedIndex = reverseBits
+        ? binaryIndex.split('').reverse().join('')
+        : binaryIndex;
+      const decimalIndex = Number.parseInt(reversedIndex, 2);
       return Object.keys(biomes)[decimalIndex];
     };
 
@@ -493,39 +578,47 @@ class MinecraftMap extends Map {
 
     let overlayTextureIndex = undefined;
     if (typeof activePatch !== 'undefined') {
-      if (activePatch.transparent) {
-        const textures = blocks[activePatch.block];
-        overlayTextureIndex = textures[pseudoRandomNumber % textures.length];
+      const texture = blocks[activePatch.block];
+      if (texture.transparent) {
+        overlayTextureIndex =
+          texture.variations[pseudoRandomNumber % texture.variations.length];
       } else block = activePatch.block;
     }
 
     const textures = blocks[block];
-    const textureIndex = textures[pseudoRandomNumber % textures.length];
+    const textureIndex =
+      textures.variations[pseudoRandomNumber % textures.variations.length];
 
     // Darken deeper blocks
     const depth = Math.round((100 - (height % (100 / 3)) * 3) * 20) / 100;
 
     this.map[col] ??= {};
     this.map[col][row] = {
-      backgroundImage: this.#image,
-      backgroundImageOptions: [
-        this.#textureSize * textureIndex,
-        0,
-        this.#textureSize,
-        this.#textureSize,
-      ],
+      backgroundImage: this.textures[textureIndex],
       // TODO: experiment with different depth colors for different biomes
       backgroundColor: `rgba(1, 1, 1, ${depth}%)`,
       ...(typeof overlayTextureIndex === 'number'
         ? {
-            backgroundOverlayOptions: [
-              this.#textureSize * overlayTextureIndex,
-              0,
-              this.#textureSize,
-              this.#textureSize,
-            ],
+            backgroundOverlayOptions: this.textures[overlayTextureIndex],
           }
         : {}),
     };
+  }
+
+  async setBlockAtCoordinates(col, row, block) {
+    const pseudoRandomNumber = await this.getDeterministicRandom(
+      `${col},${row}`,
+      Number.MAX_SAFE_INTEGER
+    );
+
+    const textures = blocks[block];
+    const textureIndex =
+      textures.variations[pseudoRandomNumber % textures.variations.length];
+    const blockType = textures.transparent
+      ? 'backgroundOverlayOptions'
+      : 'backgroundImage';
+    this.map[col][row][blockType] = this.textures[textureIndex];
+
+    this.mapChanged = true;
   }
 }

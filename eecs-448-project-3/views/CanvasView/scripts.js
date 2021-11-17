@@ -55,6 +55,8 @@ class CanvasView extends View {
    */
   #controls;
 
+  #mouseControls;
+
   /**
    * @type {Object} map
    * @memberof CanvasView
@@ -69,12 +71,18 @@ class CanvasView extends View {
    */
   #pauseMenu;
 
+  #textures;
+
   /**
    * @type {Object} saveLoad
    * @memberof CanvasView
    * @public
    */
   #saveLoad;
+
+  #mapType;
+
+  #inventory;
 
   constructor(options) {
     super(options);
@@ -102,13 +110,13 @@ class CanvasView extends View {
     this.destructors.push(() => this.#player.remove());
 
     // Map Generator
-    const mapType = this.options.state?.mapType ?? MAP_TYPE;
+    this.#mapType = this.options.state?.mapType ?? MAP_TYPE;
     const mapInstance =
       {
         rainbowland: RainbowlandMap,
         minecraft: MinecraftMap,
         test: TestMap,
-      }[mapType] ?? Map;
+      }[this.#mapType] ?? Map;
 
     this.#map = new mapInstance({
       seed: this.options.state?.seed,
@@ -118,18 +126,65 @@ class CanvasView extends View {
     await this.#map.render();
     this.destructors.push(() => this.#map.remove());
 
+    // Texture Cache
+    this.#textures = new TextureCache({
+      src: this.#map.texturesSrc,
+      texturesCount: this.#map.texturesCount,
+      textureSize: this.#map.textureSize,
+    });
+    await this.#textures.render();
+    this.#map.textures = this.#textures.canvases;
+    this.#cellSizeUpdateListeners.push(
+      this.#textures.handleCellResize.bind(this.#textures)
+    );
+
+    // Inventory
+    this.#inventory = new Inventory({
+      // TODO: add separate inventory for Rainbowland map
+      blocks,
+      src: this.#map.texturesSrc,
+      textureSize: this.#map.textureSize,
+      texturesCount: this.#map.texturesCount,
+    });
+    const inventory = this.container.getElementsByClassName('inventory')[0];
+    await this.#inventory.render(inventory);
+
     // Controls
     this.#controls = new Controls({
       handleKeyToggle: (type) => {
-        if (type === 'escape')
+        if (
+          (type === 'inventory' && !this.#grid.paused) ||
+          (type === 'escape' && this.#inventory.isOpen)
+        )
+          this.#inventory.toggleOverlay();
+        else if (type === 'escape')
           this.handlePauseMenuInteraction(
             this.#grid.paused ? 'resume' : 'pause'
           );
       },
       handleZoom: this.handleResize.bind(this),
+      handleToolbarSelected: this.#inventory.handleToolbarSelected.bind(
+        this.#inventory
+      ),
     });
     await this.#controls.render();
     this.destructors.push(() => this.#controls.remove());
+
+    // Mouse Controls
+    this.#mouseControls = new MouseControls({
+      getIgnoredBlocks: () => [
+        this.#inventory.overlay,
+        this.#inventory.toolbar,
+        this.#pauseMenu.container,
+      ],
+      pxToCoordinates: (...args) => this.#grid.pxToCoordinates(...args),
+      getCurrentToolbarBlock: () =>
+        this.#inventory.currentToolbarBlock?.getAttribute('data-block') ??
+        undefined,
+      setBlockAtCoordinates: this.#map.setBlockAtCoordinates.bind(this.#map),
+    });
+    await this.#mouseControls.render();
+    this.destructors.push(() => this.#mouseControls.remove());
 
     // Grid
     this.#canvas = this.container.getElementsByTagName('canvas')[0];
@@ -243,7 +298,7 @@ class CanvasView extends View {
         this.#saveLoad.save({
           seed: this.#map.seed,
           coordinates: this.#grid.coordinates,
-          mapType: this.#map.mapType,
+          mapType: this.#mapType,
         });
         this.#pauseMenu.loadButton.disabled = false;
         alert('Saved');

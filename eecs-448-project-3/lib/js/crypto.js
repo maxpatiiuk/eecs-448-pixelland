@@ -14,12 +14,12 @@
  * render parameters.
  * @async
  * @function getHash
- * @memberof CanvasView
- * @param container Container to render the view within
+ * @param string String to encode
+ * @param algorithm Algorithm to use
  */
-async function getHash(string, algo = 'SHA-256') {
+async function getHash(string, algorithm = 'SHA-256') {
   const stringBuf = new TextEncoder().encode(string);
-  return crypto.subtle.digest(algo, stringBuf).then((hash) => {
+  return crypto.subtle.digest(algorithm, stringBuf).then((hash) => {
     // Convert hash from ArrayBuffer to hex string
     let result = '';
     const view = new DataView(hash);
@@ -39,8 +39,8 @@ async function getHash(string, algo = 'SHA-256') {
  */
 const stringToNumber = (string) =>
   string.split('').reduce((total, character) => {
-    total = (total << 5) - total + character.charCodeAt(0);
-    return total & total;
+    const newTotal = (total << 5) - total + character.charCodeAt(0);
+    return newTotal & newTotal;
   }, 0);
 
 const clampInt = (max, value) =>

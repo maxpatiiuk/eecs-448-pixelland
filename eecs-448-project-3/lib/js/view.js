@@ -24,7 +24,7 @@ class View {
   destructors = [];
 
   /**
-   * hasContainer
+   * HasContainer
    * @type {Boolean}
    * @memberof View
    * @public
@@ -97,6 +97,8 @@ class View {
       class="${this.#name}"
       id="${id}"
     ></${tagName}>`;
+
+    View.#activeViews[id] = this;
 
     const newContainer = document.getElementById(id);
 

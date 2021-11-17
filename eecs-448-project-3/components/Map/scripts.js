@@ -33,8 +33,19 @@ class Map extends Component {
    */
   mapType = 'rainbowland';
 
+  /**
+   * @type {Boolean} mapChanged
+   * @memberof Map
+   * @public
+   */
   mapChanged = true;
 
+  /**
+   * @async
+   * @function didMapChange
+   * @memberof Map
+   * @returns {Boolean} mapChanged
+   */
   didMapChange() {
     return this.mapChanged;
   }
@@ -72,10 +83,7 @@ class Map extends Component {
     const randomNumber = stringToNumber(
       await getHash(`${this.seed.slice(0, 5)}${salt}`)
     );
-    return clampInt(
-      max,
-      randomNumber * Math.max(1, Math.floor(max / Math.abs(randomNumber)))
-    );
+    return clampInt(max, randomNumber);
   }
 
   /**
@@ -85,6 +93,7 @@ class Map extends Component {
    * @memberof Map
    */
   getCellAtCoordinate(col, row) {
+    this.mapChanged = false;
     if (typeof this.map[col]?.[row] === 'undefined')
       this.generateCell(col, row);
     return this.map[col]?.[row] ?? {};
@@ -101,5 +110,16 @@ class Map extends Component {
     this.map[col][row] = {
       backgroundColor: `hsl(0deg, 0%, 50%)`,
     };
+  }
+
+  /**
+   * @function setBlockAtCoordinates
+   * @param x X coordinate
+   * @param y Y coordinate
+   * @param block block to be placed
+   * @memberof Map
+   */
+  setBlockAtCoordinates(x, y, block) {
+    throw new Error('Not implemented');
   }
 }

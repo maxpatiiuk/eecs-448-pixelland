@@ -33,10 +33,10 @@
     <link rel="stylesheet" href="lib/css/main.css" />
     <link rel="stylesheet" href="components/Person/styles.css" />
     <link rel="stylesheet" href="components/PauseMenu/styles.css" />
+    <link rel="stylesheet" href="components/Inventory/styles.css" />
     <link rel="stylesheet" href="views/MenuView/styles.css" />
     <link rel="stylesheet" href="views/MapSetupView/styles.css" />
     <link rel="stylesheet" href="views/CanvasView/styles.css" />
-    <link rel="stylesheet" href="views/GameOverView/styles.css" />
     <link rel="manifest" href="/site.webmanifest" />
     <link
       rel="mask-icon"
@@ -61,15 +61,17 @@
     <script src="components/PauseMenu/scripts.js"></script>
     <script src="components/SaveLoad/scripts.js"></script>
     <script src="components/Controls/scripts.js"></script>
+    <script src="components/MouseControls/scripts.js"></script>
     <script src="components/Grid/scripts.js"></script>
+    <script src="components/TextureCache/scripts.js"></script>
     <script src="components/Map/scripts.js"></script>
     <script src="components/RainbowlandMap/scripts.js"></script>
     <script src="components/MinecraftMap/scripts.js"></script>
     <script src="components/TestMap/scripts.js"></script>
+    <script src="components/Inventory/scripts.js"></script>
     <script src="views/MenuView/scripts.js"></script>
     <script src="views/MapSetupView/scripts.js"></script>
     <script src="views/CanvasView/scripts.js"></script>
-    <script src="views/GameOverView/scripts.js"></script>
     <script>
       new (DEVELOPMENT ? CanvasView : MenuView)().render(
         document.getElementsByTagName('main')[0].children[0]

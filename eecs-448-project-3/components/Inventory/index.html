@@ -1,36 +1,5 @@
 <!-- TODO: draw inventory here -->
-
-<div class="healthbar">
-<progress id="health" value="100" max="100"></progress>
+<div class="inventory-overlay">
+  <div class="inventory-grid"></div>
 </div>
-<div  class ="inventoryDis">
-</div>
-<script>
-    
-    class inventory {
-        constructor() {
-        this.items = Array(); 
-        }
-
-        addItem(z){
-            this.z = z;
-            items.push(z);
-        }
-
-        placeItemInput(itemNum, x ,y ){
-            this.itemNum = itemNum;
-            this.x = x;
-            this.y = y;
-            window.onkeydown = function (event) {
-            switch (event.keyCode) {
-                case 49:
-                case 50:
-                case 51: 
-                case 52:
-            }
-            };
-        }
-    }
-
-</script>
-
+<div class="inventory-toolbar"></div>

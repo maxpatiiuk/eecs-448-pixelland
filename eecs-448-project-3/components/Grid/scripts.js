@@ -4,6 +4,13 @@
  * New Grid(options).render(this.container)
  */
 
+// 1 block is a 1000 coordinate units
+const blockSize = 1000;
+const targetFps = 60;
+const oneSecond = 1000;
+// 2 Blocks per second
+const stepDuration = Math.floor(oneSecond / targetFps);
+
 /**
  * Draw current player / NPC
  * @class Grid
@@ -12,10 +19,6 @@
  * @extends Component
  * @public
  */
-
-// 1 block is a 1000 coordinate units
-const blockSize = 1000;
-
 class Grid extends Component {
   /**
    * @type {Boolean} destructorCalled
@@ -25,14 +28,7 @@ class Grid extends Component {
   #destructorCalled = false;
 
   /**
-   * @type {Boolean} hasAnimatedCells
-   * @memberof Grid
-   * @public
-   */
-  #hasAnimatedCells = true;
-
-  /**
-   * This get's overriden after render
+   * This gets overridden after render
    * @type {Integer} cellSize
    * @memberof Grid
    * @public
@@ -47,18 +43,11 @@ class Grid extends Component {
   #context;
 
   /**
-   * @type {Boolean} isMoving
+   * @type {Boolean} needRedraw
    * @memberof Grid
    * @public
    */
-  #isMoving = false;
-
-  /**
-   * @type {Boolean} hadResize
-   * @memberof Grid
-   * @public
-   */
-  #hadResize = true;
+  #needRedraw = true;
 
   /**
    * @type {Array} movementDirection
@@ -92,17 +81,32 @@ class Grid extends Component {
   // Decimal coordinates. 1 = 1 block
   #decimalCoordinates = [0, 0];
 
+  /**
+   * Cell count
+   * @type {object}
+   * @memberof Grid
+   * @public
+   */
   #cellCount;
 
+  /**
+   * Cell count / 2
+   * @type {object}
+   * @memberof Grid
+   * @public
+   */
   #halfCellCount;
 
+  /**
+   * Coordinates of the center cell within the viewport
+   * @type {object}
+   * @memberof Grid
+   * @public
+   */
   #centerCellCoordinates;
 
-  /*
-   * Render two extra cells outside the viewport in all directions
-   * TODO: check if this is necessary
-   */
-  #renderOffset = 2;
+  // Render one extra cells outside the viewport in all directions
+  #renderOffset = 1;
 
   // Callback to stop current movement
   #stopMovement;
@@ -124,6 +128,10 @@ class Grid extends Component {
     this.#context = this.options.canvas.getContext('2d', { alpha: false });
 
     this.handleCellResize(this.#cellSize);
+
+    this.destructors.push(() => {
+      this.#destructorCalled = true;
+    });
 
     this.draw(0);
     return this;
@@ -152,21 +160,11 @@ class Grid extends Component {
 
     const cellPosition = [x, y, this.#cellSize, this.#cellSize];
 
-    this.#hasAnimatedCells ||= cell.isAnimated === true;
-
     if (typeof cell.backgroundImage === 'object')
-      this.#context.drawImage(
-        cell.backgroundImage,
-        ...cell.backgroundImageOptions,
-        ...cellPosition
-      );
+      this.#context.drawImage(cell.backgroundImage, ...cellPosition);
 
     if (typeof cell.backgroundOverlayOptions === 'object')
-      this.#context.drawImage(
-        cell.backgroundImage,
-        ...cell.backgroundOverlayOptions,
-        ...cellPosition
-      );
+      this.#context.drawImage(cell.backgroundOverlayOptions, ...cellPosition);
 
     if (typeof cell.backgroundColor === 'string') {
       this.#context.fillStyle = cell.backgroundColor;
@@ -189,24 +187,26 @@ class Grid extends Component {
    */
   draw() {
     if (
-      this.#hasAnimatedCells ||
-      this.#isMoving ||
-      this.#hadResize ||
-      // TODO: check if this is necessary
+      this.#needRedraw ||
       this.#renderedFrameCount < 120 ||
       this.options.didMapChange()
     ) {
-      this.#hasAnimatedCells = false;
-      this.#hadResize = false;
+      this.#needRedraw = false;
 
-      Array.from({ length: this.#cellCount[0] }, (_, columnIndex) =>
-        Array.from({ length: this.#cellCount[1] }, (_, rowIndex) =>
-          this.drawCell(
-            columnIndex - this.#halfCellCount[0] - this.#renderOffset,
-            rowIndex - this.#halfCellCount[1] - this.#renderOffset
-          )
-        )
+      const count = this.#cellCount.map(
+        (count, index) => count - this.#halfCellCount[index]
       );
+      for (
+        let columnIndex = -this.#halfCellCount[0];
+        columnIndex < count[0];
+        columnIndex += 1
+      )
+        for (
+          let rowIndex = -this.#halfCellCount[1];
+          rowIndex < count[1];
+          rowIndex += 1
+        )
+          this.drawCell(columnIndex, rowIndex);
     }
 
     this.#renderedFrameCount += 1;
@@ -222,7 +222,7 @@ class Grid extends Component {
    */
   handleCellResize(cellSize) {
     this.#cellSize = cellSize;
-    this.#hadResize = true;
+    this.#needRedraw = true;
 
     this.#context.imageSmoothingEnabled = false;
 
@@ -234,17 +234,26 @@ class Grid extends Component {
 
     const dimensions = [this.options.canvas.width, this.options.canvas.height];
 
-    this.#cellCount = dimensions.map(
-      (size) => Math.ceil(size / this.#cellSize) + this.#renderOffset
+    const cellCount = dimensions.map(
+      (size) => size / this.#cellSize + this.#renderOffset * 2
     );
 
-    this.#halfCellCount = this.#cellCount.map(
-      (count) => (count - this.#renderOffset - (count % 2)) / 2 - 1
+    this.#cellCount = cellCount.map(Math.ceil);
+
+    this.#halfCellCount = cellCount.map(
+      (count) => Math.ceil((count - (count % 2)) / 2) + this.#renderOffset
     );
+
+    this.recalculateDecimalCoordinates();
 
     this.recalculateCenter(dimensions);
   }
 
+  /**
+   * @function recalculateCenter
+   * @param dimensions width x height
+   * @memberof Grid
+   */
   recalculateCenter(dimensions) {
     const screenSize = dimensions ?? [
       this.options.canvas.width,
@@ -252,17 +261,21 @@ class Grid extends Component {
     ];
 
     this.#centerCellCoordinates = screenSize.map((size, index) => {
-      const screenOffset = Math.round(
-        ((size - this.#cellSize) / 2) % this.#cellSize
-      );
+      const screenCenter = (size - this.#cellSize) / 2;
       const cellCountOffset =
-        this.#halfCellCount[index] -
-        (this.coordinates[index] % blockSize) / blockSize;
-      return screenOffset + cellCountOffset * this.#cellSize;
+        1 -
+        (this.coordinates[index] -
+          this.#decimalCoordinates[index] * blockSize) /
+          blockSize;
+      return Math.round(screenCenter + cellCountOffset * this.#cellSize);
     });
   }
 
-  // Call this after changing coordinates
+  /**
+   * @function recalculateDecimalCoordinates
+   * @memberof Grid
+   */
+  // Call this after changing coordinates (helper function)
   recalculateDecimalCoordinates() {
     this.#decimalCoordinates = [
       Math[this.coordinates[0] > 0 ? 'floor' : 'ceil'](
@@ -287,51 +300,73 @@ class Grid extends Component {
   }
 
   /**
+   * @function handleBlockChange
+   * @memberof Grid
+   */
+  handleBlockChange() {
+    const currentCell = this.options.getCellAtCoordinate(
+      ...this.#decimalCoordinates
+    );
+
+    if (DEVELOPMENT) {
+      console.log(`Coordinates: ${this.coordinates.join(' ')}`);
+      if (typeof currentCell.onStep !== 'undefined')
+        console.log(`onStep: ${currentCell.onStep}`);
+    }
+
+    currentCell.onStep?.();
+  }
+
+  /**
    * @function startMovement
    * @memberof Grid
    */
   startMovement() {
-    this.#isMoving = true;
-
     const speed =
       this.#movementDirection[0] !== 0 && this.#movementDirection[1] !== 0
         ? DIAGONAL_MOVEMENT_SPEED
         : MOVEMENT_SPEED;
 
-    const targetFps = 60;
-    const oneSecond = 1000;
-    // 2 Blocks per second
-    const stepDuration = Math.floor(oneSecond / targetFps);
     const stepSize = Math.floor((stepDuration * blockSize) / speed);
 
     const interval = setInterval(() => {
       if (this.paused) return;
 
+      this.#needRedraw = true;
+
       this.#movementDirection.forEach((amount, index) => {
         this.coordinates[index] += stepSize * amount;
       });
 
+      const currentDecimalCoordinates = Array.from(this.#decimalCoordinates);
       this.recalculateDecimalCoordinates();
+
       this.recalculateCenter();
+
+      if (
+        currentDecimalCoordinates.join(',') !==
+        this.#decimalCoordinates.join(',')
+      )
+        this.handleBlockChange();
     }, stepDuration);
 
     this.#stopMovement = () => {
+      this.#needRedraw = true;
       clearInterval(interval);
-
-      const currentCell = this.options.getCellAtCoordinate(
-        ...this.#decimalCoordinates
-      );
-
-      if (DEVELOPMENT) {
-        console.log(`Coordinates: ${this.coordinates.join(' ')}`);
-        if (typeof currentCell.onStep !== 'undefined')
-          console.log(`onStep: ${currentCell.onStep}`);
-      }
-
-      this.#isMoving = false;
-      this.#hadResize = true;
-
-      currentCell.onStep?.();
     };
+  }
+
+  /**
+   * @function pxToCoordinates
+   * @param x X coordinate
+   * @param y Y coordinate
+   * @memberof Grid
+   */
+  pxToCoordinates(x, y) {
+    return [x, y].map(
+      (px, index) =>
+        this.#decimalCoordinates[index] +
+        Math.floor((px - this.#centerCellCoordinates[index]) / this.#cellSize)
+    );
   }
 }
