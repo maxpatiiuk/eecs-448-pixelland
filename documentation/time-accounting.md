@@ -28,7 +28,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <th rowspan=8>Implementation</th>
             <td>Managing GitHub issues</td>
             <td>0.5h</td>
-            <td>0h</td>
+            <td>0.5h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
@@ -58,7 +58,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
         </tr>
         <tr>
-            <td>Making movement more realisict</td>
+            <td>Making movement more realistic</td>
             <td>4h</td>
             <td>0h</td>
             <td>0h</td>
@@ -66,9 +66,9 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
+            <td>Teleportation Blocks</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>3h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
@@ -93,15 +93,15 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <th rowspan=3>Integration</th>
             <td>Documentation (JSDoc Tagging)</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>2h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
+            <td>Documentation Essays</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>2h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
@@ -118,7 +118,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <th rowspan=1>Testing</th>
             <td>General Testing</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>2h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
