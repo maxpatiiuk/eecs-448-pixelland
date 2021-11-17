@@ -129,6 +129,10 @@ class Grid extends Component {
 
     this.handleCellResize(this.#cellSize);
 
+    this.destructors.push(() => {
+      this.#destructorCalled = true;
+    });
+
     this.draw(0);
     return this;
   }
@@ -239,6 +243,8 @@ class Grid extends Component {
     this.#halfCellCount = cellCount.map(
       (count) => Math.ceil((count - (count % 2)) / 2) + this.#renderOffset
     );
+
+    this.recalculateDecimalCoordinates();
 
     this.recalculateCenter(dimensions);
   }

@@ -603,6 +603,8 @@ class MinecraftMap extends Map {
           }
         : {}),
     };
+
+    this.mapChanged = true;
   }
 
   async setBlockAtCoordinates(col, row, block) {
