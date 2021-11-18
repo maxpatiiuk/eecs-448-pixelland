@@ -100,7 +100,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         </tr>
         <tr>
             <td>Documentation Essays</td>
-            <td>0h</td>
+            <td>0.5h</td>
             <td>2h</td>
             <td>0h</td>
             <td>0h</td>
@@ -129,7 +129,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
 Total
 
 </th>
-            <td>0h</td>
+            <td>29.25h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
