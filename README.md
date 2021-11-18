@@ -2,7 +2,7 @@
 
 ## Group 5 - EECS 448
 
-An HTML5 Canvas-based browser adventure-rpg game.
+An HTML5 Canvas-based browser walking & building game.
 
 [Video Demo](https://www.youtube.com/watch?v=3guzbg383WA)
 

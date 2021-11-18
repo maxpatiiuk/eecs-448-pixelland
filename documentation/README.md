@@ -32,7 +32,11 @@ python -m http.server 8000
 Now, navigate to [http://localhost:8000](http://localhost:8000) and start
 hacking away!
 
-Special booleans DEBUG and DEVELOPMENT are set to true if they are provided in
+### Tests
+
+#### Development and Debug Mode
+
+Special booleans DEVELOPMENT and DEBUG are set to true if they are provided in
 the query string. These values are available in every file and can be used to
 customize behaviour of views/components. Note, if DEBUG is enabled, DEVELOPMENT
 is automatically enabled too.
@@ -51,7 +55,7 @@ though the `map` get parameter. For example:
 If you don't have python installed, you can use any one of
 [these static web servers](https://gist.github.com/willurd/5720255)
 
-### Testing Map Generation
+#### Testing Map Generation
 
 A hidden "test" map is available for testing map generation.
 
@@ -60,7 +64,26 @@ Is is available at this URL:
 
 It allows to adjust map generation parameters and see the result in real time.
 
-### (Optional) Pre-commit hooks
+Explanation of how to use this map is provided in the Project Demo Video.
+
+#### Dependency update alerts
+
+Once a month, GitHub's Dependabot checks for out-of-date development
+dependencies and outdated GitHub Actions and automatically opens Pull Requests
+for updating dependencies.
+
+#### Security Scanning
+
+On the 15th and 29th of every month, CodeQL scans all JavaScript files for
+potential security vulnerabilities and sends immediate alerts if issues are
+detected.
+
+#### Detect stale issues
+
+Issues that have been stale for a while are closed automatically on the first of
+every month
+
+#### Pre-commit hooks
 
 This project uses pre-commit.com hooks, which run code linters and validators
 before every commit. Instructions for configuring pre-commit hooks can be found
@@ -117,15 +140,16 @@ Open `docs-gen/index.html` in your browser to view the static docs.
 Use a defect tracking tool to manage software defects in your project.
 ```
 
-Github has a robust, flexible, built-in system for creating, tracking, and resolving issues.
-Any contributor to this project can open an issue, and Github keeps track of all the relevant information
-in a comment stream within that issue.
+Github has a robust, flexible, built-in system for creating, tracking, and
+resolving issues. Any contributor to this project can open an issue, and Github
+keeps track of all the relevant information in a comment stream within that
+issue.
 
 **Fixed issues:**
 
 https://github.com/maxxxxxdlp/eecs-448-pixelland/issues?q=is%3Aissue+is%3Aclosed
 
-**Backlog of issues:** 
+**Backlog of issues:**
 
 https://github.com/maxxxxxdlp/eecs-448-pixelland/issues
 
