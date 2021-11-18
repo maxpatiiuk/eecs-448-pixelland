@@ -18,11 +18,11 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         <tr>
             <th rowspan=1>Planning</th>
             <td>Team meetings</td>
-            <td>3h</td>
-            <td>3h</td>
-            <td>3h</td>
-            <td>3h</td>
-            <td>3h</td>
+            <td>5h</td>
+            <td>5h</td>
+            <td>5h</td>
+            <td>5h</td>
+            <td>5h</td>
         </tr>
         <tr>
             <th rowspan=8>Implementation</th>
@@ -74,16 +74,16 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
-            <td>0h</td>
+            <td>Block Placement</td>
+            <td>1h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
-            <td>0h</td>
+            <td>Player Inventory</td>
+            <td>2h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
@@ -107,8 +107,8 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
         </tr>
         <tr>
-            <td></td>
-            <td>0h</td>
+            <td>Video Demo</td>
+            <td>3h</td>
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
@@ -117,11 +117,11 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         <tr>
             <th rowspan=1>Testing</th>
             <td>General Testing</td>
-            <td>0h</td>
-            <td>2h</td>
-            <td>0h</td>
-            <td>0h</td>
-            <td>0h</td>
+            <td>1h</td>
+            <td>3h</td>
+            <td>1h</td>
+            <td>1h</td>
+            <td>1h</td>
         </tr>
         <tr>
             <th colspan=2>
