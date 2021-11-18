@@ -104,7 +104,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>2h</td>
             <td>0h</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>3h</td>
         </tr>
         <tr>
             <td>Video Demo</td>
@@ -112,7 +112,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>2h</td>
         </tr>
         <tr>
             <th rowspan=1>Testing</th>
@@ -133,7 +133,7 @@ Total
             <td>0h</td>
             <td>0h</td>
             <td>0h</td>
-            <td>0h</td>
+            <td>11h</td>
         </tr>
     </tbody>
 </table>
