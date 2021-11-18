@@ -6,6 +6,8 @@ This guide contains information on getting the development and production server
 up, as well as information about tools used in the process of development and
 works cited.
 
+[Video Demo](https://www.youtube.com/watch?v=3guzbg383WA)
+
 ## Time Estimate
 
 [Time estimate](time-estimate.md) and

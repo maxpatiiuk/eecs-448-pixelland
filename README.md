@@ -4,6 +4,8 @@
 
 An HTML5 Canvas-based browser adventure-rpg game.
 
+[Video Demo](https://www.youtube.com/watch?v=3guzbg383WA)
+
 ## Welcome to Pixelland:
 
 Available Maps:
