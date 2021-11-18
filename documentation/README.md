@@ -237,66 +237,147 @@ client-server architecture so that people can reach and play our game.
 ### Deployment Plan
 
 ```
-- What are the steps required to deploy your project? 
-- Who is the potential market? 
-- What will it cost to deploy it? 
+- What are the steps required to deploy your project?
+- Who is the potential market?
+- What will it cost to deploy it?
 - Example costs include
     app store costs
-    costs to get your game on XBoxLive 
-    costs to print disks for distribution 
-    costs to buy domains 
+    costs to get your game on XBoxLive
+    costs to print disks for distribution
+    costs to buy domains
     costs to attend conventions and conference and set up booths
 ```
 
-As an indie game development studio, our primary goal is to have our game be 
-accessible, while still turning a profit - a goal that is made easier by the fact that Pixelland was
-written in Javascript. Our most obvious platform for deployment is on the web; we
-could initially host the game on some of our team's own server hardware, then as the need arises and
-cash-flow increases with popularity, it may become feasible to switch over to something more dynamic, 
-like AWS instances. The aforementioned cash-flow would be based around a subscription, pay-for-access
-model; paying a small monthly fee gives you access to all gameplay features, maps, and updates.
-Overtime, this cash-flow helps pay our developers, cover hosting costs (including cloud storage 
-for worlds), and enables the growth of Pixelland as a whole.
+As an indie game development studio, our primary goal is to have our game be
+accessible, while still turning a profit - a goal that is made easier by the
+fact that Pixelland was written in Javascript. Our most obvious platform for
+deployment is on the web; we could initially host the game on some of our team's
+own server hardware, then as the need arises and cash-flow increases with
+popularity, it may become feasible to switch over to something more dynamic,
+like AWS instances. The aforementioned cash-flow would be based around a
+subscription, pay-for-access model; paying a small monthly fee gives you access
+to all gameplay features, maps, and updates. Overtime, this cash-flow helps pay
+our developers, cover hosting costs (including cloud storage for worlds), and
+enables the growth of Pixelland as a whole.
 
-The creation of Pixelland was inspired by the notion of "undying imagination," and this 
-philosophy just as well informs our approach to marketing Pixelland. We believe that it is a game
-for all - enjoyment is there to be had regardless of age or aptness to playing video games - it is
-a world to let your imagination run free. Being playable from a web browser means that it is relatively 
-accessible, regardless of if you run Linux, MacOS, or Windows. The gameplay is straightforward and 
-easy to grasp for anyone. Ultimately, all of these things mean that we have a large potential market
-to work with; one that exists in a distinctly gray area. We cannot clearly define what our market is 
-because our game is one that is not meant to appeal to any particular group of people. In having no clear, 
-specific market pool, our marketing strategy is forced to be less concrete. Where and how we spend money on 
-spreading word of our game is not clearly defined. As such, we would not be allocating much of our budget 
-to large marketing campaigns; instead, we could generate hype through various social media platforms (ie, 
-Reddit), and use that initial pool of customers as a jumping-off point. 
+The creation of Pixelland was inspired by the notion of "undying imagination,"
+and this philosophy just as well informs our approach to marketing Pixelland. We
+believe that it is a game for all - enjoyment is there to be had regardless of
+age or aptness to playing video games - it is a world to let your imagination
+run free. Being playable from a web browser means that it is relatively
+accessible, regardless of if you run Linux, MacOS, or Windows. The gameplay is
+straightforward and easy to grasp for anyone. Ultimately, all of these things
+mean that we have a large potential market to work with; one that exists in a
+distinctly gray area. We cannot clearly define what our market is because our
+game is one that is not meant to appeal to any particular group of people. In
+having no clear, specific market pool, our marketing strategy is forced to be
+less concrete. Where and how we spend money on spreading word of our game is not
+clearly defined. As such, we would not be allocating much of our budget to large
+marketing campaigns; instead, we could generate hype through various social
+media platforms (ie, Reddit), and use that initial pool of customers as a
+jumping-off point.
 
-There will be other initial costs to supporting our game's launch: it was already described that we could 
-avoid a high starting cost of hosting by using our own server hardware to support the people who initially 
-want to pay-to-play Pixelland. Using rudimentary estimates of our game's popularity, we can gauge if it is 
-necessary to also set up some elastic AWS instances alongside our own servers. Being cautiously prepared is
-important, but also can be costly if not done right. Next, a domain (ie. PlayPixelland.net) would only 
-represent a small fraction of cost. Google Domains offers that exact domain for just twelve dollars per 
-year. Now, assuming we have money to spare after bearing the initial infrastructure costs, all that is left
-to do is find people that want to play the game, or platforms on which we can spread the word. It would 
-make sense to release Pixelland around the time that some indie game development conferences are happening -
-this would enable our team to show off the game and garner support for its release. The associated costs 
-to attending conventions, while non-trivial, is not as considerable as the cost of time spreading news of 
-our newly releasing game to the public. For our team of five, those costs might reach about $1500 dollars per person, considering flight tickets, hotels, convention tickets, etc.
+There will be other initial costs to supporting our game's launch: it was
+already described that we could avoid a high starting cost of hosting by using
+our own server hardware to support the people who initially want to pay-to-play
+Pixelland. Using rudimentary estimates of our game's popularity, we can gauge if
+it is necessary to also set up some elastic AWS instances alongside our own
+servers. Being cautiously prepared is important, but also can be costly if not
+done right. Next, a domain (ie. PlayPixelland.net) would only represent a small
+fraction of cost. Google Domains offers that exact domain for just twelve
+dollars per year. Now, assuming we have money to spare after bearing the initial
+infrastructure costs, all that is left to do is find people that want to play
+the game, or platforms on which we can spread the word. It would make sense to
+release Pixelland around the time that some indie game development conferences
+are happening - this would enable our team to show off the game and garner
+support for its release. The associated costs to attending conventions, while
+non-trivial, is not as considerable as the cost of time spreading news of our
+newly releasing game to the public. For our team of five, those costs might
+reach about $1500 dollars per person, considering flight tickets, hotels,
+convention tickets, etc.
 
 ### Maintenance Plan
 
-For Project 4, our group created an HTML5 Canvas-based web application titled "Pixelland". To maintain Pixelland over the course of the next year, several costs need to be taken into account. 
+For Project 4, our group created an HTML5 Canvas-based web application titled
+"Pixelland". To maintain Pixelland over the course of the next year, several
+costs need to be taken into account.
 
-First and foremost, as previously mentioned, this game is a web application, so it will most likely need to be hosted using a domain, where, according to webhostingsecretrevealed.net, web hosting, or shared hosting, costs on average $3.06/month for an entry-level service. Depending on our expected user traffic, we could also opt for a more expensive — though more flexible and secure — option, such as VPS (Virtual Private Server) hosting. The advantages for our game to be hosted on a virtual private server are increased reliability, dedicated resources, increased efficiency, and improved performance. These options do come at a price, however, as these services tend to cost $15.47/month, on average, for an entry-level VPS, and can be as expensive as $25.66/month. 
+First and foremost, as previously mentioned, this game is a web application, so
+it will most likely need to be hosted using a domain, where, according to
+webhostingsecretrevealed.net, web hosting, or shared hosting, costs on average
+$3.06/month for an entry-level service. Depending on our expected user traffic,
+we could also opt for a more expensive — though more flexible and secure —
+option, such as VPS (Virtual Private Server) hosting. The advantages for our
+game to be hosted on a virtual private server are increased reliability,
+dedicated resources, increased efficiency, and improved performance. These
+options do come at a price, however, as these services tend to cost
+$15.47/month, on average, for an entry-level VPS, and can be as expensive as
+$25.66/month.
 
-Some more costs we would most likely encounter are those that come with producing a mobile application. While our game is currently only available through a browser, we feel as if the transition to a mobile application makes sense for our style of game, as well as our vision for where we would want the direction of this project to go. Without including the cost of developing the mobile application, and solely focusing on the cost it takes to host an app on the Apple App Store, as well as the Google Play Store, the cost over the course of the next year will be $124 without tax. This comes from the yearly payment of $99 to Apple, and a one-time installment fee of $25 to Google. Obviously to continue hosting our application on the App Store would mean a yearly fee of $99, however in regards to the one year frame-of-reference, we would only need to include the single yearly fee. Aforementioned was the oversight of developmental costs, which would most likely greatly increase the cost of our project for two reasons. First, not all of our team members have experience in this field, meaning that there would be a learning curve, and this costs time. Second, as a result of the lack of knowledge, it would most likely be in our best interest to hire entry-level developers to the team, which again would greatly increase the cost of production. For practical purposes, we can make an extremely approximated estimation that we would hire anywhere from 1 - 3 people for this task, making around $10 - $20 an hour, meaning that if the process was to take a total of 100 hours of labor, we could incur costs anywhere from $1000 to $6000. Obviously this isn't the hourly wage of a senior developer, nor is this an accurate representation of what may actually occur; these numbers solely serve as a placeholder. In comparison to other costs we have seen, this would be by far the most costly and would only rise if we further wanted to spread the accessibility of our game.
+Some more costs we would most likely encounter are those that come with
+producing a mobile application. While our game is currently only available
+through a browser, we feel as if the transition to a mobile application makes
+sense for our style of game, as well as our vision for where we would want the
+direction of this project to go. Without including the cost of developing the
+mobile application, and solely focusing on the cost it takes to host an app on
+the Apple App Store, as well as the Google Play Store, the cost over the course
+of the next year will be $124 without tax. This comes from the yearly payment of
+$99 to Apple, and a one-time installment fee of $25 to Google. Obviously to
+continue hosting our application on the App Store would mean a yearly fee of
+$99, however in regards to the one year frame-of-reference, we would only need
+to include the single yearly fee. Aforementioned was the oversight of
+developmental costs, which would most likely greatly increase the cost of our
+project for two reasons. First, not all of our team members have experience in
+this field, meaning that there would be a learning curve, and this costs time.
+Second, as a result of the lack of knowledge, it would most likely be in our
+best interest to hire entry-level developers to the team, which again would
+greatly increase the cost of production. For practical purposes, we can make an
+extremely approximated estimation that we would hire anywhere from 1 - 3 people
+for this task, making around $10 - $20 an hour, meaning that if the process was
+to take a total of 100 hours of labor, we could incur costs anywhere from $1000
+to $6000. Obviously this isn't the hourly wage of a senior developer, nor is
+this an accurate representation of what may actually occur; these numbers solely
+serve as a placeholder. In comparison to other costs we have seen, this would be
+by far the most costly and would only rise if we further wanted to spread the
+accessibility of our game.
 
-The final major cost we would encounter would be the cost of hiring additional developers to expand the scope of our project, and not just to implement the mobile application. Pixelland as it stands is currently a framework for a much deeper game, one which we envision to be expanded in terms of both features and functionality. Some of these features include a larger map, a combat system, foreign entities, etc. While our team would be capable of completing these on our own, it would most likely be in our best interest to expand the team to create a better work to cost ratio, especially within a year's time. As previously mentioned, it is quite hard to estimate the amount of people which would need to be hired, as well as the cost for each individual, and there are many factors that we would need to take into account before we actually hired anyone.
+The final major cost we would encounter would be the cost of hiring additional
+developers to expand the scope of our project, and not just to implement the
+mobile application. Pixelland as it stands is currently a framework for a much
+deeper game, one which we envision to be expanded in terms of both features and
+functionality. Some of these features include a larger map, a combat system,
+foreign entities, etc. While our team would be capable of completing these on
+our own, it would most likely be in our best interest to expand the team to
+create a better work to cost ratio, especially within a year's time. As
+previously mentioned, it is quite hard to estimate the amount of people which
+would need to be hired, as well as the cost for each individual, and there are
+many factors that we would need to take into account before we actually hired
+anyone.
 
 ### Integration Strategy
 
-Throughout the duration of the semester, our team's integration strategy tended to align with the "all-at-once" method, as we tested each individual component before integrating them into what is now our codebase. While it is evident that there are several obvious weaknesses to this strategy, some of which concern the difficulty to find faults and detect major design flaws, the organization of our code, as well as the communication between our teammates, aided in the process of integration. In our web-based application, each component - the map, player, controls, etc. - is clearly defined in both its functionality, as well as its role as a piece of the system. Before we even started working on our project, we created an organizational structure of code which would prove to be quite useful for this process of integration. Much of the work between teammates occurs within these components, and much of the testing for these components within their individual scopes. Once the testing of components is complete, they are inserted to the source code, where additional testing is done to ensure the integration process is working as intended. While this method may not be as strong at detecting design faults or bugs early in the process, we felt it was certainly adequate enough, and we were satisfied with how our process of integration went. In hindsight, it was also quite helpful that we had previous experience with integration from projects which occurred earlier in the year, such as Project 1. Had we performed a similar method to our current one and seen it fail, there is no question that we would have adjusted our integration process, however, for the scope of our project, this is merely a hypothetical.
+Throughout the duration of the semester, our team's integration strategy tended
+to align with the "all-at-once" method, as we tested each individual component
+before integrating them into what is now our codebase. While it is evident that
+there are several obvious weaknesses to this strategy, some of which concern the
+difficulty to find faults and detect major design flaws, the organization of our
+code, as well as the communication between our teammates, aided in the process
+of integration. In our web-based application, each component - the map, player,
+controls, etc. - is clearly defined in both its functionality, as well as its
+role as a piece of the system. Before we even started working on our project, we
+created an organizational structure of code which would prove to be quite useful
+for this process of integration. Much of the work between teammates occurs
+within these components, and much of the testing for these components within
+their individual scopes. Once the testing of components is complete, they are
+inserted to the source code, where additional testing is done to ensure the
+integration process is working as intended. While this method may not be as
+strong at detecting design faults or bugs early in the process, we felt it was
+certainly adequate enough, and we were satisfied with how our process of
+integration went. In hindsight, it was also quite helpful that we had previous
+experience with integration from projects which occurred earlier in the year,
+such as Project 1. Had we performed a similar method to our current one and seen
+it fail, there is no question that we would have adjusted our integration
+process, however, for the scope of our project, this is merely a hypothetical.
 
 ### Generated UML Diagram
 
