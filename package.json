@@ -13,7 +13,7 @@
     "@maxxxxxdlp/stylelint-config": "^0.1.2",
     "eslint": "^8.2.0",
     "prettier": "^2.3.2",
-    "stylelint": "^13.13.1",
+    "stylelint": "^14.1.0",
     "typescript": "^4.5.2"
   },
   "browserslist": {
