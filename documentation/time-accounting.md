@@ -139,7 +139,7 @@ Total
 </th>
             <td>29.25h</td>
             <td>17.5h</td>
-            <td>0h</td>
+            <td>10h</td>
             <td>10h</td>
             <td>11h</td>
         </tr>
