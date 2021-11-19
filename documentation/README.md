@@ -153,6 +153,10 @@ https://github.com/maxxxxxdlp/eecs-448-pixelland/issues?q=is%3Aissue+is%3Aclosed
 
 https://github.com/maxxxxxdlp/eecs-448-pixelland/issues
 
+**Code Review Document**:
+
+[Code Review](code-review.md)
+
 ### Design Pattern
 
 For the third project we decided to follow a factory method style of design

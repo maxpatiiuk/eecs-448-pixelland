@@ -5,7 +5,7 @@ For our team code review, we recursively explored the relevant views, components
 ## Issues
 The [first issue](https://github.com/maxxxxxdlp/eecs-448-pixelland/issues/46) we found was with regards to the player position as the viewport changed size. The player position is supposed to always remain in the absolute center of the screen, and this bug presented itself by shifting the center coordinates when the viewport dimesnions change. Max made the inference that this could be fixed by shifting the cartesian plane's origin to the center of the screen, equal to the intended player position.
 
---
+We brainstormed ideas for what might have been causing this, and then Max went ahead and implemented a fix later down the line. 
 
 The [second issue](https://github.com/maxxxxxdlp/eecs-448-pixelland/issues/47) was more of a fundamental change (a 'nice to have') in the context of player movement. The original implementation of player movement was akin to the video game "Pokemon," where the player's movement was bound by the entire cell. It was impossible for you to move granularly between cells. This was a quality-of-life issue that we collectively decided would be worth-while to implement.
 

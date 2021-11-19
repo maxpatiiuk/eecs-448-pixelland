@@ -117,7 +117,7 @@ An hour-by-hour (per-person) breakdown of time spent on this project.
         <tr>
             <td>Video Demo</td>
             <td>3h</td>
-            <td>0h</td>
+            <td>2h</td>
             <td>0h</td>
             <td>2h</td>
             <td>2h</td>
@@ -138,7 +138,7 @@ Total
 
 </th>
             <td>29.25h</td>
-            <td>0h</td>
+            <td>17.5h</td>
             <td>0h</td>
             <td>10h</td>
             <td>11h</td>
