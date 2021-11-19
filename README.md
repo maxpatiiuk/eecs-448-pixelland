@@ -17,10 +17,15 @@ Available Maps:
 You are spawned in a middle of a blocky gradient with seemingly no task at hand
 other than to wander around and ponder the mysteries of the universe.
 
-### Minecraft (WIP)
+### Minecraft
+
+![](documentation/screenshots/mc.png)
+
 
 This sure feels like a Minecraft clone. Except, it has no mines or carts - just
 2d sprites procedurally generated in every direction as far as eye can see.
+
+Has a functional inventory system as well as item placing.
 
 ## Deployment and Documentation
 
