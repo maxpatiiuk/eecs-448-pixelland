@@ -18,7 +18,7 @@ works cited.
 Clone this repository
 
 ```zsh
-git clone https://github.com/maxxxxxdlp/eecs-448-pixelland
+git clone https://github.com/maxpatiiuk/eecs-448-pixelland
 ```
 
 To start a development server, navigate to the inner `eecs-448-project-3`
@@ -101,7 +101,7 @@ npm i  # install development dependencies
 Clone this repository
 
 ```zsh
-git clone https://github.com/maxxxxxdlp/eecs-448-pixelland
+git clone https://github.com/maxpatiiuk/eecs-448-pixelland
 ```
 
 Configure a reverse proxy (e.x Nginx) that would serve eecs-448-project-3 folder
@@ -147,11 +147,11 @@ issue.
 
 **Fixed issues:**
 
-https://github.com/maxxxxxdlp/eecs-448-pixelland/issues?q=is%3Aissue+is%3Aclosed
+https://github.com/maxpatiiuk/eecs-448-pixelland/issues?q=is%3Aissue+is%3Aclosed
 
 **Backlog of issues:**
 
-https://github.com/maxxxxxdlp/eecs-448-pixelland/issues
+https://github.com/maxpatiiuk/eecs-448-pixelland/issues
 
 **Code Review Document**:
 
@@ -397,7 +397,7 @@ descriptions for each class in order to maintain readability.
 
 We've gone with a collection of features approach for our requirements, and they
 can be found
-[here](https://github.com/maxxxxxdlp/eecs-448-project-3/issues?q=is%3Aissue).
+[here](https://github.com/maxpatiiuk/eecs-448-project-3/issues?q=is%3Aissue).
 
 ### Time Estimate
 
@@ -419,14 +419,14 @@ results had been satisfactory.
 ### Code References
 
 - The boilerplate for a starter project was copied from
-  [here](https://github.com/maxxxxxdlp/max.patii.uk). Then, it was modified to
+  [here](https://github.com/maxpatiiuk/max.patii.uk). Then, it was modified to
   remove dependency on Next.js, React and Tailwind.CSS
 - Game board is rendered using table elements for the sake of accessibility, but
   it is styled as a grid, for the sake of convenience.
-  [User-agent table styles reset](https://github.com/maxxxxxdlp/eecs-448-battleship/blob/main/eecs-448-battleship/components/Board/styles.css#L12)
+  [User-agent table styles reset](https://github.com/maxpatiiuk/eecs-448-battleship/blob/main/eecs-448-battleship/components/Board/styles.css#L12)
   was copied from [here](https://stackoverflow.com/a/27851231/8584605) (with
   modifications)
-- [Basic OOP implementation of MVC](https://github.com/maxxxxxdlp/eecs-448-battleship/blob/1c3ab08b1ac0621307e7af35c2ad064e9491836a/eecs-448-battleship/lib/js/view.js#L11)
+- [Basic OOP implementation of MVC](https://github.com/maxpatiiuk/eecs-448-battleship/blob/1c3ab08b1ac0621307e7af35c2ad064e9491836a/eecs-448-battleship/lib/js/view.js#L11)
   was inspired by [Backbone.js](https://backbonejs.org/) (except, we simplified
   and modernized it)
 - String hashing algorithm copied from

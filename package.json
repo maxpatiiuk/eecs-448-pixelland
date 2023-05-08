@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/maxxxxxdlp/eecs-448-project-3"
+    "url": "https://github.com/maxpatiiuk/eecs-448-project-3"
   },
   "devDependencies": {
     "@maxxxxxdlp/eslint-config": "^1.0.9",

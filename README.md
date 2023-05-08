@@ -6,7 +6,7 @@ An HTML5 Canvas-based browser walking & building game.
 
 [Video Demo](https://www.youtube.com/watch?v=3guzbg383WA)
 
-[Live Demo](https://maxxxxxdlp.github.io/eecs-448-pixelland/eecs-448-project-3/)
+[Live Demo](https://maxpatiiuk.github.io/eecs-448-pixelland/eecs-448-project-3/)
 
 [Description of the development process](https://max.patii.uk/projects/pixelland)
 
